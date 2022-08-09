@@ -21,7 +21,7 @@ export const NavButtonArea = styled.div`
 `;
 
 export const HomeArea = styled.div`
-  width: -webkit-fill-available;
-  border: 1px solid red;
-  height: 100px;
+  
+  flex:1;
+  background-color: #F9F9F9;
 `;
