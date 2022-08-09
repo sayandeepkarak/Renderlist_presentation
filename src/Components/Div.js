@@ -23,5 +23,5 @@ export const NavButtonArea = styled.div`
 export const HomeArea = styled.div`
   
   flex:1;
-  background-color: #F9F9F9;
+  background-color: red;
 `;
