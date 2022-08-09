@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Globalstyle from "./Components/GlobalStyle";
+import Header from "./Screen/Header";
+import SideBar from "./Screen/SideBar";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Home from "./Screen/Home";
+import { FlexBlock } from "./Components/Div";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Globalstyle />
+      <Header />
+      <FlexBlock>
+        <SideBar />
+        <Routes>
+          <Route end path="/" element={<Navigate to="/home" />} />
+          <Route end path="/home" element={<Home />} />
+          <Route end path="/playlists" element={null} />
+          <Route end path="/save" element={null} />
+        </Routes>
+      </FlexBlock>
+    </>
   );
 }
 
