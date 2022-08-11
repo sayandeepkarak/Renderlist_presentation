@@ -1,10 +1,30 @@
 import React from "react";
-import { HomeArea } from "../../Components/Div";
+import { Card } from "../../Components/Card";
+import { CardArea } from "../../Components/Div";
 
 const Home = () => {
   return (
     <>
-      <HomeArea>Hello</HomeArea>
+      <CardArea>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </CardArea>
     </>
   );
 };

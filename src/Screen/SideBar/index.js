@@ -1,7 +1,6 @@
 import React from "react";
 import { RoundedButton } from "../../Components/Button";
-import { SideBarArea } from "../../Components/Sidebar";
-import { Image } from "../../Components/Image";
+import { RoundedButtonIcon, SideBarArea } from "../../Components/Sidebar";
 import homeicon from "../../Assets/Images/home.png";
 import listicon from "../../Assets/Images/list.png";
 import saveicon from "../../Assets/Images/save.png";
@@ -11,13 +10,13 @@ const SideBar = () => {
     <>
       <SideBarArea>
         <RoundedButton to="/home">
-          <Image src={homeicon} />
+          <RoundedButtonIcon src={homeicon} />
         </RoundedButton>
         <RoundedButton to="/playlists">
-          <Image src={listicon} />
+          <RoundedButtonIcon src={listicon} />
         </RoundedButton>
         <RoundedButton to="/save">
-          <Image src={saveicon} />
+          <RoundedButtonIcon src={saveicon} />
         </RoundedButton>
       </SideBarArea>
     </>

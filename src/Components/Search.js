@@ -3,14 +3,13 @@ import styled from "styled-components";
 export const SearchBarArea = styled.div`
   background-color: white;
   border: 1px solid #7e7e7e;
-  height: 50px;
-  width: 687px;
+  height: 35px;
+  width: 500px;
   display: flex;
   align-items: center;
   padding-left: 15px;
-  ${(props) => !props.shadow && "transform: translate(-4px, -4px)"};
-  ${(props) =>
-    !props.shadow && "filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.25))"};
+  transform: translate(-3px, -3px);
+  filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.25));
   transition: all 0.1s linear;
 `;
 
@@ -19,7 +18,7 @@ export const SearchInput = styled.input.attrs({
   placeholder: "Search Playlist",
 })`
   width: -webkit-fill-available;
-  font-size: 25px;
+  font-size: 18px;
   font-family: "Poppins", sans-serif;
   border: none;
   outline: none;
@@ -35,4 +34,10 @@ export const SearchButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
+  display: grid;
+  place-items: center;
+`;
+
+export const ButtonIcon = styled.img.attrs({ alt: "" })`
+  width: 86%;
 `;

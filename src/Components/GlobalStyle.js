@@ -12,6 +12,9 @@ const Globalstyle = createGlobalStyle`
         min-height: 100vh;
         overflow: hidden;
     }
+    .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root .MuiListItemIcon-root {
+    min-width: 25px !important; 
+}
 `;
 
 export default Globalstyle;

@@ -5,6 +5,8 @@ import SideBar from "./Screen/SideBar";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Screen/Home";
 import { FlexBlock } from "./Components/Div";
+import Playlists from "./Screen/PlayLists";
+import Save from "./Screen/Save";
 
 function App() {
   return (
@@ -16,8 +18,8 @@ function App() {
         <Routes>
           <Route end path="/" element={<Navigate to="/home" />} />
           <Route end path="/home" element={<Home />} />
-          <Route end path="/playlists" element={null} />
-          <Route end path="/save" element={null} />
+          <Route end path="/playlists" element={<Playlists />} />
+          <Route end path="/save" element={<Save />} />
         </Routes>
       </FlexBlock>
     </>

@@ -4,12 +4,14 @@ export const FlexBlock = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 export const AvailableBlock = styled.div`
   height: auto;
   width: -webkit-fill-available;
-  margin-left: 90px;
+  margin-left: 62px;
 `;
 
 export const NavButtonArea = styled.div`
@@ -20,8 +22,20 @@ export const NavButtonArea = styled.div`
   gap: 30px;
 `;
 
-export const HomeArea = styled.div`
+export const CardArea = styled.div`
   width: -webkit-fill-available;
-  border: 1px solid red;
-  height: 100px;
+  max-width: calc(100vw - 73px);
+  max-height: calc(100vh - 78px);
+  height: calc(100vh - 78px);
+  background-color: #f9f9f9;
+  padding: 3% 3%;
+  user-select: none;
+  overflow-y: scroll;
+  display: grid;
+  gap: 3%;
+  grid-template-columns: auto auto auto auto;
+  flex-wrap: wrap;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;

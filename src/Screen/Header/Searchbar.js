@@ -1,24 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { AvailableBlock } from "../../Components/Div";
 import {
+  ButtonIcon,
   SearchBarArea,
   SearchButton,
   SearchInput,
 } from "../../Components/Search";
-import { Image } from "../../Components/Image";
 import searchicon from "../../Assets/Images/searchicon.png";
 
 const Searchbar = () => {
-  const [focusinput, setfocusinput] = useState(false);
-  const handlefocus = () => setfocusinput(!focusinput);
-
   return (
     <>
       <AvailableBlock>
-        <SearchBarArea shadow={focusinput}>
-          <SearchInput onClick={handlefocus} onBlur={handlefocus} />
+        <SearchBarArea>
+          <SearchInput />
           <SearchButton>
-            <Image src={searchicon} />
+            <ButtonIcon src={searchicon} />
           </SearchButton>
         </SearchBarArea>
       </AvailableBlock>

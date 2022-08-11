@@ -38,7 +38,7 @@ const NavBarButton = () => {
             >
               create playlist
             </Button>
-            <IconButton sx={{ p: 0 }}>
+            <IconButton sx={{ p: 0, width: "50px", height: "50px" }}>
               <Avatar alt="x" src={Profile} sx={{ width: 56, height: 56 }} />
             </IconButton>
           </>
