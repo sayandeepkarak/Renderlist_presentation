@@ -12,22 +12,22 @@ import rateicon from "../Assets/Images/rate.png";
 import { Image } from "./Image";
 import { Divider, ListItemIcon } from "@mui/material";
 
-export const CardBlock = styled.div`
+const CardBlock = styled.div`
   position: relative;
   width: -webkit-fill-available;
   max-width: 20vw;
   height: min-content;
-  margin-bottom: 19px;
+  margin-bottom: 1vw;
   cursor: pointer;
 `;
 
-export const Thumbnail = styled.img.attrs({
+const Thumbnail = styled.img.attrs({
   alt: "",
 })`
   width: 100%;
 `;
 
-export const RatingBox = styled.div`
+const RatingBox = styled.div`
   position: absolute;
   background-color: #000;
   right: 0.5vw;
@@ -47,7 +47,7 @@ export const RatingBox = styled.div`
   }
 `;
 
-export const BottomArea = styled.div`
+const BottomArea = styled.div`
   margin-top: 0.2vw;
   width: 100%;
   height: auto;
@@ -58,22 +58,29 @@ export const BottomArea = styled.div`
   justify-content: center;
 `;
 
-export const TitleArea = styled.div`
+const TitleArea = styled.div`
   width: 100%;
   height: min-content;
   display: flex;
   align-items: start;
 `;
 
-export const Title = styled.p`
+const Title = styled.div`
   font-family: "Poppins", sans-serif;
   font-size: 0.9vw;
   font-weight: bold;
   opacity: 0.9;
   line-height: 1.1vw;
+  display: block;
+  display: -webkit-box;
+  height: min-content;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
-export const NameText = styled.p`
+const NameText = styled.p`
   font-family: "Poppins", sans-serif;
   font-size: 0.75vw;
   text-transform: capitalize;
@@ -81,11 +88,18 @@ export const NameText = styled.p`
   line-height: 1.3vw;
 `;
 
-export const ViewText = styled(NameText)`
+const ViewText = styled(NameText)`
   font-size: 0.89vw;
+  width: inherit;
+  display: flex;
+  gap: 1%;
+  li span {
+    position: relative;
+    left: -14%;
+  }
 `;
 
-export const CardMenu = styled(Menu).attrs({
+const CardMenu = styled(Menu).attrs({
   id: "video_menu_btn",
   MenuListProps: {
     "aria-labelledby": "video_menu_btn",
@@ -119,7 +133,8 @@ export const Card = (props) => {
           <TitleArea>
             <Title>
               How to Customize Windows Without Rainmeter and Third Party Skin
-              Packs
+              Packs How to Customize Windows Without Rainmeter and Third Party
+              Skin Packs
             </Title>
             {props.hascontrol && (
               <>
@@ -161,7 +176,10 @@ export const Card = (props) => {
           </TitleArea>
           <NameText>nova_master</NameText>
           <ViewText>
-            12K views <span>10 items</span>
+            12K views
+            <li>
+              <span>10 items</span>
+            </li>
           </ViewText>
         </BottomArea>
       </CardBlock>

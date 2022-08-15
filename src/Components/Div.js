@@ -28,11 +28,10 @@ export const CardArea = styled.div`
   max-height: calc(100vh - 78px);
   height: calc(100vh - 78px);
   background-color: #f9f9f9;
-  padding: 3% 3%;
-  user-select: none;
+  padding: 3% 5%;
   overflow-y: scroll;
   display: grid;
-  gap: 3%;
+  gap: 2%;
   grid-template-columns: auto auto auto auto;
   flex-wrap: wrap;
   &::-webkit-scrollbar {

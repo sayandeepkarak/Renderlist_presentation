@@ -14,7 +14,7 @@ const Globalstyle = createGlobalStyle`
     }
     .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root .MuiListItemIcon-root {
     min-width: 25px !important; 
-}
+    }
 `;
 
 export default Globalstyle;
