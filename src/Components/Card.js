@@ -11,6 +11,7 @@ import Deleteicon from "../Assets/Images/delete.png";
 import rateicon from "../Assets/Images/rate.png";
 import { Image } from "./Image";
 import { Divider, ListItemIcon } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CardBlock = styled.div`
   position: relative;
@@ -65,7 +66,7 @@ const TitleArea = styled.div`
   align-items: start;
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   font-family: "Poppins", sans-serif;
   font-size: 0.9vw;
   font-weight: bold;
@@ -80,7 +81,7 @@ const Title = styled.div`
   text-overflow: ellipsis;
 `;
 
-const NameText = styled.p`
+export const NameText = styled.p`
   font-family: "Poppins", sans-serif;
   font-size: 0.75vw;
   text-transform: capitalize;
@@ -118,13 +119,17 @@ const CardMenu = styled(Menu).attrs({
 export const Card = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
+  const handleopenvideoplayer = () => {
+    navigate("/watch");
+  };
 
   return (
     <>
       <CardBlock>
-        <Thumbnail src={thumb} />
+        <Thumbnail src={thumb} onClick={handleopenvideoplayer} />
         <RatingBox>
           <span>4.2</span>
           <img src={rateicon} alt="" />
@@ -133,8 +138,7 @@ export const Card = (props) => {
           <TitleArea>
             <Title>
               How to Customize Windows Without Rainmeter and Third Party Skin
-              Packs How to Customize Windows Without Rainmeter and Third Party
-              Skin Packs
+              Packs
             </Title>
             {props.hascontrol && (
               <>

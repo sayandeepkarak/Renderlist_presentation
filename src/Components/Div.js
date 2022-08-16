@@ -22,14 +22,13 @@ export const NavButtonArea = styled.div`
   gap: 30px;
 `;
 
-
 export const CardArea = styled.div`
   width: -webkit-fill-available;
   max-width: calc(100vw - 73px);
   max-height: calc(100vh - 78px);
   height: calc(100vh - 78px);
   background-color: #f9f9f9;
-  padding: 3% 5%;
+  padding: 2% 4%;
   overflow-y: scroll;
   display: grid;
   gap: 2%;
@@ -38,5 +37,4 @@ export const CardArea = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-
 `;
