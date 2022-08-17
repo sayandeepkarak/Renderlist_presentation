@@ -10,6 +10,7 @@ const VideoItemBlock = styled.div`
   height: auto;
   font-family: "Poppins", sans-serif;
   margin-bottom: 1.5vw;
+  cursor: pointer;
 `;
 
 const Image = styled.img.attrs({ alt: "" })`
