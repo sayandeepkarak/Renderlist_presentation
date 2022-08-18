@@ -12,6 +12,9 @@ export const AvailableBlock = styled.div`
   height: auto;
   width: -webkit-fill-available;
   margin-left: 62px;
+  @media (max-width: 1024px) {
+    margin-left: 38px;
+  }
 `;
 
 export const NavButtonArea = styled.div`
@@ -20,6 +23,9 @@ export const NavButtonArea = styled.div`
   display: flex;
   align-items: center;
   gap: 30px;
+  @media (max-width: 1024px) {
+  gap: 17px;
+  }
 `;
 
 export const CardArea = styled.div`
@@ -36,5 +42,23 @@ export const CardArea = styled.div`
   flex-wrap: wrap;
   &::-webkit-scrollbar {
     display: none;
+  }
+  @media (max-width: 1024px) {
+    max-width: 100%;
+  }
+  @media (max-width: 880px) {
+    grid-template-columns: auto auto auto;
+  }
+  @media (max-width: 600px) {
+    grid-template-columns: auto auto;
+  }
+  @media (max-width: 530px) {
+    grid-template-columns: auto;
+    padding: 0;
+  }
+  @media (max-width: 330px) {
+    max-height: none;
+    height: auto;
+    gap: 10px;
   }
 `;

@@ -11,18 +11,36 @@ export const VideoPlayerArea = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 2%;
+  @media (max-width: 1024px) {
+    max-width: 100%;
+  }
+  @media (max-width: 930px) {
+    gap: 12px;
+    flex-direction: column;
+    max-height: none;
+    height: auto;
+  }
+  @media (max-width: 530px) {
+    padding: 0;
+  }
 `;
 
 export const VideoPlayerBlock = styled.div`
-  width: 65%;
-  height: calc(100vh - 78px);
+  width: 73%;
+  height: 100%;
+  @media (max-width: 930px) {
+    width: 100%;
+  }
 `;
 
 export const PlaylistViewBlock = styled.div`
-  width: 35%;
+  width: 27%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  @media (max-width: 930px) {
+    width: 100%;
+  }
 `;
 
 export const PlayerWrapper = styled.div`
@@ -46,6 +64,9 @@ export const PlayListTitle = styled.p`
   font-family: "Poppins", sans-serif;
   font-size: 1.5vw;
   cursor: default;
+  @media (max-width: 930px) {
+    font-size: 15px;
+  }
 `;
 
 export const TitleBottomtexts = styled.div`
@@ -59,16 +80,25 @@ export const TitleBottomtexts = styled.div`
     position: relative;
     top: -0.1vw;
     width: 1vw;
+    @media (max-width: 930px) {
+      width: 11px;
+    }
   }
   li span {
     position: relative;
     left: -11px;
+    @media (max-width: 1350px) {
+      left: -8px;
+    }
+  }
+  @media (max-width: 930px) {
+    font-size: 10px;
   }
 `;
 
 export const VideoList = styled.div`
   padding: 1.1vw 2%;
-  margin-top: .7vw;
+  margin-top: 0.7vw;
   border: 1px solid #d7d7d7;
   width: 100%;
   height: 100%;
@@ -78,5 +108,13 @@ export const VideoList = styled.div`
   flex-direction: column;
   ::-webkit-scrollbar {
     display: none;
+  }
+  @media (max-width: 930px) {
+    align-items: flex-start;
+    height: 57vh;
+  }
+  @media (max-width: 530px) {
+    border: none;
+    background-color: #fff;
   }
 `;

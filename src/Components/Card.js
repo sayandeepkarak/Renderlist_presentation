@@ -20,6 +20,9 @@ const CardBlock = styled.div`
   height: min-content;
   margin-bottom: 1vw;
   cursor: pointer;
+  @media (max-width: 880px) {
+    max-width: 100%;
+  }
 `;
 
 const Thumbnail = styled.img.attrs({
@@ -45,6 +48,59 @@ const RatingBox = styled.div`
   }
   img {
     width: 28%;
+  }
+  @media (max-width: 1100px) {
+    right: 0.3vw;
+  }
+  @media (max-width: 1024px) {
+    top: 10.4vw;
+  }
+  @media (max-width: 880px) {
+    top: 60%;
+    right: 0.4vw;
+    width: 3.5vw;
+    height: 1.6vw;
+  }
+  @media (max-width: 600px) {
+    top: 64%;
+    right: 1vw;
+    width: 5vw;
+    height: 2.5vw;
+    span {
+      font-size: 1.4vw;
+    }
+  }
+  @media (max-width: 530px) {
+    top: 70%;
+    right: 10px;
+    width: 38px;
+    height: 20px;
+    span {
+      font-size: 10px;
+    }
+  }
+  @media (max-width: 530px) {
+    top: 70%;
+  }
+  @media (max-width: 450px) {
+    top: 68%;
+  }
+  @media (max-width: 430px) {
+    top: 66%;
+  }
+  @media (max-width: 400px) {
+    top: 66%;
+    right: 7px;
+    width: 36px;
+    height: 17px;
+  }
+  @media (max-width: 365px) {
+    top: 65%;
+    width: 34px;
+  }
+  @media (max-width: 355px) {
+    top: 63%;
+    width: 34px;
   }
 `;
 
@@ -79,6 +135,22 @@ export const Title = styled.div`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  @media (max-width: 880px) {
+    font-size: 1.3vw;
+    line-height: 1.6vw;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.8vw;
+    line-height: 2.1vw;
+  }
+  @media (max-width: 530px) {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  @media (max-width: 378px) {
+    font-size: 12px;
+    line-height: 16px;
+  }
 `;
 
 export const NameText = styled.p`
@@ -87,6 +159,22 @@ export const NameText = styled.p`
   text-transform: capitalize;
   color: #888888;
   line-height: 1.3vw;
+  @media (max-width: 880px) {
+    font-size: 1.1vw;
+    line-height: 1.6vw;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.4vw;
+    line-height: 1.8vw;
+  }
+  @media (max-width: 530px) {
+    font-size: 10px;
+    line-height: 14px;
+  }
+  @media (max-width: 378px) {
+    font-size: 9px;
+    line-height: 13px;
+  }
 `;
 
 const ViewText = styled(NameText)`
@@ -97,6 +185,18 @@ const ViewText = styled(NameText)`
   li span {
     position: relative;
     left: -14%;
+  }
+  @media (max-width: 880px) {
+    font-size: 1.2vw;
+  }
+  @media (max-width: 600px) {
+    font-size: 1.6vw;
+  }
+  @media (max-width: 530px) {
+    font-size: 11px;
+  }
+  @media (max-width: 378px) {
+    font-size: 10px;
   }
 `;
 
@@ -112,6 +212,12 @@ const CardMenu = styled(Menu).attrs({
     li {
       font-family: "Poppins", sans-serif;
       color: #757575;
+      @media (max-width: 600px) {
+        min-height: 39px;
+      }
+    }
+    @media (max-width: 1440px) {
+      width: 166px;
     }
   }
 `;

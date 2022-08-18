@@ -10,6 +10,11 @@ export const SideBarArea = styled.div`
   flex-direction: column;
   gap: 16px;
   padding: 25px 0px;
+  @media (max-width: 1024px) {
+    max-width: min-content;
+    min-width: min-content;
+    padding: 10px 10px;
+  }
 `;
 
 export const RoundedButtonIcon = styled.img.attrs({

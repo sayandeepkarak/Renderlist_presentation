@@ -36,4 +36,8 @@ export const RoundedButton = styled(NavLink)`
   &.active {
     background-color: #1e88e5;
   }
+  /* @media (max-width: 1024px) {
+    height: 4vw;
+    width: 4vw;
+  } */
 `;

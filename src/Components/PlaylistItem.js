@@ -9,25 +9,40 @@ const VideoItemBlock = styled.div`
   width: 100%;
   height: auto;
   font-family: "Poppins", sans-serif;
-  margin-bottom: 1.5vw;
   cursor: pointer;
+  @media (max-width: 930px) {
+    height: 70px;
+    margin-bottom: 13px;
+    align-items: flex-start;
+  }
 `;
 
 const Image = styled.img.attrs({ alt: "" })`
   width: 42%;
   margin-left: 2%;
+  @media (max-width: 930px) {
+    width: auto;
+    height: -webkit-fill-available;
+  }
 `;
 
 const ListVideoDetailsArea = styled.div`
   padding: 0.5vw 2%;
+  padding-right: 0;
   width: 100%;
   height: 100%;
+  @media (max-width: 930px) {
+    padding-top: 0;
+  }
 `;
 
 const ListTitle = styled(Title)`
   font-weight: normal;
   opacity: 1;
   line-height: initial;
+  @media (max-width: 930px) {
+    font-size: 12px;
+  }
 `;
 
 const ListBottomText = styled(NameText)`
@@ -40,23 +55,24 @@ const ListBottomText = styled(NameText)`
     position: relative;
     left: -5px;
   }
+  @media (max-width: 1200px) {
+    letter-spacing: 0.9px;
+  }
+  @media (max-width: 930px) {
+    margin-top: 2px;
+    font-size: 10px;
+    line-height: 14px;
+  }
 `;
 
 const PlaylistItem = (props) => {
   return (
     <>
       <VideoItemBlock>
-        <p
-          style={{
-            fontSize: "0.9vw",
-            width: "4%",
-          }}
-        >
-          {props.index}
-        </p>
         <Image src={ThumbNail} />
         <ListVideoDetailsArea>
           <ListTitle>
+            Pixel OS Review - Forget about Pixel Experience | Redmi Note 10 Pro
             Pixel OS Review - Forget about Pixel Experience | Redmi Note 10 Pro
             / Max
           </ListTitle>

@@ -13,7 +13,37 @@ const Globalstyle = createGlobalStyle`
         overflow: hidden;
     }
     .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root .MuiListItemIcon-root {
-    min-width: 25px !important; 
+        min-width: 25px !important; 
+    }
+    @media(max-width: 1380px){
+        .css-i4bv87-MuiSvgIcon-root{
+        font-size: 18px !important;
+        }
+    }
+    @media(max-width: 1290px){
+        .css-i4bv87-MuiSvgIcon-root{
+        font-size: 14px !important;
+        }
+    }
+    @media(max-width: 1290px){
+        .css-i4bv87-MuiSvgIcon-root{
+        font-size: 15px !important;
+        }
+    }
+    @media(max-width: 930px){
+        #root{
+            max-height: none;
+        }
+    }
+    @media(max-width: 530px){
+        .css-i4bv87-MuiSvgIcon-root{
+        font-size: 22px !important;
+        }
+    }
+    @media(max-width: 330px){
+        body{
+            min-width: 330px;
+        }
     }
 `;
 

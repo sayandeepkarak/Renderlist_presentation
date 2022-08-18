@@ -6,4 +6,7 @@ export const LogoText = styled.p`
   font-size: 28px;
   cursor: default;
   user-select: none;
+  @media (max-width: 1024px) {
+    font-size: 25px;
+  }
 `;
