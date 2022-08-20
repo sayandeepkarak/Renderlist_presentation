@@ -56,6 +56,12 @@ const RatingBox = styled.div`
     top: 10.4vw;
   }
   @media (max-width: 880px) {
+    top: 14.5vw;
+    right: 0.6vw;
+    width: 3.5vw;
+    height: 1.6vw;
+  }
+  @media (max-width: 790px) {
     top: 15.5vw;
     right: 0.6vw;
     width: 3.5vw;

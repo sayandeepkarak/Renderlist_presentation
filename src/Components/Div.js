@@ -9,7 +9,8 @@ export const FlexBlock = styled.div`
 `;
 
 export const AvailableBlock = styled.div`
-  height: auto;
+  align-items: center;
+  height: 73px;
   width: -webkit-fill-available;
   margin-left: 62px;
   display: flex;
