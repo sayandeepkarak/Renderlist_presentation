@@ -12,8 +12,20 @@ export const AvailableBlock = styled.div`
   height: auto;
   width: -webkit-fill-available;
   margin-left: 62px;
+  display: flex;
   @media (max-width: 1024px) {
     margin-left: 38px;
+  }
+  @media (max-width: 790px) {
+    ${(props) => props.open && "display: flex"};
+    ${(props) => props.open && "position: absolute"};
+    ${(props) => props.open && "background-color: white"};
+    ${(props) => props.open && "width: -webkit-fill-available"};
+    ${(props) => props.open && "left: 0"};
+    ${(props) => props.open && "z-index: 1"};
+    ${(props) => (!props.open ? "width: auto" : "padding: 0px 4px")};
+    justify-content: space-evenly;
+    margin-left: ${(props) => (!props.open ? " auto" : "0")};
   }
 `;
 
@@ -24,7 +36,11 @@ export const NavButtonArea = styled.div`
   align-items: center;
   gap: 30px;
   @media (max-width: 1024px) {
-  gap: 17px;
+    gap: 17px;
+  }
+  @media (max-width: 790px) {
+    gap: 14px;
+    margin-left: 12px;
   }
 `;
 

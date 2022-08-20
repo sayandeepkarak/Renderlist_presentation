@@ -56,13 +56,13 @@ const RatingBox = styled.div`
     top: 10.4vw;
   }
   @media (max-width: 880px) {
-    top: 60%;
-    right: 0.4vw;
+    top: 15.5vw;
+    right: 0.6vw;
     width: 3.5vw;
     height: 1.6vw;
   }
   @media (max-width: 600px) {
-    top: 64%;
+    top: 24vw;
     right: 1vw;
     width: 5vw;
     height: 2.5vw;
@@ -71,7 +71,7 @@ const RatingBox = styled.div`
     }
   }
   @media (max-width: 530px) {
-    top: 70%;
+    top: 55vw;
     right: 10px;
     width: 38px;
     height: 20px;
@@ -79,27 +79,14 @@ const RatingBox = styled.div`
       font-size: 10px;
     }
   }
-  @media (max-width: 530px) {
-    top: 70%;
-  }
-  @media (max-width: 450px) {
-    top: 68%;
-  }
-  @media (max-width: 430px) {
-    top: 66%;
-  }
-  @media (max-width: 400px) {
-    top: 66%;
+  @media (max-width: 410px) {
+    top: 54vw;
     right: 7px;
     width: 36px;
     height: 17px;
   }
-  @media (max-width: 365px) {
-    top: 65%;
-    width: 34px;
-  }
-  @media (max-width: 355px) {
-    top: 63%;
+  @media (max-width: 330px) {
+    top: 67%;
     width: 34px;
   }
 `;
@@ -255,6 +242,7 @@ export const Card = (props) => {
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                   onClick={handleClick}
+                  sx={{ ml: 1 }}
                 >
                   <MoreVertIcon size="small" />
                 </IconButton>

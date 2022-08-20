@@ -111,6 +111,7 @@ export const VideoList = styled.div`
   }
   @media (max-width: 930px) {
     align-items: flex-start;
+    padding: 3.1vw 2%;
     height: 57vh;
   }
   @media (max-width: 530px) {

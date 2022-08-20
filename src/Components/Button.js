@@ -17,10 +17,31 @@ export const Button = styled.button`
   transform: translate(-3px, -3px);
   filter: drop-shadow(3px 3px 0px ${(props) => props.shadow});
   transition: all 0.1s linear;
+  span {
+    display: block;
+  }
+  svg {
+    display: none;
+    font-size: x-large !important;
+  }
+  @media (max-width: 790px) {
+    color: ${(props) => props.bg};
+    background: transparent;
+    filter: none;
+    min-width: min-content;
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    span {
+      display: none;
+    }
+    svg {
+      display: inline-block;
+    }
+  }
 `;
 
 export const RoundedButton = styled(NavLink)`
-  background-color: red;
   height: 42px;
   width: 42px;
   background-color: #000;
@@ -30,14 +51,23 @@ export const RoundedButton = styled(NavLink)`
   border-radius: 50%;
   padding: 3px;
   transition: all 0.1s linear;
+  color: #000;
   &:hover {
     background-color: rgba(0, 0, 0, 0.32);
   }
   &.active {
     background-color: #1e88e5;
   }
-  /* @media (max-width: 1024px) {
-    height: 4vw;
-    width: 4vw;
-  } */
+  @media (max-width: 790px) {
+    background-color: #fff;
+    &:hover {
+      background-color: none;
+    }
+    &.active {
+      box-shadow: inset 9px -3px 18px -18px rgb(0 0 0 / 56%),
+        inset -4px 5px 18px -18px rgb(0 0 0 / 56%);
+      background-color: transparent;
+      color: #1e88e5;
+    }
+  }
 `;

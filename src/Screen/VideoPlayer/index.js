@@ -22,7 +22,7 @@ const Watch = () => {
             <VideoPlayer
               width="100%"
               height="100%"
-              url="https://youtu.be/v2-9rIL_f4w"
+              url="https://youtu.be/WCauHgLeqZc"
               controls
             />
           </PlayerWrapper>

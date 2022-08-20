@@ -73,8 +73,6 @@ const PlaylistItem = (props) => {
         <ListVideoDetailsArea>
           <ListTitle>
             Pixel OS Review - Forget about Pixel Experience | Redmi Note 10 Pro
-            Pixel OS Review - Forget about Pixel Experience | Redmi Note 10 Pro
-            / Max
           </ListTitle>
           <ListBottomText>Barun Mukherjee</ListBottomText>
           <ListBottomText>
