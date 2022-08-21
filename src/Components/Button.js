@@ -17,6 +17,10 @@ export const Button = styled.button`
   transform: translate(-3px, -3px);
   filter: drop-shadow(3px 3px 0px ${(props) => props.shadow});
   transition: all 0.1s linear;
+`;
+
+export const CreatePlaylistButton = styled(Button)`
+  margin-left: 12px;
   span {
     display: block;
   }

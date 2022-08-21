@@ -29,6 +29,18 @@ export const AvailableBlock = styled.div`
     margin-left: ${(props) => (!props.open ? " auto" : "0")};
   }
 `;
+export const MiniDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  @media (max-width: 1024px) {
+    gap: 17px;
+  }
+  @media (max-width: 790px) {
+    gap: 14px;
+    margin-left: 12px;
+  }
+`;
 
 export const NavButtonArea = styled.div`
   width: auto;
@@ -41,9 +53,9 @@ export const NavButtonArea = styled.div`
   }
   @media (max-width: 790px) {
     gap: 14px;
-    margin-left: 12px;
   }
 `;
+
 
 export const CardArea = styled.div`
   width: -webkit-fill-available;

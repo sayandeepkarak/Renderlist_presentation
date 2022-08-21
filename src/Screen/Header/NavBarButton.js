@@ -1,52 +1,113 @@
-import { Avatar } from "@mui/material";
 import React from "react";
-import { Button } from "../../Components/Button";
-import IconButton from "@mui/material/IconButton";
-import { NavButtonArea } from "../../Components/Div";
+import { Button, CreatePlaylistButton } from "../../Components/Button";
+import { MiniDiv, NavButtonArea } from "../../Components/Div";
 import Profile from "../../Assets/Images/Avatar.png";
 import { useState } from "react";
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import Modal from "@mui/material/Modal";
+import CreateModal from "./CreateModal";
+import {
+  AvatarBadge,
+  ResponsivePopOver,
+  ResponvidePopOverBlock,
+  RoundedIconButton,
+} from "../../Components/Navbar";
+import AddIcon from "@mui/icons-material/Add";
 
 const NavBarButton = () => {
   const [viewdemo, setviewdemo] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const handleclick = () => setviewdemo(!viewdemo);
+
+  const handleopenResponsivePopOver = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlecloseResponsivePopOver = () => {
+    setAnchorEl(null);
+  };
+
+  const openresponsivepopover = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+  
+  const CreateModalPop = React.forwardRef((props, ref) => (
+    <CreateModal {...props} innerRef={ref} />
+  ));
+
   return (
     <>
       <NavButtonArea>
         {!viewdemo ? (
           <>
-            <Button
-              bg="#FF1744"
-              shadow="rgba(255, 23, 68, 0.25)"
-              onClick={handleclick}
-            >
-              <span>signup</span>
-              <HowToRegOutlinedIcon />
-            </Button>
-            <Button
-              bg="#3d5afe"
-              shadow="rgba(61, 90, 254, 0.5)"
-              onClick={handleclick}
-            >
-              <span>login</span>
-              <LoginOutlinedIcon />
-            </Button>
+            <MiniDiv className="auth_main_box">
+              <Button
+                bg="#FF1744"
+                shadow="rgba(255, 23, 68, 0.25)"
+                onClick={handleclick}
+              >
+                <span>signup</span>
+              </Button>
+              <Button
+                bg="#3d5afe"
+                shadow="rgba(61, 90, 254, 0.5)"
+                onClick={handleclick}
+              >
+                <span>login</span>
+              </Button>
+            </MiniDiv>
+
+            <MiniDiv className="auth_responsive_box">
+              <RoundedIconButton
+                aria-describedby={id}
+                onClick={handleopenResponsivePopOver}
+              >
+                <AvatarBadge />
+              </RoundedIconButton>
+              <ResponsivePopOver
+                id={id}
+                open={openresponsivepopover}
+                anchorEl={anchorEl}
+                onClose={handlecloseResponsivePopOver}
+              >
+                <ResponvidePopOverBlock>
+                  <Button
+                    bg="#FF1744"
+                    shadow="rgba(255, 23, 68, 0.25)"
+                    onClick={handleclick}
+                  >
+                    <span>signup</span>
+                  </Button>
+                  <Button
+                    bg="#3d5afe"
+                    shadow="rgba(61, 90, 254, 0.5)"
+                    onClick={handleclick}
+                  >
+                    <span>login</span>
+                  </Button>
+                </ResponvidePopOverBlock>
+              </ResponsivePopOver>
+            </MiniDiv>
           </>
         ) : (
           <>
-            <Button
+            <CreatePlaylistButton
               bg="#3d5afe"
               shadow="rgba(61, 90, 254, 0.5)"
-              onClick={handleclick}
+              onClick={handleOpen}
             >
               <span>create playlist</span>
-              <AddOutlinedIcon />
-            </Button>
-            <IconButton sx={{ p: 0, width: "50px", height: "50px" }}>
-              <Avatar alt="x" src={Profile} sx={{ width: 48, height: 48 }} />
-            </IconButton>
+              <AddIcon />
+            </CreatePlaylistButton>
+            <Modal open={open} onClose={handleClose}>
+              <CreateModalPop close={handleClose} />
+            </Modal>
+            <RoundedIconButton>
+              <AvatarBadge src={Profile} />
+            </RoundedIconButton>
           </>
         )}
       </NavButtonArea>

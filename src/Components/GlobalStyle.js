@@ -15,6 +15,12 @@ const Globalstyle = createGlobalStyle`
     .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root .MuiListItemIcon-root {
         min-width: 25px !important; 
     }
+    .auth_main_box{
+        display: flex;
+    }
+    .auth_responsive_box{
+        display: none;
+    }
     @media(max-width: 1380px){
         .css-i4bv87-MuiSvgIcon-root{
         font-size: 18px !important;
@@ -33,6 +39,14 @@ const Globalstyle = createGlobalStyle`
     @media(max-width: 930px){
         #root{
             max-height: none;
+        }
+    }
+    @media(max-width: 790px){
+        .auth_main_box{
+            display: none;
+        }
+        .auth_responsive_box{
+            display: flex;
         }
     }
     @media(max-width: 530px){
