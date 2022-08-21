@@ -24,13 +24,13 @@ const Create = (props) => {
             <CloseIcon />
           </IconButton>
         </PopUpHead>
-        <Input onChange={handleinput} />
+        <Input value={playlistname} onChange={handleinput} />
         <CreateButton
           bg="#3d5afe"
           shadow="rgba(61, 90, 254, 0.5)"
           onClick={handleClose}
         >
-          <span>create </span>
+          <span>create</span>
         </CreateButton>
       </CreatePopUpBlock>
     </>
