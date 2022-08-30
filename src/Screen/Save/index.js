@@ -11,26 +11,6 @@ const Save = () => {
         <Card hascontrol={true} />
         <Card hascontrol={true} />
         <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
-        <Card hascontrol={true} />
       </CardArea>
     </>
   );

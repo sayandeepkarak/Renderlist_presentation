@@ -6,26 +6,22 @@ const Playlists = () => {
   return (
     <>
       <CardArea>
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
-        <Card hascontrol={true} hasfullcontrol={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
+        <Card hascontrol={true} menuControl={true} />
       </CardArea>
     </>
   );

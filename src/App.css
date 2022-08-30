@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#root {
+  width: 100%;
+  max-height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root .MuiListItemIcon-root {
+  min-width: 25px !important;
+}
+
+@media (max-width: 1380px) {
+  .css-i4bv87-MuiSvgIcon-root {
+    font-size: 18px !important;
+  }
+}
+@media (max-width: 1290px) {
+  .css-i4bv87-MuiSvgIcon-root {
+    font-size: 14px !important;
+  }
+}
+@media (max-width: 1290px) {
+  .css-i4bv87-MuiSvgIcon-root {
+    font-size: 15px !important;
+  }
+}
+@media (max-width: 930px) {
+  #root {
+    max-height: none;
+  }
+}
+@media (min-width: 790px) {
+  #auth_main_box {
+    display: flex;
+  }
+  #auth_responsive_box {
+    display: none;
+  }
+}
+@media (max-width: 790px) {
+  #auth_main_box {
+    display: none;
+  }
+  #auth_responsive_box {
+    display: flex;
+  }
+}
+@media (max-width: 530px) {
+  .css-i4bv87-MuiSvgIcon-root {
+    font-size: 22px !important;
+  }
+}
+@media (max-width: 330px) {
+  body {
+    min-width: 330px;
+  }
+}

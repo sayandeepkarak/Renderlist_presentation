@@ -12,6 +12,9 @@ import rateicon from "../Assets/Images/rate.png";
 import { Image } from "./Image";
 import { Divider, ListItemIcon } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import Modal from "@mui/material/Modal";
+import AddModal from "./AddModal";
 
 const CardBlock = styled.div`
   position: relative;
@@ -217,13 +220,19 @@ const CardMenu = styled(Menu).attrs({
 
 export const Card = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [modalOpen, setmodalOpen] = useState(false);
+  const menuopen = Boolean(anchorEl);
   const navigate = useNavigate();
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
   const handleopenvideoplayer = () => {
     navigate("/watch");
   };
+  const handleModalOpen = () => setmodalOpen(true);
+  const handleModalClose = () => setmodalOpen(false);
+  const AddModalPop = React.forwardRef((props, ref) => (
+    <AddModal {...props} innerRef={ref} />
+  ));
 
   return (
     <>
@@ -241,40 +250,62 @@ export const Card = (props) => {
             </Title>
             {props.hascontrol && (
               <>
-                <IconButton
-                  size="small"
-                  id="video_menu_btn"
-                  aria-controls={open ? "video_menu_btn" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
-                  sx={{ ml: 1 }}
-                >
-                  <MoreVertIcon size="small" />
-                </IconButton>
-                <CardMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                  <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                      <Image src={Shareicon} />
-                    </ListItemIcon>
-                    Share
-                  </MenuItem>
-                  {props.hasfullcontrol && (
-                    <MenuItem onClick={handleClose}>
-                      <ListItemIcon>
-                        <Image src={Hideicon} />
-                      </ListItemIcon>
-                      Hide
-                    </MenuItem>
-                  )}
-                  <Divider style={{ margin: "0px" }} />
-                  <MenuItem onClick={handleClose} style={{ color: "#D32F2F" }}>
-                    <ListItemIcon>
-                      <Image src={Deleteicon} />
-                    </ListItemIcon>
-                    Delete
-                  </MenuItem>
-                </CardMenu>
+                {props.menuControl ? (
+                  <>
+                    <IconButton
+                      size="small"
+                      id="video_menu_btn"
+                      aria-controls={menuopen ? "video_menu_btn" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={menuopen ? "true" : undefined}
+                      onClick={handleClick}
+                      sx={{ ml: 1 }}
+                    >
+                      <MoreVertIcon size="small" />
+                    </IconButton>
+                    <CardMenu
+                      anchorEl={anchorEl}
+                      open={menuopen}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                          <Image src={Shareicon} />
+                        </ListItemIcon>
+                        Share
+                      </MenuItem>
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                          <Image src={Hideicon} />
+                        </ListItemIcon>
+                        Hide
+                      </MenuItem>
+                      <Divider style={{ margin: "0px" }} />
+                      <MenuItem
+                        onClick={handleClose}
+                        style={{ color: "#D32F2F" }}
+                      >
+                        <ListItemIcon>
+                          <Image src={Deleteicon} />
+                        </ListItemIcon>
+                        Delete
+                      </MenuItem>
+                    </CardMenu>{" "}
+                  </>
+                ) : (
+                  <>
+                    <IconButton
+                      size="small"
+                      sx={{ ml: 1 }}
+                      onClick={handleModalOpen}
+                    >
+                      <ControlPointIcon />
+                    </IconButton>
+                    <Modal open={modalOpen} onClose={handleModalClose}>
+                      <AddModalPop close={handleModalClose} />
+                    </Modal>
+                  </>
+                )}
               </>
             )}
           </TitleArea>

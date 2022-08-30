@@ -5,5 +5,8 @@ export const Image = styled.img.attrs({
 })``;
 
 export const LogoImage = styled.img.attrs({ alt: "" })`
-  width: 14%;
+  height: 42px;
+  @media (max-width: 790px) {
+    height: 38px;
+  }
 `;

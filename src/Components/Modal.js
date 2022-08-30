@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-export const CreatePopUpBlock = styled.div`
-  /* position: absolute; */
+export const ModalBlock = styled.form`
   height: auto;
   width: 500px;
   gap: 16px;
@@ -41,9 +40,7 @@ export const PopUpTitle = styled.p`
   opacity: 0.9;
 `;
 
-export const Input = styled.input.attrs({
-  placeholder: "Playlist Name",
-})`
+export const Input = styled.input`
   width: 100%;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
@@ -52,7 +49,6 @@ export const Input = styled.input.attrs({
   color: #979797;
   border-bottom: 1px solid #979797;
   padding: 5px;
-  margin-bottom: 16px;
 `;
 
 export const CreateButton = styled.button`
@@ -72,5 +68,6 @@ export const CreateButton = styled.button`
   transform: translate(-3px, -3px);
   filter: drop-shadow(3px 3px 0px ${(props) => props.shadow});
   transition: all 0.1s linear;
+  margin-top: 16px;
   margin-bottom: 5px;
 `;

@@ -5,22 +5,24 @@ import {
   Input,
   PopUpHead,
   PopUpTitle,
-} from "../../Components/Modal";
+} from "./Modal";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
-import { CreateFormSchema } from "../../Schemas";
-import { Errortext } from "../../Components/Text";
+import { AddUrlSchema } from "../Schemas";
+import { Errortext } from "./Text";
 
-const Create = (props) => {
+// https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails&id=Ks-_Mh1QhMc&key=AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8
+
+const AddModal = (props) => {
   const handleClose = () => props.close();
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: {
-        playlistName: "",
+        url: "",
       },
-      validationSchema: CreateFormSchema,
+      validationSchema: AddUrlSchema,
       onSubmit: (value) => {
         console.log(value);
         handleClose();
@@ -32,28 +34,26 @@ const Create = (props) => {
       <ModalBlock onSubmit={handleSubmit}>
         <PopUpHead>
           <PopUpTitle>
-            <span>Create Playlist</span>
+            <span>Add Video</span>
           </PopUpTitle>
           <IconButton size="large" onClick={handleClose}>
             <CloseIcon />
           </IconButton>
         </PopUpHead>
         <Input
-          name="playlistName"
-          placeholder="Playlist Name"
-          value={values.playlistName}
+          name="url"
+          placeholder="Youtube video url"
+          value={values.url}
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {errors.playlistName && touched.playlistName && (
-          <Errortext>{errors.playlistName}</Errortext>
-        )}
-        <CreateButton type="submit" bg="#242560" shadow="#a3abed">
-          <span>create</span>
+        {errors.url && touched.url && <Errortext>{errors.url}</Errortext>}
+        <CreateButton type="submit" bg="#c94d4d" shadow="#f7ccd3">
+          <span>Add</span>
         </CreateButton>
       </ModalBlock>
     </>
   );
 };
 
-export default Create;
+export default AddModal;

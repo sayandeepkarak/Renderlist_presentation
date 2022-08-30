@@ -33,7 +33,7 @@ const NavBarButton = () => {
 
   const openresponsivepopover = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  
+
   const CreateModalPop = React.forwardRef((props, ref) => (
     <CreateModal {...props} innerRef={ref} />
   ));
@@ -43,29 +43,21 @@ const NavBarButton = () => {
       <NavButtonArea>
         {!viewdemo ? (
           <>
-            <MiniDiv className="auth_main_box">
-              <Button
-                bg="#FF1744"
-                shadow="rgba(255, 23, 68, 0.25)"
-                onClick={handleclick}
-              >
+            <MiniDiv id="auth_main_box">
+              <Button bg="#c94d4d" shadow="#f7ccd3" onClick={handleclick}>
                 <span>signup</span>
               </Button>
-              <Button
-                bg="#3d5afe"
-                shadow="rgba(61, 90, 254, 0.5)"
-                onClick={handleclick}
-              >
+              <Button bg="#242560" shadow="#a3abed" onClick={handleclick}>
                 <span>login</span>
               </Button>
             </MiniDiv>
 
-            <MiniDiv className="auth_responsive_box">
+            <MiniDiv id="auth_responsive_box">
               <RoundedIconButton
                 aria-describedby={id}
                 onClick={handleopenResponsivePopOver}
               >
-                <AvatarBadge />
+                <AvatarBadge sx={{ height: 38, width: 38 }} />
               </RoundedIconButton>
               <ResponsivePopOver
                 id={id}
@@ -74,18 +66,10 @@ const NavBarButton = () => {
                 onClose={handlecloseResponsivePopOver}
               >
                 <ResponvidePopOverBlock>
-                  <Button
-                    bg="#FF1744"
-                    shadow="rgba(255, 23, 68, 0.25)"
-                    onClick={handleclick}
-                  >
+                  <Button bg="#c94d4d" shadow="#f7ccd3" onClick={handleclick}>
                     <span>signup</span>
                   </Button>
-                  <Button
-                    bg="#3d5afe"
-                    shadow="rgba(61, 90, 254, 0.5)"
-                    onClick={handleclick}
-                  >
+                  <Button bg="#242560" shadow="#a3abed" onClick={handleclick}>
                     <span>login</span>
                   </Button>
                 </ResponvidePopOverBlock>
@@ -95,8 +79,8 @@ const NavBarButton = () => {
         ) : (
           <>
             <CreatePlaylistButton
-              bg="#3d5afe"
-              shadow="rgba(61, 90, 254, 0.5)"
+              bg="#242560"
+              shadow="#a3abed"
               onClick={handleOpen}
             >
               <span>create playlist</span>

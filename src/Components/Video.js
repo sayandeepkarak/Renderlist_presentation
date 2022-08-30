@@ -114,6 +114,9 @@ export const VideoList = styled.div`
     padding: 3.1vw 2%;
     height: 57vh;
   }
+  @media (max-width: 768px) {
+    padding-bottom: 73px;
+  }
   @media (max-width: 530px) {
     border: none;
     background-color: #fff;

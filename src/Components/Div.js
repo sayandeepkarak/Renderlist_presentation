@@ -8,6 +8,19 @@ export const FlexBlock = styled.div`
   align-items: flex-start;
 `;
 
+export const LogoTextArea = styled.div`
+  margin-left: 3px;
+  height: 78px;
+  padding-right: 18px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+  @media (max-width: 790px) {
+    height: 78px;
+  }
+`;
+
 export const AvailableBlock = styled.div`
   align-items: center;
   height: 73px;
@@ -56,18 +69,18 @@ export const NavButtonArea = styled.div`
   }
 `;
 
-
 export const CardArea = styled.div`
   width: -webkit-fill-available;
   max-width: calc(100vw - 73px);
   max-height: calc(100vh - 78px);
   height: calc(100vh - 78px);
-  background-color: #f9f9f9;
   padding: 2% 4%;
+  background-color: #f9f9f9;
   overflow-y: scroll;
   display: grid;
   gap: 2%;
   grid-template-columns: auto auto auto auto;
+  grid-template-rows: max-content;
   flex-wrap: wrap;
   &::-webkit-scrollbar {
     display: none;
@@ -77,6 +90,9 @@ export const CardArea = styled.div`
   }
   @media (max-width: 880px) {
     grid-template-columns: auto auto auto;
+  }
+  @media (max-width: 768px) {
+    padding-bottom: 73px !important;
   }
   @media (max-width: 600px) {
     grid-template-columns: auto auto;

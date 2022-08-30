@@ -48,7 +48,7 @@ export const CreatePlaylistButton = styled(Button)`
 export const RoundedButton = styled(NavLink)`
   height: 42px;
   width: 42px;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.32);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,10 +57,10 @@ export const RoundedButton = styled(NavLink)`
   transition: all 0.1s linear;
   color: #000;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.32);
+    background-color: #000;
   }
   &.active {
-    background-color: #1e88e5;
+    background-color: #c94d4d;
   }
   @media (max-width: 790px) {
     background-color: #fff;
@@ -71,7 +71,7 @@ export const RoundedButton = styled(NavLink)`
       box-shadow: inset 9px -3px 18px -18px rgb(0 0 0 / 56%),
         inset -4px 5px 18px -18px rgb(0 0 0 / 56%);
       background-color: transparent;
-      color: #1e88e5;
+      color: #c94d4d;
     }
   }
 `;

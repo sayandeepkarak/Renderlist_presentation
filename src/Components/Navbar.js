@@ -9,6 +9,10 @@ export const Navbar = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  @media (max-width: 790px) {
+    min-height: 68px;
+    max-height: 68px;
+  }
 `;
 
 export const ToolArea = styled(Toolbar).attrs({
@@ -18,7 +22,15 @@ export const ToolArea = styled(Toolbar).attrs({
 })``;
 
 export const RoundedIconButton = styled(IconButton).attrs({
-  sx: { p: 0, width: "50px", height: "50px" },
+  sx: {
+    p: 0,
+    width: "50px",
+    height: "50px",
+    div: {
+      width: "38px",
+      height: "38px",
+    },
+  },
 })``;
 
 export const AvatarBadge = styled(Avatar).attrs({

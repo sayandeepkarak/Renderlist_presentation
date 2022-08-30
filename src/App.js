@@ -1,5 +1,5 @@
 import React from "react";
-import Globalstyle from "./Components/GlobalStyle";
+import "./App.css";
 import Header from "./Screen/Header";
 import SideBar from "./Screen/SideBar";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -10,10 +10,9 @@ import Save from "./Screen/Save";
 import Error from "./Components/Error";
 import Watch from "./Screen/VideoPlayer";
 
-function App() {
+const App = () => {
   return (
     <>
-      <Globalstyle />
       <Header />
       <FlexBlock>
         <SideBar />
@@ -28,6 +27,6 @@ function App() {
       </FlexBlock>
     </>
   );
-}
+};
 
 export default App;
