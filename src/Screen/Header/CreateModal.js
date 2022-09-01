@@ -11,9 +11,22 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import { CreateFormSchema } from "../../Schemas";
 import { Errortext } from "../../Components/Text";
+import { addDoc, collection, Firestore } from "firebase/firestore";
+import { db } from "../../Firebase";
 
 const Create = (props) => {
   const handleClose = () => props.close();
+
+  const createPlaylist = async (playlistName) => {
+    await addDoc(collection(db, "Playlists"), {
+      UserName: "Nova_master",
+      Views: "12K",
+      Title: playlistName,
+      Thumbnail: "https://i.ytimg.com/vi/jCY6DH8F4oc/maxresdefault.jpg",
+      Hide: false,
+      Items: [],
+    });
+  };
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
@@ -22,7 +35,7 @@ const Create = (props) => {
       },
       validationSchema: CreateFormSchema,
       onSubmit: (value) => {
-        console.log(value);
+        createPlaylist(value.playlistName);
         handleClose();
       },
     });
