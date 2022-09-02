@@ -66,15 +66,16 @@ const ListBottomText = styled(NameText)`
 `;
 
 const PlaylistItem = (props) => {
+  const handleactiveVideo = () => {
+    props.activevideo(props.data.url);
+  };
   return (
     <>
-      <VideoItemBlock>
-        <Image src={ThumbNail} />
+      <VideoItemBlock onClick={handleactiveVideo}>
+        <Image src={props.data.thumbnail} />
         <ListVideoDetailsArea>
-          <ListTitle>
-            Pixel OS Review - Forget about Pixel Experience | Redmi Note 10 Pro
-          </ListTitle>
-          <ListBottomText>Barun Mukherjee</ListBottomText>
+          <ListTitle>{props.data.videoTitle}</ListTitle>
+          <ListBottomText>{props.data.channelTitle}</ListBottomText>
           <ListBottomText>
             5M Views
             <li>

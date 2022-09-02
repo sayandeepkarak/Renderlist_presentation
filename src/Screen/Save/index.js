@@ -13,8 +13,12 @@ const Save = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getDocs(collection(db, "Playlists"));
-      dispatch(fetchallplaylists(data.docs));
+      try {
+        const data = await getDocs(collection(db, "Playlists"));
+        dispatch(fetchallplaylists(data.docs));
+      } catch (err) {
+        console.log(err);
+      }
     };
     getData();
   }, []);

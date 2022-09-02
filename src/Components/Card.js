@@ -224,11 +224,22 @@ export const Card = (props) => {
   const navigate = useNavigate();
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
+
+  const handleHide = () => {
+    setAnchorEl(null);
+    props.hide(props.data.Id, !props.data.Hide);
+  };
+  const deletePlaylist = () => {
+    setAnchorEl(null);
+    props.delete(props.data.Id);
+  };
   const handleopenvideoplayer = () => {
+    props.activePlaylist(props.data);
     navigate("/watch");
   };
   const handleModalOpen = () => setmodalOpen(true);
   const handleModalClose = () => setmodalOpen(false);
+
   const AddModalPop = React.forwardRef((props, ref) => (
     <AddModal {...props} innerRef={ref} />
   ));
@@ -248,7 +259,7 @@ export const Card = (props) => {
             <ViewText>
               {props.data.Views} views
               <li>
-                <span> items</span>
+                <span> {props.data.Items.length} items</span>
               </li>
             </ViewText>
           </TitleArea>
@@ -278,7 +289,7 @@ export const Card = (props) => {
                       </ListItemIcon>
                       Share
                     </MenuItem>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={handleHide}>
                       <ListItemIcon>
                         <Image src={Hideicon} />
                       </ListItemIcon>
@@ -286,7 +297,7 @@ export const Card = (props) => {
                     </MenuItem>
                     <Divider style={{ margin: "0px" }} />
                     <MenuItem
-                      onClick={handleClose}
+                      onClick={deletePlaylist}
                       style={{ color: "#D32F2F" }}
                     >
                       <ListItemIcon>

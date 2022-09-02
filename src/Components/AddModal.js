@@ -14,30 +14,42 @@ import { Errortext } from "./Text";
 import axios from "axios";
 import getVideoId from "get-video-id";
 import { db } from "../Firebase";
-import { doc, updateDoc, FieldValue, arrayUnion } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  arrayUnion,
+  getDocs,
+  collection,
+} from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { fetchallplaylists } from "../App/allDataSlice";
 
 // https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails&id=Ks-_Mh1QhMc&key=AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8
 
 const AddModal = (props) => {
+  const dispatch = useDispatch();
   const API_KEY = "AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8";
   const handleClose = () => props.close();
 
   const addVideo = async (url) => {
     const { id } = getVideoId(url);
     try {
-      const videodata = await axios.get(
+      const response = await axios.get(
         `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails&id=${id}&key=${API_KEY}`
       );
+      const videodata = response.data.items[0].snippet;
       await updateDoc(doc(db, "Playlists", props.data), {
-        Thumbnail: videodata.data.items[0].snippet.thumbnails.medium.url,
+        Thumbnail: videodata.thumbnails.medium.url,
         Items: arrayUnion({
           url: url,
           id: id,
-          thumbnail: videodata.data.items[0].snippet.thumbnails.medium.url,
-          channelTitle: videodata.data.items[0].snippet.channelTitle,
-          videoTitle: videodata.data.items[0].snippet.title,
+          thumbnail: videodata.thumbnails.medium.url,
+          channelTitle: videodata.channelTitle,
+          videoTitle: videodata.title,
         }),
       });
+      const data = await getDocs(collection(db, "Playlists"));
+      dispatch(fetchallplaylists(data.docs));
     } catch (err) {
       console.error(err);
     }

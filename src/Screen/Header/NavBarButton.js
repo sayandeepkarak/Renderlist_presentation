@@ -14,14 +14,11 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 
 const NavBarButton = () => {
-  const [viewdemo, setviewdemo] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const handleclick = () => setviewdemo(!viewdemo);
 
   const handleopenResponsivePopOver = (event) => {
     setAnchorEl(event.currentTarget);
@@ -41,13 +38,13 @@ const NavBarButton = () => {
   return (
     <>
       <NavButtonArea>
-        {!viewdemo ? (
+        {!true ? (
           <>
             <MiniDiv id="auth_main_box">
-              <Button bg="#c94d4d" shadow="#f7ccd3" onClick={handleclick}>
+              <Button bg="#c94d4d" shadow="#f7ccd3">
                 <span>signup</span>
               </Button>
-              <Button bg="#242560" shadow="#a3abed" onClick={handleclick}>
+              <Button bg="#242560" shadow="#a3abed">
                 <span>login</span>
               </Button>
             </MiniDiv>
@@ -66,10 +63,10 @@ const NavBarButton = () => {
                 onClose={handlecloseResponsivePopOver}
               >
                 <ResponvidePopOverBlock>
-                  <Button bg="#c94d4d" shadow="#f7ccd3" onClick={handleclick}>
+                  <Button bg="#c94d4d" shadow="#f7ccd3">
                     <span>signup</span>
                   </Button>
-                  <Button bg="#242560" shadow="#a3abed" onClick={handleclick}>
+                  <Button bg="#242560" shadow="#a3abed">
                     <span>login</span>
                   </Button>
                 </ResponvidePopOverBlock>
