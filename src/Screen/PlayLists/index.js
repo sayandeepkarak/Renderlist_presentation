@@ -34,7 +34,7 @@ const Playlists = () => {
       const data = await getDocs(collection(db, "Playlists"));
       dispatch(fetchallplaylists(data.docs));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -48,11 +48,11 @@ const Playlists = () => {
         const data = await getDocs(collection(db, "Playlists"));
         dispatch(fetchallplaylists(data.docs));
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     getData();
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <CardArea>
@@ -64,6 +64,8 @@ const Playlists = () => {
                 data={data}
                 hascontrol={true}
                 menuControl={true}
+                viewCount={false}
+                videoPlayer={true}
                 activePlaylist={setActivePlaylist}
                 hide={handleshowhidePlaylist}
                 delete={handleDeletePlaylist}

@@ -12,10 +12,13 @@ export const allPlaylistsSlice = createSlice({
         Id: doc.id,
       }));
     },
+    searchfilter: (state, action) => {
+      state.value = action.payload;
+    },
   },
 });
 
-export const { fetchallplaylists } = allPlaylistsSlice.actions;
+export const { fetchallplaylists, searchfilter } = allPlaylistsSlice.actions;
 export const selectAllPlaylists = (state) => state.allPlaylists.value;
 
 export default allPlaylistsSlice.reducer;

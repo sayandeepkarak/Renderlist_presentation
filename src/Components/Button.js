@@ -65,6 +65,7 @@ export const RoundedButton = styled(NavLink)`
   @media (max-width: 790px) {
     background-color: #fff;
     &:hover {
+      color: #fff;
       background-color: none;
     }
     &.active {

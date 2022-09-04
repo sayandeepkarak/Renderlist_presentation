@@ -21,14 +21,26 @@ const Watch = () => {
     (state) => state.activePlayListReducers.value
   );
   const [activeVideo, setactiveVideo] = useState("");
-  console.log(activeplaylist.length);
   useEffect(() => {
     activeplaylist.length === 0
       ? navigate("/")
       : activeVideo === "" && setactiveVideo(activeplaylist.Items[0].url);
-  }, []);
+  }, [activeVideo, activeplaylist, navigate]);
 
-  console.log(activeplaylist);
+  const convertview = (views) => {
+    let view;
+    if ((views > 999) & (views <= 999999)) {
+      view = (views / 1000).toFixed(0).toString() + "k";
+    } else if ((views > 999999) & (views < 999999999)) {
+      view = (views / 1000000).toFixed(0).toString() + "M";
+    } else if ((views > 999999999) & (views < 999999999999)) {
+      view = (views / 1000000000).toFixed(0).toString() + "B";
+    } else {
+      return views;
+    }
+    return view;
+  };
+
   const handleChangeActiveVideo = (url) => {
     setactiveVideo(url);
   };
@@ -53,7 +65,7 @@ const Watch = () => {
               <p>5.1</p>
               <img src={rateicon} alt="x" />
               <li>
-                <span>25k Views</span>
+                <span>{convertview(activeplaylist.Views)} Views</span>
               </li>
               <li>
                 <span>{activeplaylist.UserName}</span>
@@ -61,10 +73,11 @@ const Watch = () => {
             </TitleBottomtexts>
           </PlayListTitleArea>
           <VideoList>
-            {activeplaylist.Items?.map((data) => (
+            {activeplaylist.Items?.map((data, i) => (
               <PlaylistItem
-                key={data.id}
+                key={i}
                 data={data}
+                viewconvert={convertview}
                 activevideo={handleChangeActiveVideo}
               />
             ))}

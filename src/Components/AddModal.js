@@ -24,7 +24,7 @@ import {
 import { useDispatch } from "react-redux";
 import { fetchallplaylists } from "../App/allDataSlice";
 
-// https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails&id=Ks-_Mh1QhMc&key=AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8
+// https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=Ks-_Mh1QhMc&key=AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8
 
 const AddModal = (props) => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const AddModal = (props) => {
     const { id } = getVideoId(url);
     try {
       const response = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails&id=${id}&key=${API_KEY}`
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${API_KEY}`
       );
       const videodata = response.data.items[0].snippet;
       await updateDoc(doc(db, "Playlists", props.data), {
@@ -46,6 +46,7 @@ const AddModal = (props) => {
           thumbnail: videodata.thumbnails.medium.url,
           channelTitle: videodata.channelTitle,
           videoTitle: videodata.title,
+          view: response.data.items[0].statistics.viewCount,
         }),
       });
       const data = await getDocs(collection(db, "Playlists"));

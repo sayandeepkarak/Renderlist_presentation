@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import ThumbNail from "../Assets/Images/demothumb.png";
 import { NameText, Title } from "./Card";
 
 const VideoItemBlock = styled.div`
@@ -69,6 +68,7 @@ const PlaylistItem = (props) => {
   const handleactiveVideo = () => {
     props.activevideo(props.data.url);
   };
+
   return (
     <>
       <VideoItemBlock onClick={handleactiveVideo}>
@@ -77,7 +77,7 @@ const PlaylistItem = (props) => {
           <ListTitle>{props.data.videoTitle}</ListTitle>
           <ListBottomText>{props.data.channelTitle}</ListBottomText>
           <ListBottomText>
-            5M Views
+            {props.viewconvert(props.data.view)} Views
             <li>
               <span>5 months ago</span>
             </li>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Card } from "../../Components/Card";
 import { CardArea } from "../../Components/Div";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../Firebase";
 import { useDispatch } from "react-redux";
 import { fetchallplaylists } from "../../App/allDataSlice";
@@ -16,17 +16,27 @@ const Home = () => {
     dispatch(fetchActivePlaylist(data));
   };
 
+  const countView = async (id, value) => {
+    try {
+      await updateDoc(doc(db, "Playlists", id), {
+        Views: value,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     const getData = async () => {
       try {
         const data = await getDocs(collection(db, "Playlists"));
         dispatch(fetchallplaylists(data.docs));
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     };
     getData();
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -36,6 +46,9 @@ const Home = () => {
             <Card
               key={data.Id}
               data={data}
+              viewCount={true}
+              viewCounter={countView}
+              videoPlayer={true}
               activePlaylist={setActivePlaylist}
             />
           ) : null;

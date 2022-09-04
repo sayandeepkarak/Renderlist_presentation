@@ -5,6 +5,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Shareicon from "../Assets/Images/share.png";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import Hideicon from "../Assets/Images/Hide.png";
 import Deleteicon from "../Assets/Images/delete.png";
 import rateicon from "../Assets/Images/rate.png";
@@ -15,7 +16,7 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import Modal from "@mui/material/Modal";
 import AddModal from "./AddModal";
 
-const CardBlock = styled.div`
+const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   position: relative;
   width: -webkit-fill-available;
   max-width: 20vw;
@@ -234,9 +235,29 @@ export const Card = (props) => {
     props.delete(props.data.Id);
   };
   const handleopenvideoplayer = () => {
-    props.activePlaylist(props.data);
-    navigate("/watch");
+    if (props.videoPlayer) {
+      props.activePlaylist(props.data);
+      if (props.viewCount) {
+        props.viewCounter(props.data.Id, props.data.Views + 1);
+      }
+      navigate("/watch");
+    }
   };
+
+  const convertview = (views) => {
+    let view;
+    if ((views > 999) & (views <= 999999)) {
+      view = (views / 1000).toFixed(0).toString() + "k";
+    } else if ((views > 999999) & (views < 999999999)) {
+      view = (views / 1000000).toFixed(0).toString() + "M";
+    } else if ((views > 999999999) & (views < 999999999999)) {
+      view = (views / 1000000000).toFixed(0).toString() + "B";
+    } else {
+      return views;
+    }
+    return view;
+  };
+
   const handleModalOpen = () => setmodalOpen(true);
   const handleModalClose = () => setmodalOpen(false);
 
@@ -257,7 +278,7 @@ export const Card = (props) => {
             <Title>{props.data.Title}</Title>
             <NameText>{props.data.UserName}</NameText>
             <ViewText>
-              {props.data.Views} views
+              {convertview(props.data.Views)} views
               <li>
                 <span> {props.data.Items.length} items</span>
               </li>
@@ -289,11 +310,27 @@ export const Card = (props) => {
                       </ListItemIcon>
                       Share
                     </MenuItem>
-                    <MenuItem onClick={handleHide}>
+                    <MenuItem
+                      onClick={handleHide}
+                      sx={{
+                        paddingLeft: "13px !important",
+                        div: {
+                          minWidth: "28px !important",
+                        },
+                        svg: {
+                          width: "20px",
+                          height: "20px",
+                        },
+                      }}
+                    >
                       <ListItemIcon>
-                        <Image src={Hideicon} />
+                        {props.data.Hide ? (
+                          <VisibilityOutlinedIcon />
+                        ) : (
+                          <Image src={Hideicon} />
+                        )}
                       </ListItemIcon>
-                      Hide
+                      {props.data.Hide ? "Show" : "Hide"}
                     </MenuItem>
                     <Divider style={{ margin: "0px" }} />
                     <MenuItem

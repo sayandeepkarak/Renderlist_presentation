@@ -2,7 +2,6 @@ import React from "react";
 import { Button, CreatePlaylistButton } from "../../Components/Button";
 import { MiniDiv, NavButtonArea } from "../../Components/Div";
 import Profile from "../../Assets/Images/Avatar.png";
-import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import CreateModal from "./CreateModal";
 import {

@@ -11,21 +11,30 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import { CreateFormSchema } from "../../Schemas";
 import { Errortext } from "../../Components/Text";
-import { addDoc, collection, Firestore } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../../Firebase";
+import { fetchallplaylists } from "../../App/allDataSlice";
+import { useDispatch } from "react-redux";
 
 const Create = (props) => {
+  const dispatch = useDispatch();
   const handleClose = () => props.close();
 
   const createPlaylist = async (playlistName) => {
-    await addDoc(collection(db, "Playlists"), {
-      UserName: "Nova_master",
-      Views: "12K",
-      Title: playlistName,
-      Thumbnail: "https://i.ytimg.com/vi/jCY6DH8F4oc/maxresdefault.jpg",
-      Hide: false,
-      Items: [],
-    });
+    try {
+      await addDoc(collection(db, "Playlists"), {
+        UserName: "Nova_master",
+        Views: 0,
+        Title: playlistName,
+        Thumbnail: "https://i.ytimg.com/vi/jCY6DH8F4oc/maxresdefault.jpg",
+        Hide: false,
+        Items: [],
+      });
+      const data = await getDocs(collection(db, "Playlists"));
+      dispatch(fetchallplaylists(data.docs));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
