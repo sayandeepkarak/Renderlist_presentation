@@ -5,7 +5,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Shareicon from "../Assets/Images/share.png";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import Hideicon from "../Assets/Images/Hide.png";
 import Deleteicon from "../Assets/Images/delete.png";
 import rateicon from "../Assets/Images/rate.png";
@@ -240,7 +239,7 @@ export const Card = (props) => {
       if (props.viewCount) {
         props.viewCounter(props.data.Id, props.data.Views + 1);
       }
-      navigate("/watch");
+      navigate(`/watch/${props.data.Id}/${props.data.Items[0].id}`);
     }
   };
 
@@ -310,27 +309,11 @@ export const Card = (props) => {
                       </ListItemIcon>
                       Share
                     </MenuItem>
-                    <MenuItem
-                      onClick={handleHide}
-                      sx={{
-                        paddingLeft: "13px !important",
-                        div: {
-                          minWidth: "28px !important",
-                        },
-                        svg: {
-                          width: "20px",
-                          height: "20px",
-                        },
-                      }}
-                    >
+                    <MenuItem onClick={handleHide}>
                       <ListItemIcon>
-                        {props.data.Hide ? (
-                          <VisibilityOutlinedIcon />
-                        ) : (
-                          <Image src={Hideicon} />
-                        )}
+                        <Image src={Hideicon} />
                       </ListItemIcon>
-                      {props.data.Hide ? "Show" : "Hide"}
+                      {props.data.Hide ? "Public" : "Private"}
                     </MenuItem>
                     <Divider style={{ margin: "0px" }} />
                     <MenuItem

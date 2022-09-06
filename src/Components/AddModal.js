@@ -43,12 +43,15 @@ const AddModal = (props) => {
         Items: arrayUnion({
           url: url,
           id: id,
-          thumbnail: videodata.thumbnails.medium.url,
+          thumbnail: videodata.thumbnails.hasOwnProperty("maxres")
+            ? videodata.thumbnails.maxres.url
+            : videodata.thumbnails.medium.url,
           channelTitle: videodata.channelTitle,
           videoTitle: videodata.title,
           view: response.data.items[0].statistics.viewCount,
         }),
       });
+      console.log(videodata.thumbnails.hasOwnProperty("maxres"));
       const data = await getDocs(collection(db, "Playlists"));
       dispatch(fetchallplaylists(data.docs));
     } catch (err) {

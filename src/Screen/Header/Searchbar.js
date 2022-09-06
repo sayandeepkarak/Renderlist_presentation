@@ -52,7 +52,7 @@ const Searchbar = () => {
           <ArrowBackOutlinedIcon />
         </BackButton>
         <SearchBarArea open={openSearch}>
-          <SearchInput value={searchValue} onChange={handleSearch} />
+          <SearchInput value={searchValue} onInput={handleSearch} />
           <SearchButton open={openSearch} onClick={handleOpenSearch}>
             <ButtonIcon src={searchicon} />
           </SearchButton>

@@ -17,7 +17,7 @@ export const LogoTextArea = styled.div`
   flex-direction: column;
   border-right: 1px solid rgba(0, 0, 0, 0.25);
   @media (max-width: 790px) {
-    height: 78px;
+    height: 68px;
   }
 `;
 

@@ -23,6 +23,8 @@ const Playlists = () => {
       await updateDoc(doc(db, "Playlists", id), {
         Hide: value,
       });
+      const data = await getDocs(collection(db, "Playlists"));
+      dispatch(fetchallplaylists(data.docs));
     } catch (err) {
       console.error(err);
     }

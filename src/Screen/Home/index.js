@@ -11,7 +11,6 @@ import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
 const Home = () => {
   const dispatch = useDispatch();
   const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
-
   const setActivePlaylist = (data) => {
     dispatch(fetchActivePlaylist(data));
   };

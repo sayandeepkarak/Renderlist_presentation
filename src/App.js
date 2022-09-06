@@ -9,6 +9,7 @@ import Playlists from "./Screen/PlayLists";
 import Save from "./Screen/Save";
 import Error from "./Components/Error";
 import Watch from "./Screen/VideoPlayer";
+import ProtectedVideoPlayer from "./Screen/VideoPlayer/ProtectedVideoPlayer";
 
 const App = () => {
   return (
@@ -20,7 +21,9 @@ const App = () => {
           <Route end path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/playlists" element={<Playlists />} />
-          <Route path="/watch" element={<Watch />} />
+          <Route element={<ProtectedVideoPlayer />}>
+            <Route path="/watch/:playlist/:id" element={<Watch />} />
+          </Route>
           <Route path="/save" element={<Save />} />
           <Route path="*" element={<Error />} />
         </Routes>

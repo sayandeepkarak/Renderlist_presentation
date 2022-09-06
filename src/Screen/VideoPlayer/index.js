@@ -12,17 +12,25 @@ import {
 } from "../../Components/Video";
 import rateicon from "../../Assets/Images/rate.png";
 import PlaylistItem from "../../Components/PlaylistItem";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { ActiveVideo } from "../../Components/Button";
+import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
 
 const Watch = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const activeplaylist = useSelector(
     (state) => state.activePlayListReducers.value
   );
+  const allPlaylist = useSelector((state) => state.allPlayListReducers.value);
+  const { playlist } = useParams();
+
+  allPlaylist.map((e) => e.Id === playlist && dispatch(fetchActivePlaylist(e)));
+
   const [activeVideo, setactiveVideo] = useState("");
   useEffect(() => {
-    activeplaylist.length === 0
+    activeplaylist === undefined
       ? navigate("/")
       : activeVideo === "" && setactiveVideo(activeplaylist.Items[0].url);
   }, [activeVideo, activeplaylist, navigate]);
@@ -74,12 +82,16 @@ const Watch = () => {
           </PlayListTitleArea>
           <VideoList>
             {activeplaylist.Items?.map((data, i) => (
-              <PlaylistItem
+              <ActiveVideo
                 key={i}
-                data={data}
-                viewconvert={convertview}
-                activevideo={handleChangeActiveVideo}
-              />
+                to={`/watch/${activeplaylist.Id}/${data.id}`}
+              >
+                <PlaylistItem
+                  data={data}
+                  viewconvert={convertview}
+                  activevideo={handleChangeActiveVideo}
+                />
+              </ActiveVideo>
             ))}
           </VideoList>
         </PlaylistViewBlock>

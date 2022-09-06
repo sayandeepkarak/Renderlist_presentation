@@ -76,3 +76,17 @@ export const RoundedButton = styled(NavLink)`
     }
   }
 `;
+
+export const ActiveVideo = styled(NavLink)`
+  text-decoration: none;
+  color: #000;
+  width: 100%;
+  &.active {
+    div:nth-child(1) {
+      background-color: #8787871f;
+      div {
+        background-color: transparent;
+      }
+    }
+  }
+`;
