@@ -12,7 +12,6 @@ import { db } from "../../Firebase";
 import { useDispatch } from "react-redux";
 import { fetchallplaylists } from "../../App/allDataSlice";
 import { useSelector } from "react-redux";
-import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
 
 const Playlists = () => {
   const dispatch = useDispatch();
@@ -40,10 +39,6 @@ const Playlists = () => {
     }
   };
 
-  const setActivePlaylist = (data) => {
-    dispatch(fetchActivePlaylist(data));
-  };
-
   useEffect(() => {
     const getData = async () => {
       try {
@@ -68,7 +63,6 @@ const Playlists = () => {
                 menuControl={true}
                 viewCount={false}
                 videoPlayer={true}
-                activePlaylist={setActivePlaylist}
                 hide={handleshowhidePlaylist}
                 delete={handleDeletePlaylist}
               />

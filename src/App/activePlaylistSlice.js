@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const activePlaylistSlice = createSlice({
   name: "currentPlaylist",
   initialState: {
-    value: null,
+    value: undefined,
   },
   reducers: {
     fetchActivePlaylist: (state, action) => {

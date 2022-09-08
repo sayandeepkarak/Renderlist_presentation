@@ -24,8 +24,6 @@ import {
 import { useDispatch } from "react-redux";
 import { fetchallplaylists } from "../App/allDataSlice";
 
-// https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=Ks-_Mh1QhMc&key=AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8
-
 const AddModal = (props) => {
   const dispatch = useDispatch();
   const API_KEY = "AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8";
@@ -37,6 +35,7 @@ const AddModal = (props) => {
       const response = await axios.get(
         `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${API_KEY}`
       );
+      console.log(response);
       const videodata = response.data.items[0].snippet;
       await updateDoc(doc(db, "Playlists", props.data), {
         Thumbnail: videodata.thumbnails.medium.url,
@@ -58,6 +57,7 @@ const AddModal = (props) => {
       console.error(err);
     }
   };
+
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useFormik({
       initialValues: {

@@ -12,28 +12,24 @@ import {
 } from "../../Components/Video";
 import rateicon from "../../Assets/Images/rate.png";
 import PlaylistItem from "../../Components/PlaylistItem";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { ActiveVideo } from "../../Components/Button";
-import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
 
 const Watch = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const activeplaylist = useSelector(
     (state) => state.activePlayListReducers.value
   );
-  const allPlaylist = useSelector((state) => state.allPlayListReducers.value);
-  const { playlist } = useParams();
-
-  allPlaylist.map((e) => e.Id === playlist && dispatch(fetchActivePlaylist(e)));
-
+  const { id } = useParams();
   const [activeVideo, setactiveVideo] = useState("");
+
   useEffect(() => {
     activeplaylist === undefined
       ? navigate("/")
-      : activeVideo === "" && setactiveVideo(activeplaylist.Items[0].url);
-  }, [activeVideo, activeplaylist, navigate]);
+      : activeVideo === "" &&
+        activeplaylist.Items.map((e) => e.id === id && setactiveVideo(e.url));
+  }, [activeVideo, activeplaylist, navigate, id]);
 
   const convertview = (views) => {
     let view;
@@ -52,6 +48,7 @@ const Watch = () => {
   const handleChangeActiveVideo = (url) => {
     setactiveVideo(url);
   };
+
   return (
     <>
       <VideoPlayerArea>
@@ -61,6 +58,7 @@ const Watch = () => {
               width="100%"
               height="100%"
               url={activeVideo}
+              playing={true}
               controls
             />
           </PlayerWrapper>

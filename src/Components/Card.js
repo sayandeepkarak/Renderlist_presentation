@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import Modal from "@mui/material/Modal";
 import AddModal from "./AddModal";
+import ShareModal from "./ShareModal";
 
 const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   position: relative;
@@ -219,7 +220,8 @@ const CardMenu = styled(Menu).attrs({
 
 export const Card = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [modalOpen, setmodalOpen] = useState(false);
+  const [addmodalOpen, setaddmodalOpen] = useState(false);
+  const [shareModalOpen, setshareModalOpen] = useState(false);
   const menuopen = Boolean(anchorEl);
   const navigate = useNavigate();
   const handleClick = (e) => setAnchorEl(e.currentTarget);
@@ -235,14 +237,12 @@ export const Card = (props) => {
   };
   const handleopenvideoplayer = () => {
     if (props.videoPlayer) {
-      props.activePlaylist(props.data);
       if (props.viewCount) {
         props.viewCounter(props.data.Id, props.data.Views + 1);
       }
       navigate(`/watch/${props.data.Id}/${props.data.Items[0].id}`);
     }
   };
-
   const convertview = (views) => {
     let view;
     if ((views > 999) & (views <= 999999)) {
@@ -257,11 +257,22 @@ export const Card = (props) => {
     return view;
   };
 
-  const handleModalOpen = () => setmodalOpen(true);
-  const handleModalClose = () => setmodalOpen(false);
+  const handleaddModalOpen = () => setaddmodalOpen(true);
+  const handleaddModalClose = () => setaddmodalOpen(false);
+
+  const handleshareModalOpen = () => {
+    setshareModalOpen(true);
+    setAnchorEl(null);
+  };
+
+  const handleshareModalClose = () => setshareModalOpen(false);
 
   const AddModalPop = React.forwardRef((props, ref) => (
     <AddModal {...props} innerRef={ref} />
+  ));
+
+  const SocialShareModal = React.forwardRef((props, ref) => (
+    <ShareModal {...props} innerRef={ref} />
   ));
 
   return (
@@ -303,7 +314,7 @@ export const Card = (props) => {
                     open={menuopen}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={handleshareModalOpen}>
                       <ListItemIcon>
                         <Image src={Shareicon} />
                       </ListItemIcon>
@@ -325,21 +336,27 @@ export const Card = (props) => {
                       </ListItemIcon>
                       Delete
                     </MenuItem>
-                  </CardMenu>{" "}
+                  </CardMenu>
+                  <Modal open={shareModalOpen} onClose={handleshareModalClose}>
+                    <SocialShareModal
+                      data={props.data}
+                      close={handleshareModalClose}
+                    />
+                  </Modal>
                 </>
               ) : (
                 <>
                   <IconButton
                     size="small"
                     sx={{ ml: 1 }}
-                    onClick={handleModalOpen}
+                    onClick={handleaddModalOpen}
                   >
                     <ControlPointIcon />
                   </IconButton>
-                  <Modal open={modalOpen} onClose={handleModalClose}>
+                  <Modal open={addmodalOpen} onClose={handleaddModalClose}>
                     <AddModalPop
                       data={props.data.Id}
-                      close={handleModalClose}
+                      close={handleaddModalClose}
                     />
                   </Modal>
                 </>

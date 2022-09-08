@@ -6,14 +6,10 @@ import { db } from "../../Firebase";
 import { useDispatch } from "react-redux";
 import { fetchallplaylists } from "../../App/allDataSlice";
 import { useSelector } from "react-redux";
-import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
   const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
-  const setActivePlaylist = (data) => {
-    dispatch(fetchActivePlaylist(data));
-  };
 
   const countView = async (id, value) => {
     try {
@@ -48,7 +44,6 @@ const Home = () => {
               viewCount={true}
               viewCounter={countView}
               videoPlayer={true}
-              activePlaylist={setActivePlaylist}
             />
           ) : null;
         })}

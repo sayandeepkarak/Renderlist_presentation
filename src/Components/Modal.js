@@ -40,6 +40,17 @@ export const PopUpTitle = styled.p`
   opacity: 0.9;
 `;
 
+export const RowFlex = styled.div`
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 16px;
+  margin-bottom: 5px;
+`;
+
 export const Input = styled.input`
   width: 100%;
   font-size: 16px;
