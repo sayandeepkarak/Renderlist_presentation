@@ -79,7 +79,7 @@ const Watch = () => {
             </TitleBottomtexts>
           </PlayListTitleArea>
           <VideoList>
-            {activeplaylist.Items?.map((data, i) => (
+            {activeplaylist.Items.map((data, i) => (
               <ActiveVideo
                 key={i}
                 to={`/watch/${activeplaylist.Id}/${data.id}`}
