@@ -7,6 +7,7 @@ export const Button = styled.button`
   width: auto;
   padding: 0px 15px;
   white-space: nowrap;
+  border-radius: 4px;
   background-color: ${(props) => props.bg};
   border: none;
   font-size: 16px;

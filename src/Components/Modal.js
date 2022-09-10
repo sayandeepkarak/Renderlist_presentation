@@ -7,6 +7,7 @@ export const ModalBlock = styled.form`
   position: absolute;
   top: 16%;
   left: 50%;
+  border-radius: 4px;
   transform: translate(-50%, -0%);
   background-color: white;
   padding: 14px 18px;
@@ -81,4 +82,5 @@ export const CreateButton = styled.button`
   transition: all 0.1s linear;
   margin-top: 16px;
   margin-bottom: 5px;
+  border-radius: 4px;
 `;

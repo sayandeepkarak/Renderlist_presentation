@@ -103,6 +103,7 @@ export const VideoList = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   flex-direction: column;

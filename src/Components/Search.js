@@ -6,6 +6,7 @@ export const SearchBarArea = styled.div`
   height: 35px;
   width: 500px;
   display: flex;
+  border-radius: 4px;
   align-items: center;
   padding-left: 15px;
   transform: translate(-3px, -3px);

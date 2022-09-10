@@ -8,6 +8,13 @@ export const FlexBlock = styled.div`
   align-items: flex-start;
 `;
 
+export const FlexCenter = styled(FlexBlock)`
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  height: -webkit-fill-available;
+`;
+
 export const LogoTextArea = styled.div`
   margin-left: 3px;
   height: 78px;
