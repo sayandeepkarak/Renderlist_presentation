@@ -1,7 +1,9 @@
 import * as Yup from "yup";
 
 export const CreateFormSchema = Yup.object({
-  playlistName: Yup.string().min(3).required("Please enter playlist name"),
+  playlistName: Yup.string()
+    .min(3)
+    .required("Please enter playlist name"),
 });
 
 export const AddUrlSchema = Yup.object({

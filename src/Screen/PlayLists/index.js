@@ -1,74 +1,59 @@
 import React, { useEffect } from "react";
 import { Card } from "../../Components/Card";
 import { CardArea } from "../../Components/Div";
-import {
-  getDocs,
-  collection,
-  updateDoc,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
-import { db } from "../../Firebase";
-import { useDispatch } from "react-redux";
-import { fetchallplaylists } from "../../App/allDataSlice";
 import { useSelector } from "react-redux";
+import { useCrudContext } from "../../Context/CrudContext";
 
 const Playlists = () => {
-  const dispatch = useDispatch();
+  const {
+    GetAllPlaylist,
+    miniUpdate,
+    deletePlaylist,
+    load,
+    searchValue,
+  } = useCrudContext();
   const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
 
-  const handleshowhidePlaylist = async (id, value) => {
-    try {
-      await updateDoc(doc(db, "Playlists", id), {
-        Hide: value,
-      });
-      const data = await getDocs(collection(db, "Playlists"));
-      dispatch(fetchallplaylists(data.docs));
-    } catch (err) {
-      console.error(err);
-    }
+  useEffect(() => {
+    GetAllPlaylist();
+  }, []);
+
+  const handleshowhidePlaylist = (id, value) => {
+    miniUpdate(id, {
+      Hide: value,
+    });
+    GetAllPlaylist();
   };
 
   const handleDeletePlaylist = async (id) => {
-    try {
-      await deleteDoc(doc(db, "Playlists", id));
-      const data = await getDocs(collection(db, "Playlists"));
-      dispatch(fetchallplaylists(data.docs));
-    } catch (error) {
-      console.error(error);
-    }
+    deletePlaylist(id);
+    GetAllPlaylist();
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await getDocs(collection(db, "Playlists"));
-        dispatch(fetchallplaylists(data.docs));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getData();
-  }, [dispatch]);
   return (
     <>
       <CardArea>
-        {allPlaylists.map((data) => {
-          return (
-            data.Items.length > 0 && (
-              <Card
-                key={data.Id}
-                data={data}
-                hascontrol={true}
-                menuControl={true}
-                viewCount={false}
-                videoPlayer={true}
-                hide={handleshowhidePlaylist}
-                delete={handleDeletePlaylist}
-              />
-            )
-          );
-        })}
+        {allPlaylists
+          .filter((item) => {
+            return item["Title"].toLowerCase().includes(searchValue);
+          })
+          .map((data) => {
+            return (
+              data.Items.length > 0 && (
+                <Card
+                  key={data.Id}
+                  data={data}
+                  hascontrol={true}
+                  menuControl={true}
+                  viewCount={false}
+                  videoPlayer={true}
+                  loading={load}
+                  hide={handleshowhidePlaylist}
+                  delete={handleDeletePlaylist}
+                />
+              )
+            );
+          })}
       </CardArea>
     </>
   );

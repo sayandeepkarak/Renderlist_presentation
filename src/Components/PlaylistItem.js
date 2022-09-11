@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NameText, Title } from "./Card";
+import DateDiff from "date-diff";
 
 const VideoItemBlock = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const ListVideoDetailsArea = styled.div`
   padding-right: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   @media (max-width: 930px) {
     padding-top: 0;
   }
@@ -49,6 +51,12 @@ const ListBottomText = styled(NameText)`
   letter-spacing: 1px;
   display: flex;
   flex-wrap: nowrap;
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
   gap: 1%;
   li span {
     position: relative;
@@ -68,6 +76,29 @@ const PlaylistItem = (props) => {
   const handleactiveVideo = () => {
     props.activevideo(props.data.url);
   };
+  const dateDifference = () => {
+    const totalDifference = new DateDiff(
+      new Date(),
+      new Date(props.data.publishedAt)
+    );
+    let diff;
+    if (totalDifference.seconds() < 60) {
+      diff = `${totalDifference.seconds()} second `;
+    } else if (totalDifference.minutes() < 60) {
+      diff = `${totalDifference.minutes()} minute `;
+    } else if (totalDifference.hours() < 24) {
+      diff = `${totalDifference.hours()} hour `;
+    } else if (totalDifference.days() < 7) {
+      diff = `${totalDifference.days()} day `;
+    } else if (totalDifference.weeks() < 4) {
+      diff = `${totalDifference.days()} week `;
+    } else if (totalDifference.months() < 12) {
+      diff = `${totalDifference.months()} month `;
+    } else {
+      diff = `${totalDifference.years()} year `;
+    }
+    return diff;
+  };
 
   return (
     <>
@@ -79,7 +110,7 @@ const PlaylistItem = (props) => {
           <ListBottomText>
             {props.viewconvert(props.data.view)} Views
             <li>
-              <span>5 months ago</span>
+              <span>{dateDifference()}ago</span>
             </li>
           </ListBottomText>
         </ListVideoDetailsArea>

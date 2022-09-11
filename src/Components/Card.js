@@ -15,6 +15,9 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import Modal from "@mui/material/Modal";
 import AddModal from "./AddModal";
 import ShareModal from "./ShareModal";
+import Skeleton from "@mui/material/Skeleton";
+import { useDispatch } from "react-redux";
+import { fetchActivePlaylist } from "../App/activePlaylistSlice";
 
 const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   position: relative;
@@ -223,6 +226,7 @@ export const Card = (props) => {
   const [addmodalOpen, setaddmodalOpen] = useState(false);
   const [shareModalOpen, setshareModalOpen] = useState(false);
   const menuopen = Boolean(anchorEl);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -240,6 +244,7 @@ export const Card = (props) => {
       if (props.viewCount) {
         props.viewCounter(props.data.Id, props.data.Views + 1);
       }
+      dispatch(fetchActivePlaylist(props.data));
       navigate(`/watch/${props.data.Id}/${props.data.Items[0].id}`);
     }
   };
@@ -252,7 +257,7 @@ export const Card = (props) => {
     } else if ((views > 999999999) & (views < 999999999999)) {
       view = (views / 1000000000).toFixed(0).toString() + "B";
     } else {
-      return views;
+      view = views;
     }
     return view;
   };
@@ -277,94 +282,130 @@ export const Card = (props) => {
 
   return (
     <>
-      <CardBlock>
-        <Thumbnail src={props.data.Thumbnail} onClick={handleopenvideoplayer} />
-        <RatingBox>
-          <span>4.2</span>
-          <img src={rateicon} alt="" />
-        </RatingBox>
-        <BottomArea>
-          <TitleArea>
-            <Title>{props.data.Title}</Title>
-            <NameText>{props.data.UserName}</NameText>
-            <ViewText>
-              {convertview(props.data.Views)} views
-              <li>
-                <span> {props.data.Items.length} items</span>
-              </li>
-            </ViewText>
-          </TitleArea>
-          {props.hascontrol && (
-            <>
-              {props.menuControl ? (
-                <>
-                  <IconButton
-                    size="small"
-                    id="video_menu_btn"
-                    aria-controls={menuopen ? "video_menu_btn" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={menuopen ? "true" : undefined}
-                    onClick={handleClick}
-                    sx={{ ml: "auto" }}
-                  >
-                    <MoreVertIcon size="small" />
-                  </IconButton>
-                  <CardMenu
-                    anchorEl={anchorEl}
-                    open={menuopen}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleshareModalOpen}>
-                      <ListItemIcon>
-                        <Image src={Shareicon} />
-                      </ListItemIcon>
-                      Share
-                    </MenuItem>
-                    <MenuItem onClick={handleHide}>
-                      <ListItemIcon>
-                        <Image src={Hideicon} />
-                      </ListItemIcon>
-                      {props.data.Hide ? "Public" : "Private"}
-                    </MenuItem>
-                    <Divider style={{ margin: "0px" }} />
-                    <MenuItem
-                      onClick={deletePlaylist}
-                      style={{ color: "#D32F2F" }}
+      {props.loading ? (
+        <>
+          <CardBlock>
+            <Skeleton
+              variant="rectangular"
+              width="100%"
+              sx={{
+                maxWidth: "410px",
+                height: "180px",
+                "@media(max-width:600px)": {
+                  maxWidth: "unset",
+                },
+              }}
+            />
+            <Skeleton
+              height={30}
+              width="100%"
+              sx={{
+                mt: "5px",
+                maxWidth: "410px",
+                "@media(max-width:600px)": {
+                  maxWidth: "unset",
+                },
+              }}
+            />
+            <Skeleton width="60%" />
+          </CardBlock>
+        </>
+      ) : (
+        <CardBlock>
+          <Thumbnail
+            src={props.data.Thumbnail}
+            onClick={handleopenvideoplayer}
+          />
+          <RatingBox>
+            <span>4.2</span>
+            <img src={rateicon} alt="" />
+          </RatingBox>
+          <BottomArea>
+            <TitleArea>
+              <Title>{props.data.Title}</Title>
+              <NameText>{props.data.UserName}</NameText>
+              <ViewText>
+                {convertview(props.data.Views)} views
+                <li>
+                  <span> {props.data.Items.length} items</span>
+                </li>
+              </ViewText>
+            </TitleArea>
+            {props.hascontrol && (
+              <>
+                {props.menuControl ? (
+                  <>
+                    <IconButton
+                      size="small"
+                      id="video_menu_btn"
+                      aria-controls={menuopen ? "video_menu_btn" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={menuopen ? "true" : undefined}
+                      onClick={handleClick}
+                      sx={{ ml: "auto" }}
                     >
-                      <ListItemIcon>
-                        <Image src={Deleteicon} />
-                      </ListItemIcon>
-                      Delete
-                    </MenuItem>
-                  </CardMenu>
-                  <Modal open={shareModalOpen} onClose={handleshareModalClose}>
-                    <SocialShareModal
-                      data={props.data}
-                      close={handleshareModalClose}
-                    />
-                  </Modal>
-                </>
-              ) : (
-                <>
-                  <IconButton
-                    size="small"
-                    sx={{ ml: 1 }}
-                    onClick={handleaddModalOpen}
-                  >
-                    <ControlPointIcon />
-                  </IconButton>
-                  <Modal open={addmodalOpen} onClose={handleaddModalClose}>
-                    <AddModalPop
-                      data={props.data.Id}
-                      close={handleaddModalClose}
-                    />
-                  </Modal>
-                </>
-              )}
-            </>
-          )}
-        </BottomArea>
-      </CardBlock>
+                      <MoreVertIcon size="small" />
+                    </IconButton>
+                    <CardMenu
+                      anchorEl={anchorEl}
+                      open={menuopen}
+                      onClose={handleClose}
+                    >
+                      <MenuItem onClick={handleshareModalOpen}>
+                        <ListItemIcon>
+                          <Image src={Shareicon} />
+                        </ListItemIcon>
+                        Share
+                      </MenuItem>
+                      <MenuItem onClick={handleHide}>
+                        <ListItemIcon>
+                          <Image src={Hideicon} />
+                        </ListItemIcon>
+                        {props.data.Hide ? "Public" : "Private"}
+                      </MenuItem>
+                      <Divider style={{ margin: "0px" }} />
+                      <MenuItem
+                        onClick={deletePlaylist}
+                        style={{ color: "#D32F2F" }}
+                      >
+                        <ListItemIcon>
+                          <Image src={Deleteicon} />
+                        </ListItemIcon>
+                        Delete
+                      </MenuItem>
+                    </CardMenu>
+                    <Modal
+                      open={shareModalOpen}
+                      onClose={handleshareModalClose}
+                    >
+                      <SocialShareModal
+                        data={props.data}
+                        close={handleshareModalClose}
+                      />
+                    </Modal>
+                  </>
+                ) : (
+                  <>
+                    <IconButton
+                      size="small"
+                      sx={{ ml: 1 }}
+                      onClick={handleaddModalOpen}
+                    >
+                      <ControlPointIcon />
+                    </IconButton>
+                    <Modal open={addmodalOpen} onClose={handleaddModalClose}>
+                      <AddModalPop
+                        data={props.data.Id}
+                        close={handleaddModalClose}
+                      />
+                    </Modal>
+                  </>
+                )}
+              </>
+            )}
+          </BottomArea>
+        </CardBlock>
+      )}
     </>
   );
 };

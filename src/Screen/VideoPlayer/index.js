@@ -13,23 +13,23 @@ import {
 import rateicon from "../../Assets/Images/rate.png";
 import PlaylistItem from "../../Components/PlaylistItem";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import { ActiveVideo } from "../../Components/Button";
+import { useCrudContext } from "../../Context/CrudContext";
+import { useParams } from "react-router-dom";
 
 const Watch = () => {
-  const navigate = useNavigate();
   const activeplaylist = useSelector(
     (state) => state.activePlayListReducers.value
   );
   const { id } = useParams();
+  const { searchValue } = useCrudContext();
   const [activeVideo, setactiveVideo] = useState("");
 
   useEffect(() => {
-    activeplaylist === undefined
-      ? navigate("/")
-      : activeVideo === "" &&
-        activeplaylist.Items.map((e) => e.id === id && setactiveVideo(e.url));
-  }, [activeVideo, activeplaylist, navigate, id]);
+    activeplaylist.Items.map((e) => {
+      return e.id === id && setactiveVideo(e.url);
+    });
+  }, []);
 
   const convertview = (views) => {
     let view;
@@ -40,14 +40,12 @@ const Watch = () => {
     } else if ((views > 999999999) & (views < 999999999999)) {
       view = (views / 1000000000).toFixed(0).toString() + "B";
     } else {
-      return views;
+      view = views;
     }
     return view;
   };
 
-  const handleChangeActiveVideo = (url) => {
-    setactiveVideo(url);
-  };
+  const handleChangeActiveVideo = (url) => setactiveVideo(url);
 
   return (
     <>
@@ -79,7 +77,9 @@ const Watch = () => {
             </TitleBottomtexts>
           </PlayListTitleArea>
           <VideoList>
-            {activeplaylist.Items.map((data, i) => (
+            {activeplaylist.Items.filter((item) =>
+              item["videoTitle"].toLowerCase().includes(searchValue)
+            ).map((data, i) => (
               <ActiveVideo
                 key={i}
                 to={`/watch/${activeplaylist.Id}/${data.id}`}

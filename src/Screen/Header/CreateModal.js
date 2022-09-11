@@ -11,43 +11,33 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import { CreateFormSchema } from "../../Schemas";
 import { Errortext } from "../../Components/Text";
-import { addDoc, collection, getDocs } from "firebase/firestore";
-import { db } from "../../Firebase";
-import { fetchallplaylists } from "../../App/allDataSlice";
-import { useDispatch } from "react-redux";
+import { useCrudContext } from "../../Context/CrudContext";
 
 const Create = (props) => {
-  const dispatch = useDispatch();
   const handleClose = () => props.close();
-
-  const createPlaylist = async (playlistName) => {
-    try {
-      await addDoc(collection(db, "Playlists"), {
-        UserName: "Nova_master",
-        Views: 0,
-        Title: playlistName,
-        Thumbnail: "https://i.ytimg.com/vi/jCY6DH8F4oc/maxresdefault.jpg",
-        Hide: false,
-        Items: [],
-      });
-      const data = await getDocs(collection(db, "Playlists"));
-      dispatch(fetchallplaylists(data.docs));
-    } catch (err) {
-      console.error(err);
-    }
+  const { createPlaylist, GetAllPlaylist } = useCrudContext();
+  const create = async (playlistName) => {
+    createPlaylist(playlistName);
+    GetAllPlaylist();
   };
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik({
-      initialValues: {
-        playlistName: "",
-      },
-      validationSchema: CreateFormSchema,
-      onSubmit: (value) => {
-        createPlaylist(value.playlistName);
-        handleClose();
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      playlistName: "",
+    },
+    validationSchema: CreateFormSchema,
+    onSubmit: (value) => {
+      create(value.playlistName);
+      handleClose();
+    },
+  });
 
   return (
     <>

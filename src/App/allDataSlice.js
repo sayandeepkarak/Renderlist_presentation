@@ -12,9 +12,6 @@ export const allPlaylistsSlice = createSlice({
         Id: doc.id,
       }));
     },
-    searchfilter: (state, action) => {
-      state.value = action.payload;
-    },
   },
 });
 

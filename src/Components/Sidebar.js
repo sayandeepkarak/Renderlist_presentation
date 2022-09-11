@@ -32,7 +32,7 @@ export const SideBarArea = styled.div`
     width: -webkit-fill-available;
     height: min-content;
     flex-direction: row;
-    box-shadow: 0px -7px 23px -2px rgb(0 0 0 / 45%);
+    box-shadow: 0px -7px 23px -2px rgb(0 0 0 / 6%);
     gap: 24px;
     a {
       svg {

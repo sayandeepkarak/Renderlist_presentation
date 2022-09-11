@@ -4,19 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
 
 const ProtectedVideoPlayer = () => {
-  const dispatch = useDispatch();
   const allPlaylist = useSelector((state) => state.allPlayListReducers.value);
+  const dispatch = useDispatch();
   const { playlist, id } = useParams();
-  const pathConfirm = allPlaylist.map((element) => {
-    let checkPath = false;
-    element.Id === playlist &&
+  let checkPath = false;
+  allPlaylist.map((element) => {
+    return (
+      element.Id === playlist &&
       element.Items.map(
         (e) => e.id === id && (checkPath = true),
         dispatch(fetchActivePlaylist(element))
-      );
-    return checkPath;
+      )
+    );
   });
-  return pathConfirm[0] ? <Outlet /> : <Navigate to="/" />;
+  return checkPath ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default ProtectedVideoPlayer;

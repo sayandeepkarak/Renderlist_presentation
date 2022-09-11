@@ -9,41 +9,14 @@ import {
 } from "../../Components/Search";
 import searchicon from "../../Assets/Images/searchicon.png";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue } from "../../App/searchValueSlice";
-import { fetchallplaylists, searchfilter } from "../../App/allDataSlice";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../Firebase";
+import { useCrudContext } from "../../Context/CrudContext";
 
 const Searchbar = () => {
-  const dispatch = useDispatch();
-  const searchValue = useSelector((state) => state.searchValueReducers.value);
-  const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
-
   const [openSearch, setOpenSearch] = useState(false);
-  const handleOpenSearch = () => {
-    setOpenSearch(!openSearch);
-  };
+  const { searchValue, setupsearch } = useCrudContext();
+  const handleOpenSearch = () => setOpenSearch(!openSearch);
 
-  const handleSearch = async (e) => {
-    dispatch(setSearchValue(e.target.value));
-    if (e.target.value.length === 0) {
-      try {
-        const data = await getDocs(collection(db, "Playlists"));
-        dispatch(fetchallplaylists(data.docs));
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      dispatch(
-        searchfilter(
-          allPlaylists.filter((data) =>
-            data.Title.toLowerCase().includes(searchValue.toLowerCase())
-          )
-        )
-      );
-    }
-  };
+  const handleSearch = async (e) => setupsearch(e.target.value);
 
   return (
     <>

@@ -1,41 +1,36 @@
 import React, { useEffect } from "react";
 import { Card } from "../../Components/Card";
 import { CardArea } from "../../Components/Div";
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "../../Firebase";
-import { useDispatch } from "react-redux";
-import { fetchallplaylists } from "../../App/allDataSlice";
 import { useSelector } from "react-redux";
+import { useCrudContext } from "../../Context/CrudContext";
 
 const Save = () => {
-  const dispatch = useDispatch();
   const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
+  const { GetAllPlaylist, load, searchValue } = useCrudContext();
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await getDocs(collection(db, "Playlists"));
-        dispatch(fetchallplaylists(data.docs));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getData();
-  }, [dispatch]);
+    GetAllPlaylist();
+  }, []);
+
   return (
     <>
       <CardArea>
-        {allPlaylists.map((data) => {
-          return (
-            <Card
-              key={data.Id}
-              data={data}
-              hascontrol={true}
-              viewCount={false}
-              videoPlayer={false}
-            />
-          );
-        })}
+        {allPlaylists
+          .filter((item) => {
+            return item["Title"].toLowerCase().includes(searchValue);
+          })
+          .map((data) => {
+            return (
+              <Card
+                key={data.Id}
+                data={data}
+                hascontrol={true}
+                viewCount={false}
+                videoPlayer={false}
+                loading={load}
+              />
+            );
+          })}
       </CardArea>
     </>
   );

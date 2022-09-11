@@ -1,52 +1,43 @@
 import React, { useEffect } from "react";
 import { Card } from "../../Components/Card";
 import { CardArea } from "../../Components/Div";
-import { getDocs, collection, updateDoc, doc } from "firebase/firestore";
-import { db } from "../../Firebase";
-import { useDispatch } from "react-redux";
-import { fetchallplaylists } from "../../App/allDataSlice";
 import { useSelector } from "react-redux";
+import { useCrudContext } from "../../Context/CrudContext";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
-
-  const countView = async (id, value) => {
-    try {
-      await updateDoc(doc(db, "Playlists", id), {
-        Views: value,
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const { GetAllPlaylist, miniUpdate, load, searchValue } = useCrudContext();
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await getDocs(collection(db, "Playlists"));
-        dispatch(fetchallplaylists(data.docs));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getData();
-  }, [dispatch]);
+    GetAllPlaylist();
+  }, []);
+
+  const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
+
+  const countView = (id, value) => {
+    miniUpdate(id, {
+      Views: value,
+    });
+  };
 
   return (
     <>
       <CardArea>
-        {allPlaylists.map((data) => {
-          return !data.Hide & (data.Items.length > 0) ? (
-            <Card
-              key={data.Id}
-              data={data}
-              viewCount={true}
-              viewCounter={countView}
-              videoPlayer={true}
-            />
-          ) : null;
-        })}
+        {allPlaylists
+          .filter((item) => {
+            return item["Title"].toLowerCase().includes(searchValue);
+          })
+          .map((data) => {
+            return !data.Hide & (data.Items.length > 0) ? (
+              <Card
+                key={data.Id}
+                data={data}
+                viewCount={true}
+                viewCounter={countView}
+                loading={load}
+                videoPlayer={true}
+              />
+            ) : null;
+          })}
       </CardArea>
     </>
   );

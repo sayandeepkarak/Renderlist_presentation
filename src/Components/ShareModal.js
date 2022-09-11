@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CreateButton,
   ModalBlock,
@@ -22,12 +22,20 @@ import {
 
 const ShareModal = (props) => {
   const handleClose = () => props.close();
+  const [copy, setCopy] = useState(false);
   const shareData = {
     url: `https://renderlist.logonetek.com/watch/${props.data.Id}/${props.data.Items[0].id}`,
     title: `Explore and share your video experience with RenderList \nPlaylist -> ${props.data.Title}\n`,
   };
 
-  const handleCopy = () => navigator.clipboard.writeText(shareData.url);
+  const handleCopy = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(shareData.url);
+    setCopy(true);
+    setTimeout(() => {
+      setCopy(false);
+    }, 6000);
+  };
 
   return (
     <>
@@ -56,8 +64,13 @@ const ShareModal = (props) => {
         </RowFlex>
         <RowFlex>
           <Input name="url" value={shareData.url} disabled={true} />
-          <CreateButton bg="#242560" shadow="#a3abed" onClick={handleCopy}>
-            <span>Copy</span>
+          <CreateButton
+            disabled={copy}
+            bg="#242560"
+            shadow="#a3abed"
+            onClick={handleCopy}
+          >
+            <span>{copy ? "Copied" : "Copy"}</span>
           </CreateButton>
         </RowFlex>
       </ModalBlock>
