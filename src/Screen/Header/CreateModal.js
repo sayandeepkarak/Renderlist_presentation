@@ -61,7 +61,7 @@ const Create = (props) => {
           <Errortext>{errors.playlistName}</Errortext>
         )}
         <CreateButton type="submit" bg="#242560" shadow="#a3abed">
-          <span>create</span>
+          <span>Create</span>
         </CreateButton>
       </ModalBlock>
     </>

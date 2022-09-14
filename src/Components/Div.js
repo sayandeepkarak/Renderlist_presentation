@@ -114,3 +114,41 @@ export const CardArea = styled.div`
     gap: 10px;
   }
 `;
+
+export const AuthBlock = styled.div`
+  height: calc(100vh - 64px);
+  width: 100%;
+  display: grid;
+  place-items: center;
+  @media (max-width: 600px) {
+    height: calc(100vh - 56px);
+  }
+`;
+
+export const AuthViewArea = styled.div`
+  height: 400px;
+  width: min-content;
+  border-radius: 5px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  box-shadow: 1px 3px 15px 7px rgb(0 0 0 / 12%);
+  @media (max-width: 600px) {
+    margin-bottom: 100px;
+  }
+`;
+
+export const AuthButtonArea = styled.div`
+  margin-bottom: 54px;
+  margin-top: 32%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+`;
+
+export const AuthJumpLink = styled.div`
+  font-family: "Poppins", sans-serif;
+  cursor: default;
+  font-size: 14px;
+`;

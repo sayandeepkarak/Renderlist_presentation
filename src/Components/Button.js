@@ -91,3 +91,25 @@ export const ActiveVideo = styled(NavLink)`
     }
   }
 `;
+
+export const FacebookButton = styled.button`
+  color: white;
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
+  border: none;
+  background-color: #1877f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+  }
+  svg {
+    font-size: 30px !important;
+    margin-right: 5px;
+  }
+`;

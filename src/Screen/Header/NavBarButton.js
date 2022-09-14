@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, CreatePlaylistButton } from "../../Components/Button";
 import { MiniDiv, NavButtonArea } from "../../Components/Div";
 import Profile from "../../Assets/Images/Avatar.png";
@@ -11,10 +11,14 @@ import {
   RoundedIconButton,
 } from "../../Components/Navbar";
 import AddIcon from "@mui/icons-material/Add";
+import { useAuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const NavBarButton = () => {
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { currentuser } = useAuthContext();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -37,13 +41,21 @@ const NavBarButton = () => {
   return (
     <>
       <NavButtonArea>
-        {!true ? (
+        {currentuser === null ? (
           <>
             <MiniDiv id="auth_main_box">
-              <Button bg="#c94d4d" shadow="#f7ccd3">
+              <Button
+                bg="#c94d4d"
+                shadow="#f7ccd3"
+                onClick={() => navigate("/Signup")}
+              >
                 <span>signup</span>
               </Button>
-              <Button bg="#242560" shadow="#a3abed">
+              <Button
+                bg="#242560"
+                shadow="#a3abed"
+                onClick={() => navigate("/Login")}
+              >
                 <span>login</span>
               </Button>
             </MiniDiv>
@@ -62,10 +74,18 @@ const NavBarButton = () => {
                 onClose={handlecloseResponsivePopOver}
               >
                 <ResponvidePopOverBlock>
-                  <Button bg="#c94d4d" shadow="#f7ccd3">
+                  <Button
+                    bg="#c94d4d"
+                    shadow="#f7ccd3"
+                    onClick={() => navigate("/Signup")}
+                  >
                     <span>signup</span>
                   </Button>
-                  <Button bg="#242560" shadow="#a3abed">
+                  <Button
+                    bg="#242560"
+                    shadow="#a3abed"
+                    onClick={() => navigate("/Login")}
+                  >
                     <span>login</span>
                   </Button>
                 </ResponvidePopOverBlock>
