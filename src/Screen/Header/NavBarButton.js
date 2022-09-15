@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, CreatePlaylistButton } from "../../Components/Button";
 import { MiniDiv, NavButtonArea } from "../../Components/Div";
-import Profile from "../../Assets/Images/Avatar.png";
 import Modal from "@mui/material/Modal";
 import CreateModal from "./CreateModal";
 import {
@@ -106,7 +105,7 @@ const NavBarButton = () => {
               <CreateModalPop close={handleClose} />
             </Modal>
             <RoundedIconButton>
-              <AvatarBadge src={Profile} />
+              <AvatarBadge src={currentuser.photoUrl} />
             </RoundedIconButton>
           </>
         )}

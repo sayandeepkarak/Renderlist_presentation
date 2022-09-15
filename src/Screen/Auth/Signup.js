@@ -11,17 +11,27 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { LogoImage } from "../../Components/Image";
 import Logo from "../../Assets/Images/Logo.png";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../Context/AuthContext";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const {
+    handlegooglesignup,
+    handlefacebooksignup,
+    // handleLogout,
+  } = useAuthContext();
+
   return (
     <>
       <AuthBlock>
         <AuthViewArea>
           <LogoImage src={Logo} />
           <AuthButtonArea>
-            <GoogleButton label="Sign up with Google" />
-            <FacebookButton>
+            <GoogleButton
+              onClick={handlegooglesignup}
+              label="Sign up with Google"
+            />
+            <FacebookButton onClick={handlefacebooksignup}>
               <FacebookOutlinedIcon />
               Sign up with facebook
             </FacebookButton>

@@ -8,6 +8,7 @@ import { LogoText } from "../../Components/Text";
 import { LogoTextArea } from "../../Components/Div";
 
 const Header = () => {
+
   return (
     <Navbar>
       <ToolArea>
