@@ -242,7 +242,11 @@ export const Card = (props) => {
   const handleopenvideoplayer = () => {
     if (props.videoPlayer) {
       if (props.viewCount) {
-        props.viewCounter(props.data.Id, props.data.Views + 1);
+        props.viewCounter(
+          props.data.userId,
+          props.data.Id,
+          props.data.Views + 1
+        );
       }
       dispatch(fetchActivePlaylist(props.data));
       navigate(`/watch/${props.data.Id}/${props.data.Items[0].id}`);

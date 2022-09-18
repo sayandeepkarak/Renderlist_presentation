@@ -7,10 +7,7 @@ export const allPlaylistsSlice = createSlice({
   },
   reducers: {
     fetchallplaylists: (state, action) => {
-      state.value = action.payload.map((doc) => ({
-        ...doc.data(),
-        Id: doc.id,
-      }));
+      state.value = action.payload;
     },
   },
 });

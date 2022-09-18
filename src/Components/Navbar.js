@@ -60,5 +60,6 @@ export const ResponvidePopOverBlock = styled.div`
   padding: 23px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 17px;
 `;

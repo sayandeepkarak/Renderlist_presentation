@@ -15,6 +15,7 @@ import { CrudContext } from "./Context/CrudContext";
 import { AuthContext } from "./Context/AuthContext";
 import Login from "./Screen/Auth/Login";
 import Signup from "./Screen/Auth/Signup";
+import ProtectedScreen from "./Screen/Auth/ProtectedScreen";
 
 const App = () => {
   const [pageLoader, setPageLoader] = useState(false);
@@ -43,11 +44,15 @@ const App = () => {
                   <Route path="/login" element={<Login />} />
                   <Route path="/Signup" element={<Signup />} />
                   <Route path="/home" element={<Home />} />
-                  <Route path="/playlists" element={<Playlists />} />
+                  <Route element={<ProtectedScreen />}>
+                    <Route path="/playlists" element={<Playlists />} />
+                  </Route>
                   <Route element={<ProtectedVideoPlayer />}>
                     <Route path="/watch/:playlist/:id" element={<Watch />} />
                   </Route>
-                  <Route path="/save" element={<Save />} />
+                  <Route element={<ProtectedScreen />}>
+                    <Route path="/save" element={<Save />} />
+                  </Route>
                   <Route path="*" element={<Error />} />
                 </Routes>
               </FlexBlock>

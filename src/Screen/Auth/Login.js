@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GoogleButton from "react-google-button";
 import {
   AuthBlock,
@@ -11,16 +11,30 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { LogoImage } from "../../Components/Image";
 import Logo from "../../Assets/Images/Logo.png";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { handlegooglelogin, handleLogout } = useAuthContext();
+
+  useEffect(() => {
+    handleLogout();
+  }, []);
+
+  const handle_google_login = () => {
+    handlegooglelogin();
+  };
+
   return (
     <>
       <AuthBlock>
         <AuthViewArea>
           <LogoImage src={Logo} />
           <AuthButtonArea>
-            <GoogleButton label="Log in with Google" />
+            <GoogleButton
+              label="Log in with Google"
+              onClick={handle_google_login}
+            />
             <FacebookButton>
               <FacebookOutlinedIcon />
               Log in with facebook

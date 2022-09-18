@@ -12,12 +12,14 @@ import { useFormik } from "formik";
 import { CreateFormSchema } from "../../Schemas";
 import { Errortext } from "../../Components/Text";
 import { useCrudContext } from "../../Context/CrudContext";
+import { useAuthContext } from "../../Context/AuthContext";
 
 const Create = (props) => {
   const handleClose = () => props.close();
   const { createPlaylist, GetAllPlaylist } = useCrudContext();
+  const { currentuser } = useAuthContext();
   const create = async (playlistName) => {
-    createPlaylist(playlistName);
+    createPlaylist(playlistName, currentuser);
     GetAllPlaylist();
   };
 

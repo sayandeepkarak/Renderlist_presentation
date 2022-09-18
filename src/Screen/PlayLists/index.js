@@ -3,31 +3,30 @@ import { Card } from "../../Components/Card";
 import { CardArea } from "../../Components/Div";
 import { useSelector } from "react-redux";
 import { useCrudContext } from "../../Context/CrudContext";
+import { useAuthContext } from "../../Context/AuthContext";
 
 const Playlists = () => {
-  const {
-    GetAllPlaylist,
-    miniUpdate,
-    deletePlaylist,
-    load,
-    searchValue,
-  } = useCrudContext();
-  const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
+  const { miniUpdate, deletePlaylist, searchValue } = useCrudContext();
+  const { currentuser, handleFetchuserData, load } = useAuthContext();
 
   useEffect(() => {
-    GetAllPlaylist();
+    handleFetchuserData(currentuser.id);
   }, []);
 
+  const allPlaylists = useSelector(
+    (state) => state.userPlaylistsReducers.value
+  );
+
   const handleshowhidePlaylist = (id, value) => {
-    miniUpdate(id, {
+    miniUpdate(currentuser.id, id, {
       Hide: value,
     });
-    GetAllPlaylist();
+    handleFetchuserData(currentuser.id);
   };
 
   const handleDeletePlaylist = async (id) => {
-    deletePlaylist(id);
-    GetAllPlaylist();
+    deletePlaylist(currentuser.id, id);
+    handleFetchuserData(currentuser.id);
   };
 
   return (

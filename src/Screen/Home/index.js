@@ -6,15 +6,15 @@ import { useCrudContext } from "../../Context/CrudContext";
 
 const Home = () => {
   const { GetAllPlaylist, miniUpdate, load, searchValue } = useCrudContext();
+  const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
 
   useEffect(() => {
     GetAllPlaylist();
+    console.log(allPlaylists);
   }, []);
 
-  const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
-
-  const countView = (id, value) => {
-    miniUpdate(id, {
+  const countView = (userid, id, value) => {
+    miniUpdate(userid, id, {
       Views: value,
     });
   };

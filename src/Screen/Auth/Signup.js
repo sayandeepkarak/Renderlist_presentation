@@ -15,11 +15,15 @@ import { useAuthContext } from "../../Context/AuthContext";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const {
-    handlegooglesignup,
-    handlefacebooksignup,
-    // handleLogout,
-  } = useAuthContext();
+
+  const { handlegooglesignup, handlefacebooksignup } = useAuthContext();
+
+  const handle_google_sign = () => {
+    handlegooglesignup();
+  };
+  const handle_facebook_sign = () => {
+    handlefacebooksignup();
+  };
 
   return (
     <>
@@ -28,10 +32,10 @@ const Signup = () => {
           <LogoImage src={Logo} />
           <AuthButtonArea>
             <GoogleButton
-              onClick={handlegooglesignup}
+              onClick={handle_google_sign}
               label="Sign up with Google"
             />
-            <FacebookButton onClick={handlefacebooksignup}>
+            <FacebookButton disabled={true} onClick={handle_facebook_sign}>
               <FacebookOutlinedIcon />
               Sign up with facebook
             </FacebookButton>

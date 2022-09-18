@@ -3,13 +3,18 @@ import { Card } from "../../Components/Card";
 import { CardArea } from "../../Components/Div";
 import { useSelector } from "react-redux";
 import { useCrudContext } from "../../Context/CrudContext";
+import { useAuthContext } from "../../Context/AuthContext";
 
 const Save = () => {
-  const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
-  const { GetAllPlaylist, load, searchValue } = useCrudContext();
+  const { searchValue } = useCrudContext();
+  const { handleFetchuserData, currentuser, load } = useAuthContext();
+
+  const allPlaylists = useSelector(
+    (state) => state.userPlaylistsReducers.value
+  );
 
   useEffect(() => {
-    GetAllPlaylist();
+    handleFetchuserData(currentuser.id);
   }, []);
 
   return (

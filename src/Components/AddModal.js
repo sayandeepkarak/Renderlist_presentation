@@ -13,9 +13,11 @@ import { AddUrlSchema } from "../Schemas";
 import { Errortext } from "./Text";
 import getVideoId from "get-video-id";
 import { useCrudContext } from "../Context/CrudContext";
+import { useAuthContext } from "../Context/AuthContext";
 
 const AddModal = (props) => {
-  const { addVideo, GetAllPlaylist } = useCrudContext();
+  const { addVideo } = useCrudContext();
+  const { handleFetchuserData, currentuser } = useAuthContext();
   const handleClose = () => props.close();
 
   const {
@@ -32,8 +34,8 @@ const AddModal = (props) => {
     validationSchema: AddUrlSchema,
     onSubmit: (value) => {
       const { id } = getVideoId(value.url);
-      addVideo(id, props.data, value.url);
-      GetAllPlaylist();
+      addVideo(currentuser.id, id, props.data, value.url);
+      handleFetchuserData(currentuser.id);
       handleClose();
     },
   });
