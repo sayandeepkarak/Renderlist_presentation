@@ -41,6 +41,10 @@ export const PopUpTitle = styled.p`
   opacity: 0.9;
 `;
 
+export const BodyText = styled.p`
+  font-family: "Poppins", sans-serif;
+`;
+
 export const RowFlex = styled.div`
   height: auto;
   width: 100%;
@@ -50,6 +54,7 @@ export const RowFlex = styled.div`
   gap: 20px;
   margin-top: 16px;
   margin-bottom: 5px;
+  font-family: "Poppins", sans-serif;
 `;
 
 export const Input = styled.input`

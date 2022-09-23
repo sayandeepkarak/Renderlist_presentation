@@ -14,11 +14,15 @@ import { createContext } from "react";
 import { useDispatch } from "react-redux";
 import { fetchallplaylists } from "../App/allDataSlice";
 import { db } from "../Firebase";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 const crudContext = createContext();
 
 export const CrudContext = ({ children }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const [load, setload] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -35,6 +39,18 @@ export const CrudContext = ({ children }) => {
           Items: [],
         }
       );
+      enqueueSnackbar(`Successfully created a playlist named ${playlistname}`, {
+        variant: "success",
+      });
+      navigate("/save");
+      setTimeout(() => {
+        enqueueSnackbar(
+          "Now you add videos to this playlist by clicking on plus icon",
+          {
+            variant: "info",
+          }
+        );
+      }, 1000);
     } catch (exp) {
       console.error(exp);
     }
@@ -64,6 +80,9 @@ export const CrudContext = ({ children }) => {
           }),
         }
       );
+      enqueueSnackbar("Successfully add a video", {
+        variant: "success",
+      });
     } catch (exp) {
       console.error(exp);
     }
@@ -85,6 +104,9 @@ export const CrudContext = ({ children }) => {
       await deleteDoc(
         doc(db, `AllAccounts/${userId}`, `Playlists/${playlistId}`)
       );
+      enqueueSnackbar("Successfully deleted", {
+        variant: "success",
+      });
     } catch (exp) {
       console.error(exp);
     }

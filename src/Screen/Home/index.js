@@ -10,7 +10,6 @@ const Home = () => {
 
   useEffect(() => {
     GetAllPlaylist();
-    console.log(allPlaylists);
   }, []);
 
   const countView = (userid, id, value) => {

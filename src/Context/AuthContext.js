@@ -11,12 +11,14 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchUserPlaylists } from "../App/UserPlaylists";
+import { useSnackbar } from "notistack";
 
 const authContext = createContext();
 
 export const AuthContext = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const [currentuser, setcurrentuser] = useState(null);
   const [load, setload] = useState(false);
   const googleprovider = new GoogleAuthProvider();
@@ -80,9 +82,13 @@ export const AuthContext = ({ children }) => {
             ],
           }
         );
-        alert("Register Success");
+        enqueueSnackbar("Thank you for register with Renderlist", {
+          variant: "success",
+        });
       } else {
-        alert("user already exist");
+        enqueueSnackbar("Account already registered, try to login", {
+          variant: "error",
+        });
       }
     } catch (err) {
       console.error(err);
@@ -103,9 +109,14 @@ export const AuthContext = ({ children }) => {
         )[0];
         setcurrentuser(founduser);
         handleFetchuserData(founduser.id);
+        enqueueSnackbar("Successfully logged in", {
+          variant: "success",
+        });
         navigate("/home");
       } else {
-        alert("User not found");
+        enqueueSnackbar("User not found", {
+          variant: "error",
+        });
       }
     } catch (error) {
       console.error(error);
@@ -139,6 +150,7 @@ export const AuthContext = ({ children }) => {
   const handleLogout = () => {
     signOut(auth);
     setcurrentuser(null);
+    navigate("/login");
   };
 
   const value = {

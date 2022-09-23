@@ -12,7 +12,7 @@ export const SearchBarArea = styled.div`
   transform: translate(-3px, -3px);
   filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.25));
   @media (max-width: 1024px) {
-    width: 75%;
+    width: 80%;
   }
   @media (max-width: 790px) {
     width: 90%;

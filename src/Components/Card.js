@@ -18,6 +18,7 @@ import ShareModal from "./ShareModal";
 import Skeleton from "@mui/material/Skeleton";
 import { useDispatch } from "react-redux";
 import { fetchActivePlaylist } from "../App/activePlaylistSlice";
+import DeleteModal from "./DeleteModal";
 
 const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   position: relative;
@@ -27,6 +28,9 @@ const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   margin-bottom: 1vw;
   cursor: pointer;
   @media (max-width: 880px) {
+    max-width: 66%;
+  }
+  @media (max-width: 600px) {
     max-width: 100%;
   }
 `;
@@ -225,6 +229,7 @@ export const Card = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [addmodalOpen, setaddmodalOpen] = useState(false);
   const [shareModalOpen, setshareModalOpen] = useState(false);
+  const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const menuopen = Boolean(anchorEl);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -274,7 +279,12 @@ export const Card = (props) => {
     setAnchorEl(null);
   };
 
+  const handledeleteModalOpen = () => {
+    setdeleteModalOpen(true);
+  };
+
   const handleshareModalClose = () => setshareModalOpen(false);
+  const handledeleteModalClose = () => setdeleteModalOpen(false);
 
   const AddModalPop = React.forwardRef((props, ref) => (
     <AddModal {...props} innerRef={ref} />
@@ -282,6 +292,10 @@ export const Card = (props) => {
 
   const SocialShareModal = React.forwardRef((props, ref) => (
     <ShareModal {...props} innerRef={ref} />
+  ));
+
+  const DeletePlaylistModal = React.forwardRef((props, ref) => (
+    <DeleteModal {...props} innerRef={ref} />
   ));
 
   return (
@@ -369,7 +383,7 @@ export const Card = (props) => {
                       </MenuItem>
                       <Divider style={{ margin: "0px" }} />
                       <MenuItem
-                        onClick={deletePlaylist}
+                        onClick={handledeleteModalOpen}
                         style={{ color: "#D32F2F" }}
                       >
                         <ListItemIcon>
@@ -385,6 +399,16 @@ export const Card = (props) => {
                       <SocialShareModal
                         data={props.data}
                         close={handleshareModalClose}
+                      />
+                    </Modal>
+                    <Modal
+                      open={deleteModalOpen}
+                      onClose={handledeleteModalClose}
+                    >
+                      <DeletePlaylistModal
+                        title={props.data.Title}
+                        delete={deletePlaylist}
+                        close={handledeleteModalClose}
                       />
                     </Modal>
                   </>
