@@ -15,7 +15,11 @@ import { useAuthContext } from "../../Context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { handlegooglelogin, handleLogout } = useAuthContext();
+  const {
+    handlegooglelogin,
+    handlefacebooklogin,
+    handleLogout,
+  } = useAuthContext();
 
   useEffect(() => {
     handleLogout();
@@ -23,6 +27,10 @@ const Login = () => {
 
   const handle_google_login = () => {
     handlegooglelogin();
+  };
+
+  const handle_facebook_login = () => {
+    handlefacebooklogin();
   };
 
   return (
@@ -35,7 +43,7 @@ const Login = () => {
               label="Log in with Google"
               onClick={handle_google_login}
             />
-            <FacebookButton>
+            <FacebookButton onClick={handle_facebook_login}>
               <FacebookOutlinedIcon />
               Log in with facebook
             </FacebookButton>

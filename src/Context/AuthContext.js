@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { createContext } from "react";
 import {
   GoogleAuthProvider,
-  // FacebookAuthProvider,
+  FacebookAuthProvider,
   signOut,
   signInWithPopup,
 } from "firebase/auth";
@@ -22,16 +22,16 @@ export const AuthContext = ({ children }) => {
   const [currentuser, setcurrentuser] = useState(null);
   const [load, setload] = useState(false);
   const googleprovider = new GoogleAuthProvider();
-  // const facebookprovider = new FacebookAuthProvider();
+  const facebookprovider = new FacebookAuthProvider();
 
-  const handlegoogleprovider = (provider, func) => {
+  const handleprovider = (func, provider) => {
     let data;
     signInWithPopup(auth, provider)
       .then((res) => {
         data = res;
       })
       .then(() => {
-        func(data);
+        data !== undefined && func(data);
       })
       .catch((exp) => {
         console.error(exp);
@@ -137,14 +137,19 @@ export const AuthContext = ({ children }) => {
   };
 
   const handlegooglesignup = () => {
-    handlegoogleprovider(googleprovider, createUser);
+    handleprovider(createUser, googleprovider);
   };
+
   const handlefacebooksignup = () => {
-    // handlesignup(facebookprovider);
+    handleprovider(createUser, facebookprovider);
   };
 
   const handlegooglelogin = () => {
-    handlegoogleprovider(googleprovider, loginuser);
+    handleprovider(loginuser, googleprovider);
+  };
+
+  const handlefacebooklogin = () => {
+    handleprovider(loginuser, facebookprovider);
   };
 
   const handleLogout = () => {
@@ -161,6 +166,7 @@ export const AuthContext = ({ children }) => {
     handlegooglesignup,
     handlefacebooksignup,
     handlegooglelogin,
+    handlefacebooklogin,
   };
   return <authContext.Provider value={value}>{children}</authContext.Provider>;
 };

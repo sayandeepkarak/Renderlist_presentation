@@ -35,7 +35,7 @@ const Signup = () => {
               onClick={handle_google_sign}
               label="Sign up with Google"
             />
-            <FacebookButton disabled={true} onClick={handle_facebook_sign}>
+            <FacebookButton onClick={handle_facebook_sign}>
               <FacebookOutlinedIcon />
               Sign up with facebook
             </FacebookButton>
