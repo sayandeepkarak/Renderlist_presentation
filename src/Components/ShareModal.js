@@ -25,7 +25,7 @@ const ShareModal = (props) => {
   const [copy, setCopy] = useState(false);
   const shareData = {
     url: `https://renderlist.logonetek.com/watch/${props.data.Id}/${props.data.Items[0].id}`,
-    title: `Explore and share your video experience with RenderList \nPlaylist -> ${props.data.Title}\n`,
+    title: `Share your youtube video collections with others\nShare your learning Roadmap with your friends\nJoin renderlist now\nDeveloped by -> Sayandeep Karak\nPlaylist -> ${props.data.Title}\n`,
   };
 
   const handleCopy = (e) => {

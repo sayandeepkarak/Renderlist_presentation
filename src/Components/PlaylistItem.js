@@ -10,6 +10,7 @@ const VideoItemBlock = styled.div`
   height: auto;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
+  border-radius: 5px;
   @media (max-width: 930px) {
     height: 70px;
     margin-bottom: 13px;
@@ -18,6 +19,7 @@ const VideoItemBlock = styled.div`
 `;
 
 const Image = styled.img.attrs({ alt: "" })`
+  border-radius: 5px;
   width: 42%;
   margin-left: 2%;
   @media (max-width: 930px) {

@@ -16,8 +16,6 @@ import Modal from "@mui/material/Modal";
 import AddModal from "./AddModal";
 import ShareModal from "./ShareModal";
 import Skeleton from "@mui/material/Skeleton";
-import { useDispatch } from "react-redux";
-import { fetchActivePlaylist } from "../App/activePlaylistSlice";
 import DeleteModal from "./DeleteModal";
 
 const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
@@ -28,6 +26,15 @@ const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   margin-bottom: 1vw;
   cursor: pointer;
   @media (max-width: 880px) {
+    max-width: 26vw;
+  }
+  @media (max-width: 790px) {
+    max-width: 30vw;
+  }
+  @media (max-width: 600px) {
+    max-width: 50%;
+  }
+  @media (max-width: 530px) {
     max-width: 100%;
   }
 `;
@@ -36,6 +43,9 @@ const Thumbnail = styled.img.attrs({
   alt: "",
 })`
   width: 100%;
+  @media (min-width: 530px) {
+    border-radius: 5px;
+  }
 `;
 
 const RatingBox = styled.div`
@@ -46,6 +56,7 @@ const RatingBox = styled.div`
   width: 3vw;
   height: 1.4vw;
   display: flex;
+  border-radius: 4px;
   justify-content: space-evenly;
   align-items: center;
   span {
@@ -228,7 +239,6 @@ export const Card = (props) => {
   const [shareModalOpen, setshareModalOpen] = useState(false);
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const menuopen = Boolean(anchorEl);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -250,7 +260,6 @@ export const Card = (props) => {
           props.data.Views + 1
         );
       }
-      dispatch(fetchActivePlaylist(props.data));
       navigate(`/watch/${props.data.Id}/${props.data.Items[0].id}`);
     }
   };

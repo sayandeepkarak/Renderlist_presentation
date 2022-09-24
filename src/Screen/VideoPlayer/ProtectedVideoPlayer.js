@@ -1,23 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Outlet, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
+import { useCrudContext } from "../../Context/CrudContext";
+import { FlexCenter } from "../../Components/Div";
+import { ScaleLoader } from "react-spinners";
 
 const ProtectedVideoPlayer = () => {
+  const { GetAllPlaylist } = useCrudContext();
+  useEffect(() => {
+    GetAllPlaylist();
+  }, []);
+
   const allPlaylist = useSelector((state) => state.allPlayListReducers.value);
   const dispatch = useDispatch();
   const { playlist, id } = useParams();
   let checkPath = false;
-  allPlaylist.map((element) => {
+  if (allPlaylist.length === 0) {
     return (
-      element.Id === playlist &&
-      element.Items.map(
-        (e) => e.id === id && (checkPath = true),
-        dispatch(fetchActivePlaylist(element))
-      )
+      <>
+        <FlexCenter>
+          <ScaleLoader color="#242560" loading={true} />
+        </FlexCenter>
+        ;
+      </>
     );
-  });
-  return checkPath ? <Outlet /> : <Navigate to="/" />;
+  } else {
+    allPlaylist.map((element) => {
+      return (
+        element.Id === playlist &&
+        element.Items.map(
+          (e) => e.id === id && (checkPath = true),
+          dispatch(fetchActivePlaylist(element))
+        )
+      );
+    });
+    return checkPath ? <Outlet /> : <Navigate to="/" />;
+  }
 };
 
 export default ProtectedVideoPlayer;

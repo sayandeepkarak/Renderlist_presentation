@@ -17,6 +17,8 @@ import Login from "./Screen/Auth/Login";
 import Signup from "./Screen/Auth/Signup";
 import ProtectedScreen from "./Screen/Auth/ProtectedScreen";
 import { SnackbarProvider } from "notistack";
+import { Online, Offline } from "react-detect-offline";
+import OfflineScreen from "./Components/Offline";
 
 const App = () => {
   const [pageLoader, setPageLoader] = useState(false);
@@ -29,40 +31,48 @@ const App = () => {
 
   return (
     <>
-      {pageLoader ? (
-        <FlexCenter>
-          <ScaleLoader color="#242560" loading={pageLoader} />
-        </FlexCenter>
-      ) : (
-        <>
-          <SnackbarProvider autoHideDuration={4000} maxSnack={3}>
-            <AuthContext>
-              <CrudContext>
-                <Header />
-                <FlexBlock>
-                  <SideBar />
-                  <Routes>
-                    <Route end path="/" element={<Navigate to="/home" />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/Signup" element={<Signup />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route element={<ProtectedScreen />}>
-                      <Route path="/playlists" element={<Playlists />} />
-                    </Route>
-                    <Route element={<ProtectedVideoPlayer />}>
-                      <Route path="/watch/:playlist/:id" element={<Watch />} />
-                    </Route>
-                    <Route element={<ProtectedScreen />}>
-                      <Route path="/save" element={<Save />} />
-                    </Route>
-                    <Route path="*" element={<Error />} />
-                  </Routes>
-                </FlexBlock>
-              </CrudContext>
-            </AuthContext>
-          </SnackbarProvider>
-        </>
-      )}
+      <Online>
+        {pageLoader ? (
+          <FlexCenter>
+            <ScaleLoader color="#242560" loading={pageLoader} />
+          </FlexCenter>
+        ) : (
+          <>
+            <SnackbarProvider autoHideDuration={4000} maxSnack={3}>
+              <AuthContext>
+                <CrudContext>
+                  <Header />
+                  <FlexBlock>
+                    <SideBar />
+                    <Routes>
+                      <Route end path="/" element={<Navigate to="/home" />} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/Signup" element={<Signup />} />
+                      <Route path="/home" element={<Home />} />
+                      <Route element={<ProtectedScreen />}>
+                        <Route path="/playlists" element={<Playlists />} />
+                      </Route>
+                      <Route element={<ProtectedVideoPlayer />}>
+                        <Route
+                          path="/watch/:playlist/:id"
+                          element={<Watch />}
+                        />
+                      </Route>
+                      <Route element={<ProtectedScreen />}>
+                        <Route path="/save" element={<Save />} />
+                      </Route>
+                      <Route path="*" element={<Error />} />
+                    </Routes>
+                  </FlexBlock>
+                </CrudContext>
+              </AuthContext>
+            </SnackbarProvider>
+          </>
+        )}
+      </Online>
+      <Offline>
+        <OfflineScreen />
+      </Offline>
     </>
   );
 };

@@ -34,7 +34,12 @@ export const AuthContext = ({ children }) => {
         data !== undefined && func(data);
       })
       .catch((exp) => {
-        console.error(exp);
+        enqueueSnackbar(
+          "This email is already register via google, please try another option",
+          {
+            variant: "error",
+          }
+        );
       });
   };
 
@@ -66,7 +71,7 @@ export const AuthContext = ({ children }) => {
             Views: 0,
             Title: "Demo Playlist | RenderList",
             Thumbnail: "https://i.ytimg.com/vi/jCY6DH8F4oc/maxresdefault.jpg",
-            Hide: false,
+            Hide: true,
             Items: [
               {
                 url: "https://youtu.be/o3KXwe-7A-Is",
@@ -82,6 +87,7 @@ export const AuthContext = ({ children }) => {
             ],
           }
         );
+        navigate("/login");
         enqueueSnackbar("Thank you for register with Renderlist", {
           variant: "success",
         });
