@@ -34,12 +34,9 @@ export const AuthContext = ({ children }) => {
         data !== undefined && func(data);
       })
       .catch((exp) => {
-        enqueueSnackbar(
-          "This email is already register via google, please try another option",
-          {
-            variant: "error",
-          }
-        );
+        enqueueSnackbar("Some technical issue occured", {
+          variant: "error",
+        });
       });
   };
 

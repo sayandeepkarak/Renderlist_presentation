@@ -55,6 +55,7 @@ const Create = (props) => {
         <Input
           name="playlistName"
           placeholder="Playlist Name"
+          autoComplete="off"
           value={values.playlistName}
           onChange={handleChange}
           onBlur={handleBlur}

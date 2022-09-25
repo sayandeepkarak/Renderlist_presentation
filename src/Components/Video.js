@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ReactPlayer from "react-player";
 
 export const VideoPlayerArea = styled.div`
+  border-radius: 5px;
   width: -webkit-fill-available;
   max-width: calc(100vw - 73px);
   max-height: calc(100vh - 78px);
@@ -103,10 +104,11 @@ export const VideoList = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  border-radius: 4px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  gap: 4px;
   ::-webkit-scrollbar {
     display: none;
   }

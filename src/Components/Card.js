@@ -17,6 +17,7 @@ import AddModal from "./AddModal";
 import ShareModal from "./ShareModal";
 import Skeleton from "@mui/material/Skeleton";
 import DeleteModal from "./DeleteModal";
+import { useFunctionContext } from "../Context/FunctionContext";
 
 const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   position: relative;
@@ -211,8 +212,8 @@ const ViewText = styled(NameText)`
   }
 `;
 
-const CardMenu = styled(Menu).attrs({
-  id: "video_menu_btn",
+export const CardMenu = styled(Menu).attrs({
+  id: "video_menu",
   MenuListProps: {
     "aria-labelledby": "video_menu_btn",
   },
@@ -240,6 +241,7 @@ export const Card = (props) => {
   const [deleteModalOpen, setdeleteModalOpen] = useState(false);
   const menuopen = Boolean(anchorEl);
   const navigate = useNavigate();
+  const { convertview } = useFunctionContext();
   const handleClick = (e) => setAnchorEl(e.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
@@ -252,6 +254,7 @@ export const Card = (props) => {
     props.delete(props.data.Id);
   };
   const handleopenvideoplayer = () => {
+    props.editaccess && navigate(`/save/${props.data.Id}`);
     if (props.videoPlayer) {
       if (props.viewCount) {
         props.viewCounter(
@@ -262,19 +265,6 @@ export const Card = (props) => {
       }
       navigate(`/watch/${props.data.Id}/${props.data.Items[0].id}`);
     }
-  };
-  const convertview = (views) => {
-    let view;
-    if ((views > 999) & (views <= 999999)) {
-      view = (views / 1000).toFixed(0).toString() + "k";
-    } else if ((views > 999999) & (views < 999999999)) {
-      view = (views / 1000000).toFixed(0).toString() + "M";
-    } else if ((views > 999999999) & (views < 999999999999)) {
-      view = (views / 1000000000).toFixed(0).toString() + "B";
-    } else {
-      view = views;
-    }
-    return view;
   };
 
   const handleaddModalOpen = () => setaddmodalOpen(true);

@@ -15,7 +15,7 @@ export const SearchBarArea = styled.div`
     width: 80%;
   }
   @media (max-width: 790px) {
-    width: 90%;
+    width: 86%;
     ${(props) => !props.open && "transform: none"};
     ${(props) => !props.open && "filter: none"};
     ${(props) => !props.open && "padding: 0"};

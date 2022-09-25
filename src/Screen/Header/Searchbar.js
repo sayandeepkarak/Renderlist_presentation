@@ -25,7 +25,11 @@ const Searchbar = () => {
           <ArrowBackOutlinedIcon />
         </BackButton>
         <SearchBarArea open={openSearch}>
-          <SearchInput value={searchValue} onInput={handleSearch} />
+          <SearchInput
+            value={searchValue}
+            onInput={handleSearch}
+            autoComplete="off"
+          />
           <SearchButton open={openSearch} onClick={handleOpenSearch}>
             <ButtonIcon src={searchicon} />
           </SearchButton>

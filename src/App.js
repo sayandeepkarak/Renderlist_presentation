@@ -19,6 +19,9 @@ import ProtectedScreen from "./Screen/Auth/ProtectedScreen";
 import { SnackbarProvider } from "notistack";
 import { Online, Offline } from "react-detect-offline";
 import OfflineScreen from "./Components/Offline";
+import ProtectedEdit from "./Screen/Edit/ProtectedEdit";
+import Edit from "./Screen/Edit";
+import { FunctionContext } from "./Context/FunctionContext";
 
 const App = () => {
   const [pageLoader, setPageLoader] = useState(false);
@@ -41,29 +44,36 @@ const App = () => {
             <SnackbarProvider autoHideDuration={4000} maxSnack={3}>
               <AuthContext>
                 <CrudContext>
-                  <Header />
-                  <FlexBlock>
-                    <SideBar />
-                    <Routes>
-                      <Route end path="/" element={<Navigate to="/home" />} />
-                      <Route path="/login" element={<Login />} />
-                      <Route path="/Signup" element={<Signup />} />
-                      <Route path="/home" element={<Home />} />
-                      <Route element={<ProtectedScreen />}>
-                        <Route path="/playlists" element={<Playlists />} />
-                      </Route>
-                      <Route element={<ProtectedVideoPlayer />}>
-                        <Route
-                          path="/watch/:playlist/:id"
-                          element={<Watch />}
-                        />
-                      </Route>
-                      <Route element={<ProtectedScreen />}>
-                        <Route path="/save" element={<Save />} />
-                      </Route>
-                      <Route path="*" element={<Error />} />
-                    </Routes>
-                  </FlexBlock>
+                  <FunctionContext>
+                    <Header />
+                    <FlexBlock>
+                      <SideBar />
+                      <Routes>
+                        <Route end path="/" element={<Navigate to="/home" />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/Signup" element={<Signup />} />
+                        <Route path="/home" element={<Home />} />
+                        <Route element={<ProtectedScreen />}>
+                          <Route path="/playlists" element={<Playlists />} />
+                        </Route>
+                        <Route element={<ProtectedVideoPlayer />}>
+                          <Route
+                            path="/watch/:playlist/:id"
+                            element={<Watch />}
+                          />
+                        </Route>
+                        <Route element={<ProtectedScreen />}>
+                          <Route end path="/save">
+                            <Route index element={<Save />} />
+                            <Route element={<ProtectedEdit />}>
+                              <Route path="/save/:editid" element={<Edit />} />
+                            </Route>
+                          </Route>
+                        </Route>
+                        <Route path="*" element={<Error />} />
+                      </Routes>
+                    </FlexBlock>
+                  </FunctionContext>
                 </CrudContext>
               </AuthContext>
             </SnackbarProvider>

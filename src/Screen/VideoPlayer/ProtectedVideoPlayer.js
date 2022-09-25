@@ -22,7 +22,6 @@ const ProtectedVideoPlayer = () => {
         <FlexCenter>
           <ScaleLoader color="#242560" loading={true} />
         </FlexCenter>
-        ;
       </>
     );
   } else {

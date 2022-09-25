@@ -45,7 +45,7 @@ const Login = () => {
             />
             <FacebookButton onClick={handle_facebook_login}>
               <FacebookOutlinedIcon />
-              Log in with facebook
+              <span>Log in with facebook</span>
             </FacebookButton>
           </AuthButtonArea>
           <AuthJumpLink>

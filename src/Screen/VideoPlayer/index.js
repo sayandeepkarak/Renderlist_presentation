@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { ActiveVideo } from "../../Components/Button";
 import { useCrudContext } from "../../Context/CrudContext";
 import { useParams } from "react-router-dom";
+import { useFunctionContext } from "../../Context/FunctionContext";
 
 const Watch = () => {
   const activeplaylist = useSelector(
@@ -23,6 +24,7 @@ const Watch = () => {
   );
   const { id } = useParams();
   const { searchValue } = useCrudContext();
+  const { convertview } = useFunctionContext();
   const [activeVideo, setactiveVideo] = useState("");
 
   useEffect(() => {
@@ -30,20 +32,6 @@ const Watch = () => {
       return e.id === id && setactiveVideo(e.url);
     });
   }, []);
-
-  const convertview = (views) => {
-    let view;
-    if ((views > 999) & (views <= 999999)) {
-      view = (views / 1000).toFixed(0).toString() + "k";
-    } else if ((views > 999999) & (views < 999999999)) {
-      view = (views / 1000000).toFixed(0).toString() + "M";
-    } else if ((views > 999999999) & (views < 999999999999)) {
-      view = (views / 1000000000).toFixed(0).toString() + "B";
-    } else {
-      view = views;
-    }
-    return view;
-  };
 
   const handleChangeActiveVideo = (url) => setactiveVideo(url);
 

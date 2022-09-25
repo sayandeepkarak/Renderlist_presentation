@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useFunctionContext } from "../Context/FunctionContext";
 import { NameText, Title } from "./Card";
-import DateDiff from "date-diff";
 
-const VideoItemBlock = styled.div`
+export const VideoItemBlock = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -11,6 +11,9 @@ const VideoItemBlock = styled.div`
   font-family: "Poppins", sans-serif;
   cursor: pointer;
   border-radius: 5px;
+  &:hover {
+    background-color: #8787871f;
+  }
   @media (max-width: 930px) {
     height: 70px;
     margin-bottom: 13px;
@@ -18,7 +21,7 @@ const VideoItemBlock = styled.div`
   }
 `;
 
-const Image = styled.img.attrs({ alt: "" })`
+export const SmallImage = styled.img.attrs({ alt: "" })`
   border-radius: 5px;
   width: 42%;
   margin-left: 2%;
@@ -28,7 +31,7 @@ const Image = styled.img.attrs({ alt: "" })`
   }
 `;
 
-const ListVideoDetailsArea = styled.div`
+export const ListVideoDetailsArea = styled.div`
   padding: 0.5vw 2%;
   padding-right: 0;
   width: 100%;
@@ -39,7 +42,7 @@ const ListVideoDetailsArea = styled.div`
   }
 `;
 
-const ListTitle = styled(Title)`
+export const ListTitle = styled(Title)`
   font-weight: normal;
   opacity: 1;
   line-height: initial;
@@ -48,7 +51,7 @@ const ListTitle = styled(Title)`
   }
 `;
 
-const ListBottomText = styled(NameText)`
+export const ListBottomText = styled(NameText)`
   font-weight: bold;
   letter-spacing: 1px;
   display: flex;
@@ -75,44 +78,23 @@ const ListBottomText = styled(NameText)`
 `;
 
 const PlaylistItem = (props) => {
+  const { dateDifference } = useFunctionContext();
+
   const handleactiveVideo = () => {
     props.activevideo(props.data.url);
-  };
-  const dateDifference = () => {
-    const totalDifference = new DateDiff(
-      new Date(),
-      new Date(props.data.publishedAt)
-    );
-    let diff;
-    if (totalDifference.seconds() < 60) {
-      diff = `${totalDifference.seconds()} second `;
-    } else if (totalDifference.minutes() < 60) {
-      diff = `${totalDifference.minutes()} minute `;
-    } else if (totalDifference.hours() < 24) {
-      diff = `${totalDifference.hours()} hour `;
-    } else if (totalDifference.days() < 7) {
-      diff = `${totalDifference.days()} day `;
-    } else if (totalDifference.weeks() < 4) {
-      diff = `${totalDifference.days()} week `;
-    } else if (totalDifference.months() < 12) {
-      diff = `${totalDifference.months()} month `;
-    } else {
-      diff = `${totalDifference.years()} year `;
-    }
-    return diff;
   };
 
   return (
     <>
       <VideoItemBlock onClick={handleactiveVideo}>
-        <Image src={props.data.thumbnail} />
+        <SmallImage src={props.data.thumbnail} />
         <ListVideoDetailsArea>
           <ListTitle>{props.data.videoTitle}</ListTitle>
           <ListBottomText>{props.data.channelTitle}</ListBottomText>
           <ListBottomText>
             {props.viewconvert(props.data.view)} Views
             <li>
-              <span>{dateDifference()}ago</span>
+              <span>{dateDifference(props.data.publishedAt)}ago</span>
             </li>
           </ListBottomText>
         </ListVideoDetailsArea>

@@ -24,7 +24,7 @@ const Playlists = () => {
     handleFetchuserData(currentuser.id);
   };
 
-  const handleDeletePlaylist = async (id) => {
+  const handleDeletePlaylist = (id) => {
     deletePlaylist(currentuser.id, id);
     handleFetchuserData(currentuser.id);
   };

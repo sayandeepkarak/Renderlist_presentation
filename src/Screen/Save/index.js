@@ -29,6 +29,7 @@ const Save = () => {
               <Card
                 key={data.Id}
                 data={data}
+                editaccess={true}
                 hascontrol={true}
                 viewCount={false}
                 videoPlayer={false}

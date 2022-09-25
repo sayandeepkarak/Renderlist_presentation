@@ -54,6 +54,7 @@ const AddModal = (props) => {
         <Input
           name="url"
           placeholder="Youtube video url"
+          autoComplete="off"
           value={values.url}
           onChange={handleChange}
           onBlur={handleBlur}

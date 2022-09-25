@@ -100,11 +100,12 @@ export const FacebookButton = styled.button`
   border: none;
   background-color: #1877f2;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+  padding-right: 8px;
   &:hover {
     opacity: 0.9;
   }

@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { useContext } from "react";
 import { createContext } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchallplaylists } from "../App/allDataSlice";
 import { db } from "../Firebase";
 import { useSnackbar } from "notistack";
@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 const crudContext = createContext();
 
 export const CrudContext = ({ children }) => {
+  const userdata = useSelector((state) => state.userPlaylistsReducers.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -58,31 +59,49 @@ export const CrudContext = ({ children }) => {
 
   const addVideo = async (userId, videoId, playlistId, url) => {
     try {
-      const API_KEY = "AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8";
-      const response = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
-      );
-      const videodata = response.data.items[0].snippet;
-      await updateDoc(
-        doc(db, `AllAccounts/${userId}`, `Playlists/${playlistId}`),
-        {
-          Thumbnail: videodata.thumbnails.medium.url,
-          Items: arrayUnion({
-            url: url,
-            id: videoId,
-            thumbnail: videodata.thumbnails.hasOwnProperty("maxres")
-              ? videodata.thumbnails.maxres.url
-              : videodata.thumbnails.medium.url,
-            channelTitle: videodata.channelTitle,
-            videoTitle: videodata.title,
-            publishedAt: videodata.publishedAt,
-            view: response.data.items[0].statistics.viewCount,
-          }),
+      let checkexist = false;
+      userdata.map((e) => {
+        if (e.Id === playlistId) {
+          e.Items.map((element) => {
+            if (element.id === videoId) {
+              checkexist = true;
+            }
+            return checkexist;
+          });
         }
-      );
-      enqueueSnackbar("Successfully add a video", {
-        variant: "success",
+        return checkexist;
       });
+      if (!checkexist) {
+        const API_KEY = "AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8";
+        const response = await axios.get(
+          `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
+        );
+        const videodata = response.data.items[0].snippet;
+        await updateDoc(
+          doc(db, `AllAccounts/${userId}`, `Playlists/${playlistId}`),
+          {
+            Thumbnail: videodata.thumbnails.medium.url,
+            Items: arrayUnion({
+              url: url,
+              id: videoId,
+              thumbnail: videodata.thumbnails.hasOwnProperty("maxres")
+                ? videodata.thumbnails.maxres.url
+                : videodata.thumbnails.medium.url,
+              channelTitle: videodata.channelTitle,
+              videoTitle: videodata.title,
+              publishedAt: videodata.publishedAt,
+              view: response.data.items[0].statistics.viewCount,
+            }),
+          }
+        );
+        enqueueSnackbar("Successfully add a video", {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar("Video already exist", {
+          variant: "error",
+        });
+      }
     } catch (exp) {
       console.error(exp);
     }
