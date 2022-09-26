@@ -81,7 +81,7 @@ const PlaylistItem = (props) => {
   const { dateDifference } = useFunctionContext();
 
   const handleactiveVideo = () => {
-    props.activevideo(props.data.url);
+    props.activevideo(props.data.url, props.data.videoTitle);
   };
 
   return (

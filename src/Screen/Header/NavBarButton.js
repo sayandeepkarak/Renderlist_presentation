@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import CreateModal from "./CreateModal";
 import {
   AvatarBadge,
+  NameTitle,
   ResponsivePopOver,
   ResponvidePopOverBlock,
   RoundedIconButton,
@@ -12,7 +13,6 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import { useAuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { PopUpTitle } from "../../Components/Modal";
 
 const NavBarButton = () => {
   const navigate = useNavigate();
@@ -135,8 +135,8 @@ const NavBarButton = () => {
               style={{ display: "block" }}
             >
               <ResponvidePopOverBlock>
-                <PopUpTitle>{currentuser.name}</PopUpTitle>
-                <PopUpTitle>{currentuser.email}</PopUpTitle>
+                <NameTitle>{currentuser.name}</NameTitle>
+                <NameTitle>{currentuser.email}</NameTitle>
                 <Button
                   bg="#242560"
                   shadow="#a3abed"

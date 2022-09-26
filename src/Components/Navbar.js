@@ -2,6 +2,7 @@ import { Avatar, Toolbar } from "@mui/material";
 import styled from "styled-components";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
+import { PopUpTitle } from "./Modal";
 
 export const Navbar = styled.div`
   min-height: 78px;
@@ -32,6 +33,13 @@ export const RoundedIconButton = styled(IconButton).attrs({
     },
   },
 })``;
+
+export const NameTitle = styled(PopUpTitle)`
+  font-size: 15px;
+  @media (max-width: 370px) {
+    font-size: 13px;
+  }
+`;
 
 export const AvatarBadge = styled(Avatar).attrs({
   alt: "x",

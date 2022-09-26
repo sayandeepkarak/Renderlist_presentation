@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  NormalBlock,
   PlayerWrapper,
   PlayListTitle,
   PlayListTitleArea,
@@ -17,6 +18,8 @@ import { ActiveVideo } from "../../Components/Button";
 import { useCrudContext } from "../../Context/CrudContext";
 import { useParams } from "react-router-dom";
 import { useFunctionContext } from "../../Context/FunctionContext";
+import Divider from "@mui/material/Divider";
+import { AvatarBadge, RoundedIconButton } from "../../Components/Navbar";
 
 const Watch = () => {
   const activeplaylist = useSelector(
@@ -25,15 +28,17 @@ const Watch = () => {
   const { id } = useParams();
   const { searchValue } = useCrudContext();
   const { convertview } = useFunctionContext();
-  const [activeVideo, setactiveVideo] = useState("");
+  const [activeVideo, setactiveVideo] = useState({ url: "", title: "" });
 
   useEffect(() => {
     activeplaylist.Items.map((e) => {
-      return e.id === id && setactiveVideo(e.url);
+      return e.id === id && setactiveVideo({ url: e.url, title: e.videoTitle });
     });
   }, []);
 
-  const handleChangeActiveVideo = (url) => setactiveVideo(url);
+  const handleChangeActiveVideo = (url, title) => {
+    setactiveVideo({ url: url, title: title });
+  };
 
   return (
     <>
@@ -43,11 +48,27 @@ const Watch = () => {
             <VideoPlayer
               width="100%"
               height="100%"
-              url={activeVideo}
+              url={activeVideo.url}
               playing={true}
               controls
             />
           </PlayerWrapper>
+          <PlayListTitle style={{ marginLeft: "8px" }}>
+            {activeVideo.title}
+          </PlayListTitle>
+          <NormalBlock>
+            <RoundedIconButton>
+              <AvatarBadge src={activeplaylist.photo} />
+            </RoundedIconButton>
+            <span
+              style={{
+                cursor: "default",
+              }}
+            >
+              {activeplaylist.UserName}
+            </span>
+          </NormalBlock>
+          <Divider style={{ margin: "10px 0px" }} />
         </VideoPlayerBlock>
 
         <PlaylistViewBlock>

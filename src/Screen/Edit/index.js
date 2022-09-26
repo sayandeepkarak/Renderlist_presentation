@@ -45,7 +45,7 @@ const Edit = () => {
     (state) => state.activePlayListReducers.value
   );
   const { currentuser, handleFetchuserData } = useAuthContext();
-  const { deletePlaylist, miniUpdate } = useCrudContext();
+  const { deletePlaylist, miniUpdate, searchValue } = useCrudContext();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -58,6 +58,9 @@ const Edit = () => {
   const [deletemodalOpen, setdeletemodalOpen] = useState(false);
   const { convertview } = useFunctionContext();
 
+  const handleplay = (videoId) => {
+    navigate(`/watch/${activeplaylist.Id}/${videoId}`);
+  };
   const handledeleteplaylist = () => {
     deletePlaylist(currentuser.id, activeplaylist.Id);
     handleFetchuserData(currentuser.id);
@@ -172,7 +175,11 @@ const Edit = () => {
               </IconButton>
             </EditTitleBlock>
           )}
-          <TitleBottomtexts>
+          <TitleBottomtexts
+            style={{
+              cursor: "default",
+            }}
+          >
             <p>5.1</p>
             <img src={rateicon} alt="x" />
             <li>
@@ -182,12 +189,27 @@ const Edit = () => {
               <span>{activeplaylist.UserName}</span>
             </li>
           </TitleBottomtexts>
+          <BottomBlock style={{ justifyContent: "end" }}>
+            <CreateButton
+              bg="#c94d4d"
+              shadow="#f7ccd3"
+              onClick={() => handleplay(activeplaylist.Items[0].id)}
+            >
+              Play All
+            </CreateButton>
+          </BottomBlock>
           <BottomBlock>
             <BottomChild>
               <RoundedIconButton>
                 <AvatarBadge src={currentuser.photoUrl} />
               </RoundedIconButton>
-              <span>{activeplaylist.UserName}</span>
+              <span
+                style={{
+                  cursor: "default",
+                }}
+              >
+                {activeplaylist.UserName}
+              </span>
             </BottomChild>
             <BottomChild>
               <IconButton onClick={handleaddmodalopen}>
@@ -234,11 +256,14 @@ const Edit = () => {
           </BottomBlock>
         </PlaylistDetailsArea>
         <ItemsBlock>
-          {activeplaylist.Items.map((element) => {
+          {activeplaylist.Items.filter((e) => {
+            return e["videoTitle"].toLowerCase().includes(searchValue);
+          }).map((element) => {
             return (
               <EditPlaylistItem
                 key={element.id}
                 data={element}
+                jump={handleplay}
                 delete={deletevideo}
               />
             );

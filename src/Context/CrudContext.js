@@ -152,6 +152,7 @@ export const CrudContext = ({ children }) => {
           ...e.data(),
           userId: i.id,
           Id: e.id,
+          photo: i.photoUrl,
         }));
         for (let j of maindata) {
           playlist.push(j);

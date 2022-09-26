@@ -12,6 +12,10 @@ export const VideoPlayerArea = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 2%;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   @media (max-width: 1024px) {
     max-width: 100%;
   }
@@ -24,6 +28,15 @@ export const VideoPlayerArea = styled.div`
   @media (max-width: 530px) {
     padding: 0;
   }
+`;
+
+export const NormalBlock = styled.div`
+  font-family: "Poppins", sans-serif;
+  width: auto;
+  height: auto;
+  margin-top: 15px;
+  gap: 5px;
+  cursor: pointer;
 `;
 
 export const VideoPlayerBlock = styled.div`
@@ -47,6 +60,7 @@ export const PlaylistViewBlock = styled.div`
 export const PlayerWrapper = styled.div`
   position: relative;
   padding-top: 56.25%;
+  margin-bottom: 15px;
 `;
 
 export const VideoPlayer = styled(ReactPlayer)`

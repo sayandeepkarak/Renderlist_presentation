@@ -11,11 +11,12 @@ import IconButton from "@mui/material/IconButton";
 import { ChildImage } from "../../Components/EditScreen";
 
 const EditPlaylistItem = (props) => {
+  const playvideo = () => props.jump(props.data.id);
   return (
     <>
       <VideoItemBlock>
-        <ChildImage src={props.data.thumbnail} />
-        <ListVideoDetailsArea>
+        <ChildImage src={props.data.thumbnail} onClick={playvideo} />
+        <ListVideoDetailsArea onClick={playvideo}>
           <ListTitle>{props.data.videoTitle}</ListTitle>
           <ListBottomText>{props.data.channelTitle}</ListBottomText>
         </ListVideoDetailsArea>

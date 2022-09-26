@@ -58,6 +58,7 @@ const App = () => {
                         </Route>
                         <Route element={<ProtectedVideoPlayer />}>
                           <Route
+                            end
                             path="/watch/:playlist/:id"
                             element={<Watch />}
                           />

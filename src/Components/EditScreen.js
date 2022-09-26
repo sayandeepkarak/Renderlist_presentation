@@ -59,6 +59,7 @@ export const TitleText = styled.p`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: default;
   @media (max-width: 930px) {
     font-size: 18px;
   }
