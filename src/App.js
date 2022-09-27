@@ -29,7 +29,7 @@ const App = () => {
     setPageLoader(true);
     setTimeout(() => {
       setPageLoader(false);
-    }, 2000);
+    }, 7000);
   }, []);
 
   return (
