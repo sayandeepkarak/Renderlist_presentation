@@ -16,11 +16,11 @@ import { useAuthContext } from "../../Context/AuthContext";
 
 const Create = (props) => {
   const handleClose = () => props.close();
-  const { createPlaylist, GetAllPlaylist } = useCrudContext();
-  const { currentuser } = useAuthContext();
+  const { createPlaylist } = useCrudContext();
+  const { handleFetchuserData, currentuser } = useAuthContext();
   const create = async (playlistName) => {
     createPlaylist(playlistName, currentuser);
-    GetAllPlaylist();
+    handleFetchuserData(currentuser.id);
   };
 
   const {

@@ -117,8 +117,10 @@ const Edit = () => {
   };
 
   const deletevideo = (videoId) => {
+    const readyitems = activeplaylist.Items.filter((e) => e.id !== videoId);
     miniUpdate(currentuser.id, activeplaylist.Id, {
-      Items: activeplaylist.Items.filter((e) => e.id !== videoId),
+      Thumbnail: readyitems[readyitems.length - 1].thumbnail,
+      Items: readyitems,
     });
     handleFetchuserData(currentuser.id);
     enqueueSnackbar("Deleted Successfully", {
@@ -205,7 +207,7 @@ const Edit = () => {
               </RoundedIconButton>
               <span
                 style={{
-                  cursor: "default",
+                  cursor: "pointer",
                 }}
               >
                 {activeplaylist.UserName}

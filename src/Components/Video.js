@@ -36,12 +36,18 @@ export const NormalBlock = styled.div`
   height: auto;
   margin-top: 15px;
   gap: 5px;
-  cursor: pointer;
+  button,
+  span {
+    cursor: pointer;
+  }
 `;
 
 export const VideoPlayerBlock = styled.div`
   width: 73%;
-  height: 100%;
+  height: auto;
+  @media (min-width: 930px) {
+    margin-bottom: 15px;
+  }
   @media (max-width: 930px) {
     width: 100%;
   }
@@ -67,6 +73,14 @@ export const VideoPlayer = styled(ReactPlayer)`
   position: absolute;
   top: 0;
   left: 0;
+`;
+
+export const Tools = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 `;
 
 export const PlayListTitleArea = styled.div`

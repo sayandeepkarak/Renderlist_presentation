@@ -5,6 +5,7 @@ import {
   PlayListTitle,
   PlayListTitleArea,
   PlaylistViewBlock,
+  Tools,
   TitleBottomtexts,
   VideoList,
   VideoPlayer,
@@ -20,6 +21,10 @@ import { useParams } from "react-router-dom";
 import { useFunctionContext } from "../../Context/FunctionContext";
 import Divider from "@mui/material/Divider";
 import { AvatarBadge, RoundedIconButton } from "../../Components/Navbar";
+import IconButton from "@mui/material/IconButton";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import SaveModal from "./SaveModal";
+import Modal from "@mui/material/Modal";
 
 const Watch = () => {
   const activeplaylist = useSelector(
@@ -28,17 +33,32 @@ const Watch = () => {
   const { id } = useParams();
   const { searchValue } = useCrudContext();
   const { convertview } = useFunctionContext();
-  const [activeVideo, setactiveVideo] = useState({ url: "", title: "" });
+  const [activeVideo, setactiveVideo] = useState({
+    url: "",
+    title: "",
+    id: undefined,
+  });
+  const [savemodal, setsavemodal] = useState(false);
 
   useEffect(() => {
-    activeplaylist.Items.map((e) => {
-      return e.id === id && setactiveVideo({ url: e.url, title: e.videoTitle });
+    activeplaylist.Items.map((e, i) => {
+      return (
+        e.id === id &&
+        setactiveVideo({ url: e.url, title: e.videoTitle, id: e.id })
+      );
     });
   }, []);
 
-  const handleChangeActiveVideo = (url, title) => {
-    setactiveVideo({ url: url, title: title });
+  const handleopensavemodal = () => setsavemodal(true);
+  const handleclosesavemodal = () => setsavemodal(false);
+
+  const handleChangeActiveVideo = (url, title, id) => {
+    setactiveVideo({ url: url, title: title, id });
   };
+
+  const VideoSaveModal = React.forwardRef((props, ref) => (
+    <SaveModal {...props} innerRef={ref} />
+  ));
 
   return (
     <>
@@ -49,27 +69,35 @@ const Watch = () => {
               width="100%"
               height="100%"
               url={activeVideo.url}
-              playing={true}
+              playing={!savemodal}
               controls
             />
           </PlayerWrapper>
           <PlayListTitle style={{ marginLeft: "8px" }}>
             {activeVideo.title}
           </PlayListTitle>
+          <Tools>
+            <IconButton onClick={handleopensavemodal}>
+              <SaveOutlinedIcon />
+            </IconButton>
+          </Tools>
+          <Divider style={{ margin: "10px 0px" }} />
           <NormalBlock>
             <RoundedIconButton>
               <AvatarBadge src={activeplaylist.photo} />
             </RoundedIconButton>
-            <span
-              style={{
-                cursor: "default",
-              }}
-            >
-              {activeplaylist.UserName}
-            </span>
+            <span>{activeplaylist.UserName}</span>
           </NormalBlock>
-          <Divider style={{ margin: "10px 0px" }} />
         </VideoPlayerBlock>
+
+        <Modal open={savemodal} onClose={handleclosesavemodal}>
+          <VideoSaveModal
+            videoid={activeVideo.id}
+            videourl={activeVideo.url}
+            currentId={activeplaylist.Id}
+            close={handleclosesavemodal}
+          />
+        </Modal>
 
         <PlaylistViewBlock>
           <PlayListTitleArea>
@@ -85,6 +113,7 @@ const Watch = () => {
               </li>
             </TitleBottomtexts>
           </PlayListTitleArea>
+
           <VideoList>
             {activeplaylist.Items.filter((item) =>
               item["videoTitle"].toLowerCase().includes(searchValue)

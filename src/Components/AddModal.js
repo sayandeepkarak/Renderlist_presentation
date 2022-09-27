@@ -19,7 +19,6 @@ const AddModal = (props) => {
   const { addVideo } = useCrudContext();
   const { handleFetchuserData, currentuser } = useAuthContext();
   const handleClose = () => props.close();
-
   const {
     values,
     errors,

@@ -15,14 +15,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchallplaylists } from "../App/allDataSlice";
 import { db } from "../Firebase";
 import { useSnackbar } from "notistack";
-import { useNavigate } from "react-router-dom";
 
 const crudContext = createContext();
 
 export const CrudContext = ({ children }) => {
   const userdata = useSelector((state) => state.userPlaylistsReducers.value);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [load, setload] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -43,10 +41,9 @@ export const CrudContext = ({ children }) => {
       enqueueSnackbar(`Successfully created a playlist named ${playlistname}`, {
         variant: "success",
       });
-      navigate("/save");
       setTimeout(() => {
         enqueueSnackbar(
-          "Now you add videos to this playlist by clicking on plus icon",
+          "Now you can go to save page and add videos to this playlist by clicking on plus icon",
           {
             variant: "info",
           }

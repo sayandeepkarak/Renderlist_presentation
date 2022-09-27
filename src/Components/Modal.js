@@ -89,3 +89,30 @@ export const CreateButton = styled.button`
   margin-bottom: 5px;
   border-radius: 4px;
 `;
+
+export const ListRow = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+`;
+
+export const ListItemBlock = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ListText = styled(BodyText)`
+  display: block;
+  display: -webkit-box;
+  height: min-content;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
