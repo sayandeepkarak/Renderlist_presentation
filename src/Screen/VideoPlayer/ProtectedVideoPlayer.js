@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navigate, Outlet, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
-import { useCrudContext } from "../../Context/CrudContext";
 import { FlexCenter } from "../../Components/Div";
 import { ScaleLoader } from "react-spinners";
 
 const ProtectedVideoPlayer = () => {
-  const { GetAllPlaylist } = useCrudContext();
-  useEffect(() => {
-    GetAllPlaylist();
-  }, []);
-
   const allPlaylist = useSelector((state) => state.allPlayListReducers.value);
   const dispatch = useDispatch();
   const { playlist, id } = useParams();
