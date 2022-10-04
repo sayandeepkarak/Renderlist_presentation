@@ -111,6 +111,7 @@ export const AuthContext = ({ children }) => {
           (e) => e.email === responsedata.user.email
         )[0];
         setcurrentuser(founduser);
+        window.localStorage.setItem("user-key", JSON.stringify(founduser));
         handleFetchuserData(founduser.id);
         enqueueSnackbar("Successfully logged in", {
           variant: "success",
@@ -123,6 +124,18 @@ export const AuthContext = ({ children }) => {
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleStableLogin = async () => {
+    try {
+      const data = await JSON.parse(window.localStorage.getItem("user-key"));
+      if (data !== null) {
+        setcurrentuser(data);
+        handleFetchuserData(data.id);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -158,6 +171,7 @@ export const AuthContext = ({ children }) => {
   const handleLogout = () => {
     signOut(auth);
     setcurrentuser(null);
+    window.localStorage.setItem("user-key", null);
     navigate("/login");
   };
 
@@ -165,6 +179,7 @@ export const AuthContext = ({ children }) => {
     currentuser,
     load,
     handleFetchuserData,
+    handleStableLogin,
     handleLogout,
     handlegooglesignup,
     handlefacebooksignup,

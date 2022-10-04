@@ -17,12 +17,15 @@ import ProtectedScreen from "./Screen/Auth/ProtectedScreen";
 import ProtectedEdit from "./Screen/Edit/ProtectedEdit";
 import Edit from "./Screen/Edit";
 import { useCrudContext } from "./Context/CrudContext";
+import { useAuthContext } from "./Context/AuthContext";
 
 const App = () => {
   const { GetAllPlaylist } = useCrudContext();
+  const { handleStableLogin } = useAuthContext();
   const [pageLoader, setPageLoader] = useState(false);
   useEffect(() => {
     setPageLoader(true);
+    handleStableLogin();
     GetAllPlaylist();
     setTimeout(() => {
       setPageLoader(false);

@@ -25,7 +25,7 @@ const LargeText = styled.p`
   color: #bfbfbf;
 `;
 
-const MiniText = styled.p`
+export const MiniText = styled.p`
   font-family: "Poppins", sans-serif;
   font-size: 2vw;
   color: #7e7e7e;
