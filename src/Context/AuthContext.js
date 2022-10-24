@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchUserPlaylists } from "../App/UserPlaylists";
 import { useSnackbar } from "notistack";
+import Cookies from "js-cookie";
 
 const authContext = createContext();
 
@@ -111,7 +112,10 @@ export const AuthContext = ({ children }) => {
           (e) => e.email === responsedata.user.email
         )[0];
         setcurrentuser(founduser);
-        window.localStorage.setItem("user-key", JSON.stringify(founduser));
+        Cookies.set("log-key", JSON.stringify(founduser), {
+          expires: 2,
+          path: "/",
+        });
         handleFetchuserData(founduser.id);
         enqueueSnackbar("Successfully logged in", {
           variant: "success",
@@ -127,11 +131,11 @@ export const AuthContext = ({ children }) => {
     }
   };
 
-  const handleStableLogin = async () => {
+  const handleStableLogin = () => {
     try {
-      const data = await JSON.parse(window.localStorage.getItem("user-key"));
-      if (data !== null) {
-        setcurrentuser(data);
+      const data = Cookies.get("log-key");
+      if (data !== undefined) {
+        setcurrentuser(JSON.parse(data));
         handleFetchuserData(data.id);
       }
     } catch (error) {
@@ -171,7 +175,7 @@ export const AuthContext = ({ children }) => {
   const handleLogout = () => {
     signOut(auth);
     setcurrentuser(null);
-    window.localStorage.setItem("user-key", null);
+    Cookies.remove("log-key");
     navigate("/login");
   };
 

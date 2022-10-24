@@ -18,11 +18,11 @@ const Login = () => {
   const {
     handlegooglelogin,
     handlefacebooklogin,
-    handleLogout,
+    currentuser,
   } = useAuthContext();
 
   useEffect(() => {
-    handleLogout();
+    currentuser !== null && navigate(-1);
   }, []);
 
   const handle_google_login = () => {

@@ -301,6 +301,7 @@ export const Card = (props) => {
               width="100%"
               sx={{
                 maxWidth: "410px",
+                borderRadius: "5px",
                 height: "180px",
                 "@media(max-width:600px)": {
                   maxWidth: "unset",
@@ -312,6 +313,7 @@ export const Card = (props) => {
               width="100%"
               sx={{
                 mt: "5px",
+                borderRadius: "5px",
                 maxWidth: "410px",
                 "@media(max-width:600px)": {
                   maxWidth: "unset",
