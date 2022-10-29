@@ -57,23 +57,21 @@ export const CrudContext = ({ children }) => {
   const addVideo = async (userId, videoId, playlistId, url) => {
     try {
       let checkexist = false;
-      userdata.map((e) => {
+      userdata.forEach((e) => {
         if (e.Id === playlistId) {
-          e.Items.map((element) => {
+          e.Items.forEach((element) => {
             if (element.id === videoId) {
               checkexist = true;
             }
-            return checkexist;
           });
         }
-        return checkexist;
       });
       if (!checkexist) {
         const API_KEY = "AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8";
         const response = await axios.get(
           `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
         );
-        const videodata = response.data.items[0].snippet;
+        const videodata = await response.data.items[0].snippet;
         await updateDoc(
           doc(db, `AllAccounts/${userId}`, `Playlists/${playlistId}`),
           {
@@ -136,21 +134,22 @@ export const CrudContext = ({ children }) => {
     try {
       setload(true);
       let playlist = [];
-      const data = await getDocs(collection(db, "AllAccounts"));
-      const fetch = data.docs.map((user) => ({
-        ...user.data(),
-        id: user.id,
-      }));
-      for (let i of fetch) {
-        const totaldata = await getDocs(
+      const playlistsData = await getDocs(collection(db, "AllAccounts"));
+      const refreshdata = playlistsData.docs.map((user) => {
+        return { ...user.data(), id: user.id };
+      });
+      for (let i of refreshdata) {
+        const usersplaylist = await getDocs(
           collection(db, `AllAccounts/${i.id}`, "Playlists")
         );
-        const maindata = totaldata.docs.map((e) => ({
-          ...e.data(),
-          userId: i.id,
-          Id: e.id,
-          photo: i.photoUrl,
-        }));
+        const maindata = usersplaylist.docs.map((e) => {
+          return {
+            ...e.data(),
+            userId: i.id,
+            Id: e.id,
+            photo: i.photoUrl,
+          };
+        });
         for (let j of maindata) {
           playlist.push(j);
         }

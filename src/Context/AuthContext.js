@@ -43,25 +43,31 @@ export const AuthContext = ({ children }) => {
 
   const createUser = async (responsedata) => {
     try {
-      const getold = await getDocs(collection(db, "AllAccounts"));
-      const oldadata = getold.docs.map((doc) => ({
-        ...doc.data(),
-        Id: doc.id,
-      }));
-      const found = oldadata.some((e) => e.email === responsedata.user.email);
+      const allusers = await getDocs(collection(db, "AllAccounts"));
+      const userdata = allusers.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          Id: doc.id,
+        };
+      });
+      const found = userdata.some((e) => e.email === responsedata.user.email);
       if (!found) {
-        addDoc(collection(db, "AllAccounts"), {
+        await addDoc(collection(db, "AllAccounts"), {
           name: responsedata.user.displayName,
           email: responsedata.user.email,
           photoUrl: responsedata.user.photoURL,
         });
         const getcurrent = await getDocs(collection(db, "AllAccounts"));
         const currentdata = getcurrent.docs
-          .map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }))
-          .filter((data) => data.email === responsedata.user.email);
+          .map((e) => {
+            return {
+              ...e.data(),
+              id: e.id,
+            };
+          })
+          .filter((data) => {
+            return data.email === responsedata.user.email;
+          });
         await addDoc(
           collection(db, `AllAccounts/${currentdata[0].id}`, "Playlists"),
           {
@@ -101,16 +107,18 @@ export const AuthContext = ({ children }) => {
 
   const loginuser = async (responsedata) => {
     try {
-      const getold = await getDocs(collection(db, "AllAccounts"));
-      const oldadata = getold.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      const found = oldadata.some((e) => e.email === responsedata.user.email);
+      const allusers = await getDocs(collection(db, "AllAccounts"));
+      const userdata = allusers.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          id: doc.id,
+        };
+      });
+      const found = userdata.some((e) => e.email === responsedata.user.email);
       if (found) {
-        const founduser = oldadata.filter(
-          (e) => e.email === responsedata.user.email
-        )[0];
+        const founduser = userdata.filter((e) => {
+          return e.email === responsedata.user.email;
+        })[0];
         setcurrentuser(founduser);
         Cookies.set("log-key", JSON.stringify(founduser), {
           expires: 2,
@@ -132,14 +140,10 @@ export const AuthContext = ({ children }) => {
   };
 
   const handleStableLogin = () => {
-    try {
-      const data = Cookies.get("log-key");
-      if (data !== undefined) {
-        setcurrentuser(JSON.parse(data));
-        handleFetchuserData(data.id);
-      }
-    } catch (error) {
-      console.log(error);
+    const data = Cookies.get("log-key");
+    if (data !== undefined) {
+      setcurrentuser(JSON.parse(data));
+      handleFetchuserData(data.id);
     }
   };
 
