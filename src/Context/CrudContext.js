@@ -71,7 +71,7 @@ export const CrudContext = ({ children }) => {
         const response = await axios.get(
           `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
         );
-        const videodata = await response.data.items[0].snippet;
+        const videodata = response.data.items[0].snippet;
         await updateDoc(
           doc(db, `AllAccounts/${userId}`, `Playlists/${playlistId}`),
           {

@@ -25,30 +25,34 @@ export const AuthContext = ({ children }) => {
   const googleprovider = new GoogleAuthProvider();
   const facebookprovider = new FacebookAuthProvider();
 
-  const handleprovider = (func, provider) => {
-    let data;
-    signInWithPopup(auth, provider)
-      .then((res) => {
-        data = res;
-      })
-      .then(() => {
-        data !== undefined && func(data);
-      })
-      .catch((exp) => {
-        enqueueSnackbar("Some technical issue occured", {
-          variant: "error",
-        });
+  const handleprovider = async (func, provider) => {
+    try {
+      let data = await signInWithPopup(auth, provider);
+      data !== undefined && func(data);
+    } catch (exp) {
+      enqueueSnackbar("Some technical issue occured", {
+        variant: "error",
       });
+    }
+    // signInWithPopup(auth, provider)
+    //   .then((res) => {
+    //     data = res;
+    //   })
+    //   .then(() => {
+    //     data !== undefined && func(data);
+    //   })
+    //   .catch((exp) => {
+    //     enqueueSnackbar("Some technical issue occured", {
+    //       variant: "error",
+    //     });
+    //   });
   };
 
   const createUser = async (responsedata) => {
     try {
       const allusers = await getDocs(collection(db, "AllAccounts"));
       const userdata = allusers.docs.map((doc) => {
-        return {
-          ...doc.data(),
-          Id: doc.id,
-        };
+        return { ...doc.data(), Id: doc.id };
       });
       const found = userdata.some((e) => e.email === responsedata.user.email);
       if (!found) {
@@ -109,10 +113,7 @@ export const AuthContext = ({ children }) => {
     try {
       const allusers = await getDocs(collection(db, "AllAccounts"));
       const userdata = allusers.docs.map((doc) => {
-        return {
-          ...doc.data(),
-          id: doc.id,
-        };
+        return { ...doc.data(), id: doc.id };
       });
       const found = userdata.some((e) => e.email === responsedata.user.email);
       if (found) {
@@ -176,11 +177,15 @@ export const AuthContext = ({ children }) => {
     handleprovider(loginuser, facebookprovider);
   };
 
-  const handleLogout = () => {
-    signOut(auth);
-    setcurrentuser(null);
-    Cookies.remove("log-key");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setcurrentuser(null);
+      Cookies.remove("log-key");
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const value = {

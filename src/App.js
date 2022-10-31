@@ -34,7 +34,7 @@ const App = () => {
 
   return (
     <>
-      {false ? (
+      {pageLoader ? (
         <FlexCenter>
           <ScaleLoader color="#242560" loading={pageLoader} />
         </FlexCenter>
