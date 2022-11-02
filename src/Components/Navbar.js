@@ -10,6 +10,10 @@ export const Navbar = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  background-color: white;
   @media (max-width: 790px) {
     min-height: 68px;
     max-height: 68px;

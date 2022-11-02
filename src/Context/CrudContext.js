@@ -25,6 +25,37 @@ export const CrudContext = ({ children }) => {
   const [load, setload] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
+  const GetAllPlaylist = async () => {
+    try {
+      setload(true);
+      let playlist = [];
+      const playlistsData = await getDocs(collection(db, "AllAccounts"));
+      const refreshdata = playlistsData.docs.map((user) => {
+        return { ...user.data(), id: user.id };
+      });
+      for (let i of refreshdata) {
+        const usersplaylist = await getDocs(
+          collection(db, `AllAccounts/${i.id}`, "Playlists")
+        );
+        const maindata = usersplaylist.docs.map((e) => {
+          return {
+            ...e.data(),
+            userId: i.id,
+            Id: e.id,
+            photo: i.photoUrl,
+          };
+        });
+        for (let j of maindata) {
+          playlist.push(j);
+        }
+      }
+      dispatch(fetchallplaylists(playlist));
+      setload(false);
+    } catch (exp) {
+      console.error(exp);
+    }
+  };
+
   const createPlaylist = async (playlistname, userdetails) => {
     try {
       await addDoc(
@@ -67,7 +98,7 @@ export const CrudContext = ({ children }) => {
         }
       });
       if (!checkexist) {
-        const API_KEY = "AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8";
+        const API_KEY = process.env.REACT_APP_YOUTUBE_API;
         const response = await axios.get(
           `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
         );
@@ -128,37 +159,6 @@ export const CrudContext = ({ children }) => {
 
   const setupsearch = (text) => {
     setSearchValue(text.toLowerCase());
-  };
-
-  const GetAllPlaylist = async () => {
-    try {
-      setload(true);
-      let playlist = [];
-      const playlistsData = await getDocs(collection(db, "AllAccounts"));
-      const refreshdata = playlistsData.docs.map((user) => {
-        return { ...user.data(), id: user.id };
-      });
-      for (let i of refreshdata) {
-        const usersplaylist = await getDocs(
-          collection(db, `AllAccounts/${i.id}`, "Playlists")
-        );
-        const maindata = usersplaylist.docs.map((e) => {
-          return {
-            ...e.data(),
-            userId: i.id,
-            Id: e.id,
-            photo: i.photoUrl,
-          };
-        });
-        for (let j of maindata) {
-          playlist.push(j);
-        }
-      }
-      dispatch(fetchallplaylists(playlist));
-      setload(false);
-    } catch (exp) {
-      console.error(exp);
-    }
   };
 
   const value = {

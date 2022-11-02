@@ -24,7 +24,9 @@ export const SideBarArea = styled.div`
     max-width: min-content;
     padding: 10px 10px;
   }
+  margin-top: 78px;
   @media (max-width: 790px) {
+    margin-top: 68px;
     position: fixed;
     z-index: 1;
     bottom: 0;

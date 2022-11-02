@@ -33,6 +33,9 @@ const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
     max-width: 30vw;
   }
   @media (max-width: 600px) {
+    max-width: 49%;
+  }
+  @media (max-width: 530px) {
     max-width: 100%;
   }
 `;

@@ -1,5 +1,25 @@
 import styled from "styled-components";
 
+export const AutoSizeDiv = styled.div`
+  max-height: calc(100vh - 78px);
+  height: calc(100vh - 78px);
+  overflow-y: scroll;
+  width: 100%;
+  background-color: #f9f9f9;
+  margin-top: 78px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 790px) {
+    margin-top: 68px;
+  }
+  @media (max-width: 330px) {
+    max-height: none;
+    height: auto;
+    gap: 10px;
+  }
+`;
+
 export const FlexBlock = styled.div`
   width: 100%;
   height: auto;
@@ -77,41 +97,45 @@ export const NavButtonArea = styled.div`
 `;
 
 export const CardArea = styled.div`
+  display: flex;
+  justify-content: flex-start;
   width: -webkit-fill-available;
   max-width: calc(100vw - 73px);
-  max-height: calc(100vh - 78px);
-  height: calc(100vh - 78px);
   padding: 2% 4%;
   background-color: #f9f9f9;
-  overflow-y: scroll;
-  display: grid;
   gap: 2%;
-  grid-template-columns: auto auto auto auto;
-  grid-template-rows: max-content;
   flex-wrap: wrap;
   &::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 1140px) {
+    padding: 2% 3%;
+  }
   @media (max-width: 1024px) {
     max-width: 100%;
   }
-  @media (max-width: 880px) {
-    grid-template-columns: auto auto auto;
+  @media (max-width: 900px) {
+    padding: 2% 4%;
+    gap: 1%;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 880px) {
+    padding: 2% 4%;
+    gap: 3%;
+  }
+  @media (max-width: 870px) {
+    gap: 2%;
+  }
+  @media (max-width: 790px) {
+    padding: 2% 3%;
     padding-bottom: 73px !important;
   }
-  @media (max-width: 600px) {
-    grid-template-columns: auto auto;
-  }
   @media (max-width: 530px) {
-    grid-template-columns: auto;
     padding: 0;
+    gap: 10px;
   }
   @media (max-width: 330px) {
     max-height: none;
     height: auto;
-    gap: 10px;
   }
 `;
 

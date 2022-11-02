@@ -34,18 +34,6 @@ export const AuthContext = ({ children }) => {
         variant: "error",
       });
     }
-    // signInWithPopup(auth, provider)
-    //   .then((res) => {
-    //     data = res;
-    //   })
-    //   .then(() => {
-    //     data !== undefined && func(data);
-    //   })
-    //   .catch((exp) => {
-    //     enqueueSnackbar("Some technical issue occured", {
-    //       variant: "error",
-    //     });
-    //   });
   };
 
   const createUser = async (responsedata) => {
