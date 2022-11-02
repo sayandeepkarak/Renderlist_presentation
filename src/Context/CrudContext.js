@@ -98,7 +98,7 @@ export const CrudContext = ({ children }) => {
         }
       });
       if (!checkexist) {
-        const API_KEY = process.env.REACT_APP_YOUTUBE_API;
+        const API_KEY = "AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8";
         const response = await axios.get(
           `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
         );
