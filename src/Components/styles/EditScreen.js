@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { CardMenu } from "./Card";
-import { SmallImage } from "./PlaylistItem";
+import { CardMenu } from "../Others/Card";
+import { SmallImage } from "../Others/PlaylistItem";
 
 export const EditScreenArea = styled.div`
   border-radius: 5px;

@@ -12,27 +12,27 @@ import {
   BottomChild,
   EditMenu,
   ItemsBlock,
-} from "../../Components/EditScreen";
-import { AvatarBadge, RoundedIconButton } from "../../Components/Navbar";
+} from "../../Components/styles/EditScreen";
+import { AvatarBadge, RoundedIconButton } from "../../Components/styles/Navbar";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
-import { CreateButton } from "../../Components/Modal";
+import { CreateButton } from "../../Components/styles/Modal";
 import { useState } from "react";
-import { TitleBottomtexts } from "../../Components/Video";
+import { TitleBottomtexts } from "../../Components/styles/Video";
 import rateicon from "../../Assets/Images/rate.png";
 import MenuItem from "@mui/material/MenuItem";
 import { Divider, ListItemIcon } from "@mui/material";
-import { Image } from "../../Components/Image";
+import { Image } from "../../Components/styles/Image";
 import Shareicon from "../../Assets/Images/share.png";
 import Hideicon from "../../Assets/Images/Hide.png";
 import Deleteicon from "../../Assets/Images/delete.png";
 import EditPlaylistItem from "./EditPlaylistItem";
 import Modal from "@mui/material/Modal";
-import AddModal from "../../Components/AddModal";
-import ShareModal from "../../Components/ShareModal";
-import DeleteModal from "../../Components/DeleteModal";
+import AddModal from "../../Components/Modals/AddModal";
+import ShareModal from "../../Components/Modals/ShareModal";
+import DeleteModal from "../../Components/Modals/DeleteModal";
 import { useSelector } from "react-redux";
 import { useFunctionContext } from "../../Context/FunctionContext";
 import { useAuthContext } from "../../Context/AuthContext";
@@ -48,83 +48,97 @@ const Edit = () => {
   const { deletePlaylist, miniUpdate, searchValue } = useCrudContext();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-
-  const [editmode, seteditmode] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [editinputValue, seteditinputValue] = useState(activeplaylist.Title);
-  const menuopen = Boolean(anchorEl);
-  const [addmodalOpen, setaddmodalOpen] = useState(false);
-  const [socialmodalOpen, setsocialmodalOpen] = useState(false);
-  const [deletemodalOpen, setdeletemodalOpen] = useState(false);
   const { convertview } = useFunctionContext();
-
+  const [state, setstate] = useState({
+    editmode: false,
+    anchorEl: null,
+    editinputValue: activeplaylist.Title,
+    addmodalOpen: false,
+    socialmodalOpen: false,
+    deletemodalOpen: false,
+  });
+  const menuopen = Boolean(state.anchorEl);
   const handleplay = (videoId) => {
     navigate(`/watch/${activeplaylist.Id}/${videoId}`);
   };
   const handledeleteplaylist = () => {
-    deletePlaylist(currentuser.id, activeplaylist.Id);
-    handleFetchuserData(currentuser.id);
-    navigate("/save");
+    deletePlaylist(currentuser.id, activeplaylist.Id).then(() => {
+      handleFetchuserData(currentuser.id);
+      navigate("/save");
+    });
   };
-  const handleInput = (e) => seteditinputValue(e.target.value);
-  const handleClick = (e) => setAnchorEl(e.currentTarget);
-  const handlemenuclose = () => setAnchorEl(null);
-  const handleeditclose = () => seteditmode(false);
-  const handleeditopen = () => seteditmode(true);
-  const handleaddmodalopen = () => setaddmodalOpen(true);
-
-  const handleaddmodalclose = () => setaddmodalOpen(false);
+  const handleInput = (e) => {
+    setstate({ ...state, editinputValue: e.target.value });
+  };
+  const handleClick = (e) => setstate({ ...state, anchorEl: e.currentTarget });
+  const handlemenuclose = () => setstate({ ...state, anchorEl: null });
+  const handleeditclose = () => setstate({ ...state, editmode: false });
+  const handleeditopen = () => setstate({ ...state, editmode: true });
+  const handleaddmodalopen = () => setstate({ ...state, addmodalOpen: true });
+  const handleaddmodalclose = () => setstate({ ...state, addmodalOpen: false });
   const handlesocialmodalopen = () => {
-    setsocialmodalOpen(true);
-    setAnchorEl(null);
+    setstate({ ...state, socialmodalOpen: true, anchorEl: null });
   };
-  const handlesocialmodalclose = () => setsocialmodalOpen(false);
+  const handlesocialmodalclose = () => {
+    setstate({ ...state, socialmodalOpen: false });
+  };
   const handledeletemodalopen = () => {
-    setdeletemodalOpen(true);
-    setAnchorEl(null);
+    setstate({ ...state, deletemodalOpen: true, anchorEl: null });
   };
-  const handledeletemodalclose = () => setdeletemodalOpen(false);
-
+  const handledeletemodalclose = () => {
+    setstate({ ...state, deletemodalOpen: false });
+  };
   const handleupdatetitle = () => {
     if (
-      (editinputValue.length > 0) &
-      (editinputValue !== activeplaylist.Title)
+      (state.editinputValue.length > 0) &
+      (state.editinputValue !== activeplaylist.Title)
     ) {
-      miniUpdate(currentuser.id, activeplaylist.Id, { Title: editinputValue });
-      handleFetchuserData(currentuser.id);
+      miniUpdate(currentuser.id, activeplaylist.Id, {
+        Title: state.editinputValue,
+      }).then(() => {
+        handleFetchuserData(currentuser.id);
+        enqueueSnackbar("Successfully updated playlist Title", {
+          variant: "success",
+        });
+      });
     }
-    enqueueSnackbar("Successfully updated playlist Title", {
-      variant: "success",
-    });
-    seteditmode(false);
+    setstate({ ...state, editmode: false });
   };
 
   const handleshowhideplaylist = () => {
     miniUpdate(currentuser.id, activeplaylist.Id, {
       Hide: !activeplaylist.Hide,
+    }).then(() => {
+      handleFetchuserData(currentuser.id);
+      if (activeplaylist.Hide) {
+        enqueueSnackbar("Successfully Show to public", {
+          variant: "success",
+        });
+      } else {
+        enqueueSnackbar("Successfully Hide from public", {
+          variant: "success",
+        });
+      }
     });
-    handleFetchuserData(currentuser.id);
-    if (activeplaylist.Hide) {
-      enqueueSnackbar("Successfully Show to public", {
-        variant: "success",
-      });
-    } else {
-      enqueueSnackbar("Successfully Hide from public", {
-        variant: "success",
-      });
-    }
-    setAnchorEl(null);
+    setstate({ ...state, anchorEl: null });
   };
 
   const deletevideo = (videoId) => {
+    console.log("fire");
     const readyitems = activeplaylist.Items.filter((e) => e.id !== videoId);
+    console.log(readyitems);
+    const thumb =
+      readyitems.length > 0
+        ? readyitems[readyitems.length - 1].thumbnail
+        : "https://i.ytimg.com/vi/jCY6DH8F4oc/maxresdefault.jpg";
     miniUpdate(currentuser.id, activeplaylist.Id, {
-      Thumbnail: readyitems[readyitems.length - 1].thumbnail,
+      Thumbnail: thumb,
       Items: readyitems,
-    });
-    handleFetchuserData(currentuser.id);
-    enqueueSnackbar("Deleted Successfully", {
-      variant: "success",
+    }).then(() => {
+      handleFetchuserData(currentuser.id);
+      enqueueSnackbar("Deleted Successfully", {
+        variant: "success",
+      });
     });
   };
 
@@ -145,10 +159,10 @@ const Edit = () => {
       <EditScreenArea>
         <PlaylistDetailsArea>
           <PlaylistThumb src={activeplaylist.Thumbnail} />
-          {editmode ? (
+          {state.editmode ? (
             <EditInputBlock>
               <EditInput
-                value={editinputValue}
+                value={state.editinputValue}
                 autoComplete="off"
                 onChange={handleInput}
               />
@@ -227,7 +241,7 @@ const Edit = () => {
                 <MoreVertIcon />
               </IconButton>
               <EditMenu
-                anchorEl={anchorEl}
+                anchorEl={state.anchorEl}
                 open={menuopen}
                 onClose={handlemenuclose}
               >
@@ -266,25 +280,25 @@ const Edit = () => {
                 key={element.id}
                 data={element}
                 jump={handleplay}
-                delete={deletevideo}
+                remove={deletevideo}
               />
             );
           })}
         </ItemsBlock>
       </EditScreenArea>
-      <Modal open={addmodalOpen} onClose={handleaddmodalclose}>
+      <Modal open={state.addmodalOpen} onClose={handleaddmodalclose}>
         <AddModalPop data={activeplaylist.Id} close={handleaddmodalclose} />
       </Modal>
-      <Modal open={socialmodalOpen} onClose={handlesocialmodalopen}>
+      <Modal open={state.socialmodalOpen} onClose={handlesocialmodalopen}>
         <SocialShareModal
           data={activeplaylist}
           close={handlesocialmodalclose}
         />
       </Modal>
-      <Modal open={deletemodalOpen} onClose={handledeletemodalopen}>
+      <Modal open={state.deletemodalOpen} onClose={handledeletemodalopen}>
         <DeletePlaylistModal
           title={activeplaylist.Title}
-          delete={handledeleteplaylist}
+          remove={handledeleteplaylist}
           close={handledeletemodalclose}
         />
       </Modal>

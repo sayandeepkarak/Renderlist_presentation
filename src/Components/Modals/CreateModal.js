@@ -5,41 +5,36 @@ import {
   Input,
   PopUpHead,
   PopUpTitle,
-} from "../../Components/Modal";
+} from "../../Components/styles/Modal";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
 import { CreateFormSchema } from "../../Schemas";
-import { Errortext } from "../../Components/Text";
+import { Errortext } from "../styles/Text";
 import { useCrudContext } from "../../Context/CrudContext";
 import { useAuthContext } from "../../Context/AuthContext";
+import { useState } from "react";
 
-const Create = (props) => {
-  const handleClose = () => props.close();
+const Create = ({ close }) => {
+  const handleClose = () => close();
   const { createPlaylist } = useCrudContext();
   const { handleFetchuserData, currentuser } = useAuthContext();
-  const create = async (playlistName) => {
-    createPlaylist(playlistName, currentuser);
-    handleFetchuserData(currentuser.id);
-  };
+  const [createTxt, setCreateTxt] = useState("Create");
 
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useFormik({
-    initialValues: {
-      playlistName: "",
-    },
-    validationSchema: CreateFormSchema,
-    onSubmit: (value) => {
-      create(value.playlistName);
-      handleClose();
-    },
-  });
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        playlistName: "",
+      },
+      validationSchema: CreateFormSchema,
+      onSubmit: (value) => {
+        setCreateTxt("Creating...");
+        createPlaylist(value.playlistName, currentuser).then(() => {
+          handleFetchuserData(currentuser.id);
+          handleClose();
+        });
+      },
+    });
 
   return (
     <>
@@ -64,7 +59,7 @@ const Create = (props) => {
           <Errortext>{errors.playlistName}</Errortext>
         )}
         <CreateButton type="submit" bg="#242560" shadow="#a3abed">
-          <span>Create</span>
+          <span>{createTxt}</span>
         </CreateButton>
       </ModalBlock>
     </>

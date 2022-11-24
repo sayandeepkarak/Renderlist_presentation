@@ -1,6 +1,6 @@
 import React from "react";
-import { RoundedButton } from "../../Components/Button";
-import { RoundedButtonIcon, SideBarArea } from "../../Components/Sidebar";
+import { RoundedButton } from "../../Components/styles/Button";
+import { RoundedButtonIcon, SideBarArea } from "../styles/Sidebar";
 import homeicon from "../../Assets/Images/home.png";
 import listicon from "../../Assets/Images/list.png";
 import saveicon from "../../Assets/Images/save.png";

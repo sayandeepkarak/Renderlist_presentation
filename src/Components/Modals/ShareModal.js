@@ -6,7 +6,7 @@ import {
   PopUpHead,
   PopUpTitle,
   RowFlex,
-} from "./Modal";
+} from "../styles/Modal";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import {
@@ -20,12 +20,12 @@ import {
   WhatsappShareButton,
 } from "react-share";
 
-const ShareModal = (props) => {
-  const handleClose = () => props.close();
+const ShareModal = ({ close, data }) => {
+  const handleClose = () => close();
   const [copy, setCopy] = useState(false);
   const shareData = {
-    url: `https://renderlist.logonetek.com/watch/${props.data.Id}/${props.data.Items[0].id}`,
-    title: `Share your youtube video collections with others\nShare your learning Roadmap with your friends\nJoin renderlist now\nDeveloped by -> Sayandeep Karak\nPlaylist -> ${props.data.Title}\n`,
+    url: `https://renderlist.logonetek.com/watch/${data.Id}/${data.Items[0].id}`,
+    title: `Share your youtube video collections with others\nShare your learning Roadmap with your friends\nJoin renderlist now\nDeveloped by -> Sayandeep Karak\nPlaylist -> ${data.Title}\n`,
   };
 
   const handleCopy = (e) => {

@@ -1,19 +1,24 @@
-import React, { useEffect } from "react";
-import { Card } from "../../Components/Card";
-import { CardArea } from "../../Components/Div";
+import React, { useEffect, useRef, useState } from "react";
+import { Card } from "../../Components/Others/Card";
+import { CardArea } from "../../Components/styles/Div";
 import { useSelector } from "react-redux";
 import { useCrudContext } from "../../Context/CrudContext";
 
 const Home = () => {
-  const { GetAllPlaylist, miniUpdate, load, searchValue } = useCrudContext();
+  const { GetAllPlaylist, miniUpdate, searchValue } = useCrudContext();
   const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
   const filterplaylist = allPlaylists.filter((item) => {
     return item["Title"].toLowerCase().includes(searchValue);
   });
+  const [loading, setloading] = useState(false);
+  const render = useRef(true);
 
   useEffect(() => {
-    GetAllPlaylist();
-  }, []);
+    if (!render.current) return;
+    setloading(true);
+    GetAllPlaylist().then(() => setloading(false));
+    render.current = false;
+  }, [GetAllPlaylist]);
 
   const countView = (userid, id, value) => {
     miniUpdate(userid, id, {
@@ -31,7 +36,7 @@ const Home = () => {
               data={data}
               viewCount={true}
               viewCounter={countView}
-              loading={load}
+              loading={loading}
               videoPlayer={true}
             />
           ) : null;

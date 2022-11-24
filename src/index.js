@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "./App/store";
 import App from "./App";
 import { Online, Offline } from "react-detect-offline";
-import OfflineScreen from "./Components/Offline";
+import OfflineScreen from "./Components/Others/Offline";
 import { SnackbarProvider } from "notistack";
 import { CrudContext } from "./Context/CrudContext";
 import { AuthContext } from "./Context/AuthContext";

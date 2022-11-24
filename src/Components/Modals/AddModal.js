@@ -5,39 +5,37 @@ import {
   Input,
   PopUpHead,
   PopUpTitle,
-} from "./Modal";
+} from "../styles/Modal";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFormik } from "formik";
-import { AddUrlSchema } from "../Schemas";
-import { Errortext } from "./Text";
+import { AddUrlSchema } from "../../Schemas";
+import { Errortext } from "../styles/Text";
 import getVideoId from "get-video-id";
-import { useCrudContext } from "../Context/CrudContext";
-import { useAuthContext } from "../Context/AuthContext";
+import { useCrudContext } from "../../Context/CrudContext";
+import { useAuthContext } from "../../Context/AuthContext";
+import { useState } from "react";
 
-const AddModal = (props) => {
+const AddModal = ({ close, data }) => {
   const { addVideo } = useCrudContext();
   const { handleFetchuserData, currentuser } = useAuthContext();
-  const handleClose = () => props.close();
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = useFormik({
-    initialValues: {
-      url: "",
-    },
-    validationSchema: AddUrlSchema,
-    onSubmit: (value) => {
-      const { id } = getVideoId(value.url);
-      addVideo(currentuser.id, id, props.data, value.url);
-      handleFetchuserData(currentuser.id);
-      handleClose();
-    },
-  });
+  const handleClose = () => close();
+  const [addTxt, setaddTxt] = useState("Add");
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik({
+      initialValues: {
+        url: "",
+      },
+      validationSchema: AddUrlSchema,
+      onSubmit: (value) => {
+        const { id } = getVideoId(value.url);
+        setaddTxt("Adding...");
+        addVideo(currentuser.id, id, data, value.url).then(() => {
+          handleFetchuserData(currentuser.id);
+          handleClose();
+        });
+      },
+    });
 
   return (
     <>
@@ -60,7 +58,7 @@ const AddModal = (props) => {
         />
         {errors.url && touched.url && <Errortext>{errors.url}</Errortext>}
         <CreateButton type="submit" bg="#c94d4d" shadow="#f7ccd3">
-          <span>Add</span>
+          <span>{addTxt}</span>
         </CreateButton>
       </ModalBlock>
     </>

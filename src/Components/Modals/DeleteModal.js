@@ -6,13 +6,13 @@ import {
   PopUpHead,
   PopUpTitle,
   RowFlex,
-} from "./Modal";
+} from "../styles/Modal";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-const DeleteModal = (props) => {
-  const handledelete = () => props.delete();
-  const handleClose = () => props.close();
+const DeleteModal = ({ remove, close, title }) => {
+  const handledelete = () => remove();
+  const handleClose = () => close();
 
   return (
     <>
@@ -26,7 +26,7 @@ const DeleteModal = (props) => {
           </IconButton>
         </PopUpHead>
         <BodyText>
-          <span>Are you sure to delete {props.title}</span>
+          <span>Are you sure to delete {title}</span>
         </BodyText>
         <RowFlex style={{ justifyContent: "end", paddingRight: "12px" }}>
           <CreateButton bg="#242560" shadow="#a3abed" onClick={handleClose}>

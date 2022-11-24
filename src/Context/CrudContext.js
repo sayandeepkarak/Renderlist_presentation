@@ -45,9 +45,7 @@ export const CrudContext = ({ children }) => {
             photo: i.photoUrl,
           };
         });
-        for (let j of maindata) {
-          playlist.push(j);
-        }
+        playlist.push(...maindata);
       }
       dispatch(fetchallplaylists(playlist));
       setload(false);
@@ -88,15 +86,15 @@ export const CrudContext = ({ children }) => {
   const addVideo = async (userId, videoId, playlistId, url) => {
     try {
       let checkexist = false;
-      userdata.forEach((e) => {
-        if (e.Id === playlistId) {
-          e.Items.forEach((element) => {
-            if (element.id === videoId) {
-              checkexist = true;
-            }
-          });
+      for (const t of userdata) {
+        if (t.Id !== playlistId) continue;
+        for (const g of t.Items) {
+          if (g.id !== videoId) continue;
+          checkexist = true;
+          break;
         }
-      });
+        if (checkexist) break;
+      }
       if (!checkexist) {
         const API_KEY = "AIzaSyBTsBfekWxf7kIlJPkAF-3CauTVx8J5L_8";
         const response = await axios.get(

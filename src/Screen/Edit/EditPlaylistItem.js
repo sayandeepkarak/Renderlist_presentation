@@ -4,25 +4,25 @@ import {
   ListTitle,
   ListVideoDetailsArea,
   VideoItemBlock,
-} from "../../Components/PlaylistItem";
-import { Image } from "../../Components/Image";
+} from "../../Components/Others/PlaylistItem";
+import { Image } from "../../Components/styles/Image";
 import Deleteicon from "../../Assets/Images/delete.png";
 import IconButton from "@mui/material/IconButton";
-import { ChildImage } from "../../Components/EditScreen";
+import { ChildImage } from "../../Components/styles/EditScreen";
 
-const EditPlaylistItem = (props) => {
-  const playvideo = () => props.jump(props.data.id);
+const EditPlaylistItem = ({ jump, data, remove }) => {
+  const playvideo = () => jump(data.id);
   return (
     <>
       <VideoItemBlock>
-        <ChildImage src={props.data.thumbnail} onClick={playvideo} />
+        <ChildImage src={data.thumbnail} onClick={playvideo} />
         <ListVideoDetailsArea onClick={playvideo}>
-          <ListTitle>{props.data.videoTitle}</ListTitle>
-          <ListBottomText>{props.data.channelTitle}</ListBottomText>
+          <ListTitle>{data.videoTitle}</ListTitle>
+          <ListBottomText>{data.channelTitle}</ListBottomText>
         </ListVideoDetailsArea>
         <IconButton
           style={{ alignSelf: "end", margin: "13px 2%" }}
-          onClick={() => props.delete(props.data.id)}
+          onClick={() => remove(data.id)}
         >
           <Image src={Deleteicon} />
         </IconButton>

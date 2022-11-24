@@ -11,16 +11,16 @@ import {
   VideoPlayer,
   VideoPlayerArea,
   VideoPlayerBlock,
-} from "../../Components/Video";
+} from "../../Components/styles/Video";
 import rateicon from "../../Assets/Images/rate.png";
-import PlaylistItem from "../../Components/PlaylistItem";
+import PlaylistItem from "../../Components/Others/PlaylistItem";
 import { useSelector } from "react-redux";
-import { ActiveVideo } from "../../Components/Button";
+import { ActiveVideo } from "../../Components/styles/Button";
 import { useCrudContext } from "../../Context/CrudContext";
 import { useParams } from "react-router-dom";
 import { useFunctionContext } from "../../Context/FunctionContext";
 import Divider from "@mui/material/Divider";
-import { AvatarBadge, RoundedIconButton } from "../../Components/Navbar";
+import { AvatarBadge, RoundedIconButton } from "../../Components/styles/Navbar";
 import IconButton from "@mui/material/IconButton";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import SaveModal from "./SaveModal";
@@ -47,7 +47,7 @@ const Watch = () => {
         setactiveVideo({ url: e.url, title: e.videoTitle, id: e.id })
       );
     });
-  }, []);
+  }, [activeplaylist.Items, id]);
 
   const handleopensavemodal = () => setsavemodal(true);
   const handleclosesavemodal = () => setsavemodal(false);

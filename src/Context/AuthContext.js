@@ -130,10 +130,9 @@ export const AuthContext = ({ children }) => {
 
   const handleStableLogin = () => {
     const data = Cookies.get("log-key");
-    if (data !== undefined) {
-      setcurrentuser(JSON.parse(data));
-      handleFetchuserData(data.id);
-    }
+    if (data === undefined) return;
+    setcurrentuser(JSON.parse(data));
+    handleFetchuserData(data.id);
   };
 
   const handleFetchuserData = async (userid) => {

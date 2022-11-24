@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import errorimage from "../Assets/Images/error.png";
+import errorimage from "../../Assets/Images/error.png";
 
 const PageArea = styled.div`
   width: 100%;

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./Screen/Header";
-import SideBar from "./Screen/SideBar";
+import SideBar from "./Components/Others/Sidebar";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Screen/Home";
-import { AutoSizeDiv, FlexBlock, FlexCenter } from "./Components/Div";
+import { AutoSizeDiv, FlexBlock, FlexCenter } from "./Components/styles/Div";
 import Playlists from "./Screen/PlayLists";
 import Save from "./Screen/Save";
-import Error from "./Components/Error";
+import Error from "./Components/Others/Error";
 import Watch from "./Screen/VideoPlayer";
 import ProtectedVideoPlayer from "./Screen/VideoPlayer/ProtectedVideoPlayer";
 import { ScaleLoader } from "react-spinners";
@@ -18,23 +18,20 @@ import ProtectedEdit from "./Screen/Edit/ProtectedEdit";
 import Edit from "./Screen/Edit";
 import { useCrudContext } from "./Context/CrudContext";
 import { useAuthContext } from "./Context/AuthContext";
+import { useRef } from "react";
 
 const App = () => {
   const { GetAllPlaylist } = useCrudContext();
   const { handleStableLogin } = useAuthContext();
   const [pageLoader, setPageLoader] = useState(false);
-
-  document.body.onload = () => {
+  const render = useRef(true);
+  useEffect(() => {
+    if (!render.current) return;
     setPageLoader(true);
     handleStableLogin();
-    setTimeout(() => {
-      setPageLoader(false);
-    }, 5000);
-  };
-
-  useEffect(() => {
-    GetAllPlaylist();
-  }, []);
+    GetAllPlaylist().then(() => setPageLoader(false));
+    render.current = false;
+  }, [GetAllPlaylist, handleStableLogin]);
 
   return (
     <>

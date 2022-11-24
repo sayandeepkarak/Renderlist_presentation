@@ -4,20 +4,20 @@ import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Shareicon from "../Assets/Images/share.png";
-import Hideicon from "../Assets/Images/Hide.png";
-import Deleteicon from "../Assets/Images/delete.png";
-import rateicon from "../Assets/Images/rate.png";
-import { Image } from "./Image";
+import Shareicon from "../../Assets/Images/share.png";
+import Hideicon from "../../Assets/Images/Hide.png";
+import Deleteicon from "../../Assets/Images/delete.png";
+import rateicon from "../../Assets/Images/rate.png";
+import { Image } from "../styles/Image";
 import { Divider, ListItemIcon } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import Modal from "@mui/material/Modal";
-import AddModal from "./AddModal";
-import ShareModal from "./ShareModal";
+import AddModal from "../Modals/AddModal";
+import ShareModal from "../Modals/ShareModal";
 import Skeleton from "@mui/material/Skeleton";
-import DeleteModal from "./DeleteModal";
-import { useFunctionContext } from "../Context/FunctionContext";
+import DeleteModal from "../Modals/DeleteModal";
+import { useFunctionContext } from "../../Context/FunctionContext";
 
 const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   position: relative;
@@ -234,7 +234,18 @@ export const CardMenu = styled(Menu).attrs({
   }
 `;
 
-export const Card = (props) => {
+export const Card = ({
+  hide,
+  data,
+  remove,
+  editaccess,
+  videoPlayer,
+  viewCount,
+  viewCounter,
+  loading,
+  hascontrol,
+  menuControl,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [addmodalOpen, setaddmodalOpen] = useState(false);
   const [shareModalOpen, setshareModalOpen] = useState(false);
@@ -247,23 +258,19 @@ export const Card = (props) => {
 
   const handleHide = () => {
     setAnchorEl(null);
-    props.hide(props.data.Id, !props.data.Hide);
+    hide(data.Id, !data.Hide);
   };
   const deletePlaylist = () => {
     setAnchorEl(null);
-    props.delete(props.data.Id);
+    remove(data.Id);
   };
   const handleopenvideoplayer = () => {
-    props.editaccess && navigate(`/save/${props.data.Id}`);
-    if (props.videoPlayer) {
-      if (props.viewCount) {
-        props.viewCounter(
-          props.data.userId,
-          props.data.Id,
-          props.data.Views + 1
-        );
+    editaccess && navigate(`/save/${data.Id}`);
+    if (videoPlayer) {
+      if (viewCount) {
+        viewCounter(data.userId, data.Id, data.Views + 1);
       }
-      navigate(`/watch/${props.data.Id}/${props.data.Items[0].id}`);
+      navigate(`/watch/${data.Id}/${data.Items[0].id}`);
     }
   };
 
@@ -296,7 +303,7 @@ export const Card = (props) => {
 
   return (
     <>
-      {props.loading ? (
+      {loading ? (
         <>
           <CardBlock>
             <Skeleton
@@ -328,28 +335,25 @@ export const Card = (props) => {
         </>
       ) : (
         <CardBlock>
-          <Thumbnail
-            src={props.data.Thumbnail}
-            onClick={handleopenvideoplayer}
-          />
+          <Thumbnail src={data.Thumbnail} onClick={handleopenvideoplayer} />
           <RatingBox>
             <span>4.2</span>
             <img src={rateicon} alt="" />
           </RatingBox>
           <BottomArea>
             <TitleArea>
-              <Title>{props.data.Title}</Title>
-              <NameText>{props.data.UserName}</NameText>
+              <Title>{data.Title}</Title>
+              <NameText>{data.UserName}</NameText>
               <ViewText>
-                {convertview(props.data.Views)} views
+                {convertview(data.Views)} views
                 <li>
-                  <span> {props.data.Items.length} items</span>
+                  <span> {data.Items.length} items</span>
                 </li>
               </ViewText>
             </TitleArea>
-            {props.hascontrol && (
+            {hascontrol && (
               <>
-                {props.menuControl ? (
+                {menuControl ? (
                   <>
                     <IconButton
                       size="small"
@@ -377,7 +381,7 @@ export const Card = (props) => {
                         <ListItemIcon>
                           <Image src={Hideicon} />
                         </ListItemIcon>
-                        {props.data.Hide ? "Public" : "Private"}
+                        {data.Hide ? "Public" : "Private"}
                       </MenuItem>
                       <Divider style={{ margin: "0px" }} />
                       <MenuItem
@@ -395,7 +399,7 @@ export const Card = (props) => {
                       onClose={handleshareModalClose}
                     >
                       <SocialShareModal
-                        data={props.data}
+                        data={data}
                         close={handleshareModalClose}
                       />
                     </Modal>
@@ -404,8 +408,8 @@ export const Card = (props) => {
                       onClose={handledeleteModalClose}
                     >
                       <DeletePlaylistModal
-                        title={props.data.Title}
-                        delete={deletePlaylist}
+                        title={data.Title}
+                        remove={deletePlaylist}
                         close={handledeleteModalClose}
                       />
                     </Modal>
@@ -420,10 +424,7 @@ export const Card = (props) => {
                       <ControlPointIcon />
                     </IconButton>
                     <Modal open={addmodalOpen} onClose={handleaddModalClose}>
-                      <AddModalPop
-                        data={props.data.Id}
-                        close={handleaddModalClose}
-                      />
+                      <AddModalPop data={data.Id} close={handleaddModalClose} />
                     </Modal>
                   </>
                 )}

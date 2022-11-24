@@ -5,10 +5,10 @@ import {
   AuthButtonArea,
   AuthJumpLink,
   AuthViewArea,
-} from "../../Components/Div";
-import { FacebookButton } from "../../Components/Button";
+} from "../../Components/styles/Div";
+import { FacebookButton } from "../../Components/styles/Button";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import { LogoImage } from "../../Components/Image";
+import { LogoImage } from "../../Components/styles/Image";
 import Logo from "../../Assets/Images/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../Context/AuthContext";

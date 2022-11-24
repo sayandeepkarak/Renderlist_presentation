@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import OfflineImage from "../Assets/Images/images.png";
-import { Button } from "./Button";
+import OfflineImage from "../../Assets/Images/images.png";
+import { Button } from "../styles/Button";
 
 const OfflineContainer = styled.div`
   width: 100%;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useFunctionContext } from "../Context/FunctionContext";
+import { useFunctionContext } from "../../Context/FunctionContext";
 import { NameText, Title } from "./Card";
 
 export const VideoItemBlock = styled.div`
@@ -77,24 +77,24 @@ export const ListBottomText = styled(NameText)`
   }
 `;
 
-const PlaylistItem = (props) => {
+const PlaylistItem = ({ data, activevideo, viewconvert }) => {
   const { dateDifference } = useFunctionContext();
 
   const handleactiveVideo = () => {
-    props.activevideo(props.data.url, props.data.videoTitle, props.data.id);
+    activevideo(data.url, data.videoTitle, data.id);
   };
 
   return (
     <>
       <VideoItemBlock onClick={handleactiveVideo}>
-        <SmallImage src={props.data.thumbnail} />
+        <SmallImage src={data.thumbnail} />
         <ListVideoDetailsArea>
-          <ListTitle>{props.data.videoTitle}</ListTitle>
-          <ListBottomText>{props.data.channelTitle}</ListBottomText>
+          <ListTitle>{data.videoTitle}</ListTitle>
+          <ListBottomText>{data.channelTitle}</ListBottomText>
           <ListBottomText>
-            {props.viewconvert(props.data.view)} Views
+            {viewconvert(data.view)} Views
             <li>
-              <span>{dateDifference(props.data.publishedAt)}ago</span>
+              <span>{dateDifference(data.publishedAt)}ago</span>
             </li>
           </ListBottomText>
         </ListVideoDetailsArea>

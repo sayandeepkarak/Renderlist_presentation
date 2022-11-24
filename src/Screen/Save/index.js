@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
-import { Card } from "../../Components/Card";
-import { CardArea } from "../../Components/Div";
+import React, { useEffect, useRef, useState } from "react";
+import { Card } from "../../Components/Others/Card";
+import { CardArea } from "../../Components/styles/Div";
 import { useSelector } from "react-redux";
 import { useCrudContext } from "../../Context/CrudContext";
 import { useAuthContext } from "../../Context/AuthContext";
 
 const Save = () => {
   const { searchValue } = useCrudContext();
-  const { handleFetchuserData, currentuser, load } = useAuthContext();
-
+  const { handleFetchuserData, currentuser } = useAuthContext();
+  const [loading, setloading] = useState(false);
+  const render = useRef(true);
   const allPlaylists = useSelector(
     (state) => state.userPlaylistsReducers.value
   );
@@ -17,8 +18,11 @@ const Save = () => {
   });
 
   useEffect(() => {
-    handleFetchuserData(currentuser.id);
-  }, []);
+    if (!render.current) return;
+    setloading(true);
+    handleFetchuserData(currentuser.id).then(() => setloading(false));
+    render.current = false;
+  }, [handleFetchuserData, currentuser.id]);
 
   return (
     <>
@@ -32,7 +36,7 @@ const Save = () => {
               hascontrol={true}
               viewCount={false}
               videoPlayer={false}
-              loading={load}
+              loading={loading}
             />
           );
         })}

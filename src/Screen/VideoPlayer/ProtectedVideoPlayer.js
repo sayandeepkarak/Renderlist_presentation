@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate, Outlet, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
-import { FlexCenter } from "../../Components/Div";
+import { FlexCenter } from "../../Components/styles/Div";
 import { ScaleLoader } from "react-spinners";
 
 const ProtectedVideoPlayer = () => {

@@ -1,59 +1,57 @@
-import React, { useState } from "react";
-import { Button, CreatePlaylistButton } from "../../Components/Button";
-import { MiniDiv, NavButtonArea } from "../../Components/Div";
+import React, { useState, forwardRef } from "react";
+import { Button, CreatePlaylistButton } from "../../Components/styles/Button";
+import { MiniDiv, NavButtonArea } from "../../Components/styles/Div";
 import Modal from "@mui/material/Modal";
-import CreateModal from "./CreateModal";
+import CreateModal from "../../Components/Modals/CreateModal";
 import {
   AvatarBadge,
   NameTitle,
   ResponsivePopOver,
   ResponvidePopOverBlock,
   RoundedIconButton,
-} from "../../Components/Navbar";
+} from "../../Components/styles/Navbar";
 import AddIcon from "@mui/icons-material/Add";
 import { useAuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const NavBarButton = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [userPopOver, setuserPopOver] = useState(null);
   const { currentuser, handleLogout } = useAuthContext();
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const [state, setstate] = useState({
+    open: false,
+    anchorEl: null,
+    userPopOver: null,
+  });
+  const handleOpen = () => {
+    setstate({ ...state, open: true });
+  };
+  const handleClose = () => {
+    setstate({ ...state, open: false });
+  };
   const handleopenResponsivePopOver = (event) => {
-    setAnchorEl(event.currentTarget);
+    setstate({ ...state, anchorEl: event.currentTarget });
   };
-
   const handlecloseResponsivePopOver = () => {
-    setAnchorEl(null);
+    setstate({ ...state, anchorEl: null });
   };
-
   const handleopenuserpopover = (event) => {
-    setuserPopOver(event.currentTarget);
+    setstate({ ...state, userPopOver: event.currentTarget });
   };
   const handlecloseuserpopover = (event) => {
-    setuserPopOver(null);
+    setstate({ ...state, userPopOver: null });
   };
 
   const logout = () => {
-    setuserPopOver(null);
+    setstate({ ...state, userPopOver: null });
     handleLogout();
   };
-
-  const openresponsivepopover = Boolean(anchorEl);
-  const res_pop_Id = open ? "responive-popover" : undefined;
-
-  const openuserpopover = Boolean(userPopOver);
-  const user_pop_Id = open ? "user-popover" : undefined;
-
-  const CreateModalPop = React.forwardRef((props, ref) => (
+  const openresponsivepopover = Boolean(state.anchorEl);
+  const res_pop_Id = state.open ? "responive-popover" : undefined;
+  const openuserpopover = Boolean(state.userPopOver);
+  const user_pop_Id = state.open ? "user-popover" : undefined;
+  const CreateModalPop = forwardRef((props, ref) => (
     <CreateModal {...props} innerRef={ref} />
   ));
-
   return (
     <>
       <NavButtonArea>
@@ -86,7 +84,7 @@ const NavBarButton = () => {
               <ResponsivePopOver
                 id={res_pop_Id}
                 open={openresponsivepopover}
-                anchorEl={anchorEl}
+                anchorEl={state.anchorEl}
                 onClose={handlecloseResponsivePopOver}
               >
                 <ResponvidePopOverBlock>
@@ -118,7 +116,7 @@ const NavBarButton = () => {
               <span>create playlist</span>
               <AddIcon />
             </CreatePlaylistButton>
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={state.open} onClose={handleClose}>
               <CreateModalPop close={handleClose} />
             </Modal>
             <RoundedIconButton
@@ -129,7 +127,7 @@ const NavBarButton = () => {
             </RoundedIconButton>
             <ResponsivePopOver
               id={user_pop_Id}
-              anchorEl={userPopOver}
+              anchorEl={state.userPopOver}
               open={openuserpopover}
               onClose={handlecloseuserpopover}
               style={{ display: "block" }}
