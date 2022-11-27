@@ -14,30 +14,29 @@ const Users = () => {
   const [load, setload] = useState(true);
   const [userdata, setuserdata] = useState({});
 
-  const checkValid = async () => {
-    for (let e of playlists) {
-      if (e.userId === userid) {
-        const data = await fetchRandomUserdata(e.userId);
-        setuserdata({
-          details: {
-            status: true,
-            userId: e.userId,
-            name: e.UserName,
-            photoUrl: e.photo,
-          },
-          playlists: data,
-        });
-        return;
-      }
-    }
-    navigate("/");
-  };
-
   useEffect(() => {
+    const checkValid = async () => {
+      for (let e of playlists) {
+        if (e.userId === userid) {
+          const data = await fetchRandomUserdata(e.userId);
+          setuserdata({
+            details: {
+              status: true,
+              userId: e.userId,
+              name: e.UserName,
+              photoUrl: e.photo,
+            },
+            playlists: data,
+          });
+          return;
+        }
+      }
+      navigate("/");
+    };
     return () => {
       checkValid().then(() => setload(false));
     };
-  }, [userid, playlists.length]);
+  }, [navigate, userid, playlists, fetchRandomUserdata]);
 
   if (load) {
     return (
