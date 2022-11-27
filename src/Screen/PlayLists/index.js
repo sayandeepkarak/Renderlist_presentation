@@ -1,26 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "../../Components/Others/Card";
 import { CardArea } from "../../Components/styles/Div";
 import { useSelector } from "react-redux";
 import { useCrudContext } from "../../Context/CrudContext";
 import { useAuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Playlists = () => {
   const { miniUpdate, deletePlaylist, searchValue } = useCrudContext();
   const { currentuser, handleFetchuserData } = useAuthContext();
+  const navigate = useNavigate();
   const [loading, setloading] = useState(false);
-  const render = useRef(true);
-
-  useEffect(() => {
-    if (!render.current) return;
-    setloading(true);
-    handleFetchuserData(currentuser.id).then(() => setloading(false));
-    render.current = false;
-  }, [currentuser.id, handleFetchuserData]);
 
   const allPlaylists = useSelector(
     (state) => state.userPlaylistsReducers.value
   );
+
   const filterplaylist = allPlaylists.filter((item) => {
     return item["Title"].toLowerCase().includes(searchValue);
   });
@@ -33,9 +28,23 @@ const Playlists = () => {
 
   const handleDeletePlaylist = (id) => {
     deletePlaylist(currentuser.id, id).then(() => {
+      navigate("/playlists");
       handleFetchuserData(currentuser.id);
     });
   };
+
+  useEffect(() => {
+    return async () => {
+      try {
+        setloading(true);
+        await handleFetchuserData(currentuser.id);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setloading(false);
+      }
+    };
+  }, [currentuser, handleFetchuserData]);
 
   return (
     <>

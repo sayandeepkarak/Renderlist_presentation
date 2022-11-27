@@ -62,9 +62,9 @@ const Edit = () => {
     navigate(`/watch/${activeplaylist.Id}/${videoId}`);
   };
   const handledeleteplaylist = () => {
+    navigate("/save");
     deletePlaylist(currentuser.id, activeplaylist.Id).then(() => {
       handleFetchuserData(currentuser.id);
-      navigate("/save");
     });
   };
   const handleInput = (e) => {
@@ -124,9 +124,7 @@ const Edit = () => {
   };
 
   const deletevideo = (videoId) => {
-    console.log("fire");
     const readyitems = activeplaylist.Items.filter((e) => e.id !== videoId);
-    console.log(readyitems);
     const thumb =
       readyitems.length > 0
         ? readyitems[readyitems.length - 1].thumbnail
@@ -220,6 +218,7 @@ const Edit = () => {
                 <AvatarBadge src={currentuser.photoUrl} />
               </RoundedIconButton>
               <span
+                onClick={() => navigate("/profile")}
                 style={{
                   cursor: "pointer",
                 }}

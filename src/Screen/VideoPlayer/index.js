@@ -17,7 +17,7 @@ import PlaylistItem from "../../Components/Others/PlaylistItem";
 import { useSelector } from "react-redux";
 import { ActiveVideo } from "../../Components/styles/Button";
 import { useCrudContext } from "../../Context/CrudContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFunctionContext } from "../../Context/FunctionContext";
 import Divider from "@mui/material/Divider";
 import { AvatarBadge, RoundedIconButton } from "../../Components/styles/Navbar";
@@ -31,6 +31,7 @@ const Watch = () => {
     (state) => state.activePlayListReducers.value
   );
   const { id } = useParams();
+  const navigate = useNavigate();
   const { searchValue } = useCrudContext();
   const { convertview } = useFunctionContext();
   const [activeVideo, setactiveVideo] = useState({
@@ -54,6 +55,10 @@ const Watch = () => {
 
   const handleChangeActiveVideo = (url, title, id) => {
     setactiveVideo({ url: url, title: title, id });
+  };
+
+  const handleNavigateprofile = () => {
+    navigate(`/users/${activeplaylist.userId}`);
   };
 
   const VideoSaveModal = React.forwardRef((props, ref) => (
@@ -86,7 +91,9 @@ const Watch = () => {
             <RoundedIconButton>
               <AvatarBadge src={activeplaylist.photo} />
             </RoundedIconButton>
-            <span>{activeplaylist.UserName}</span>
+            <span onClick={handleNavigateprofile}>
+              {activeplaylist.UserName}
+            </span>
           </NormalBlock>
         </VideoPlayerBlock>
 

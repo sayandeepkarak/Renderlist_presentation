@@ -4,9 +4,11 @@ import { RoundedButtonIcon, SideBarArea } from "../styles/Sidebar";
 import homeicon from "../../Assets/Images/home.png";
 import listicon from "../../Assets/Images/list.png";
 import saveicon from "../../Assets/Images/save.png";
+import usericon from "../../Assets/Images/user.png";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
 const SideBar = () => {
   return (
@@ -23,6 +25,10 @@ const SideBar = () => {
         <RoundedButton to="/save">
           <SaveOutlinedIcon />
           <RoundedButtonIcon src={saveicon} />
+        </RoundedButton>
+        <RoundedButton to="/profile">
+          <PersonOutlineOutlinedIcon />
+          <RoundedButtonIcon src={usericon} />
         </RoundedButton>
       </SideBarArea>
     </>

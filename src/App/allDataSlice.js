@@ -12,7 +12,7 @@ export const allPlaylistsSlice = createSlice({
   },
 });
 
-export const { fetchallplaylists, searchfilter } = allPlaylistsSlice.actions;
+export const { fetchallplaylists } = allPlaylistsSlice.actions;
 export const selectAllPlaylists = (state) => state.allPlaylists.value;
 
 export default allPlaylistsSlice.reducer;

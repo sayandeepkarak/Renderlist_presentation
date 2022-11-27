@@ -21,7 +21,6 @@ export const AuthContext = ({ children }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [currentuser, setcurrentuser] = useState(null);
-  const [load, setload] = useState(false);
   const googleprovider = new GoogleAuthProvider();
   const facebookprovider = new FacebookAuthProvider();
 
@@ -137,12 +136,24 @@ export const AuthContext = ({ children }) => {
 
   const handleFetchuserData = async (userid) => {
     try {
-      setload(true);
       const userPlaylist = await getDocs(
         collection(db, `AllAccounts/${userid}`, "Playlists")
       );
       dispatch(fetchUserPlaylists(userPlaylist.docs));
-      setload(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchRandomUserdata = async (userid) => {
+    try {
+      const userPlaylist = await getDocs(
+        collection(db, `AllAccounts/${userid}`, "Playlists")
+      );
+      return userPlaylist.docs.map((e) => ({
+        ...e.data(),
+        Id: e.id,
+      }));
     } catch (error) {
       console.error(error);
     }
@@ -177,7 +188,7 @@ export const AuthContext = ({ children }) => {
 
   const value = {
     currentuser,
-    load,
+    fetchRandomUserdata,
     handleFetchuserData,
     handleStableLogin,
     handleLogout,

@@ -19,19 +19,21 @@ import Edit from "./Screen/Edit";
 import { useCrudContext } from "./Context/CrudContext";
 import { useAuthContext } from "./Context/AuthContext";
 import { useRef } from "react";
+import UserProfile from "./Screen/UserProfile";
 
 const App = () => {
-  const { GetAllPlaylist } = useCrudContext();
+  const { FetchPlaylists } = useCrudContext();
   const { handleStableLogin } = useAuthContext();
   const [pageLoader, setPageLoader] = useState(false);
   const render = useRef(true);
+
   useEffect(() => {
     if (!render.current) return;
     setPageLoader(true);
     handleStableLogin();
-    GetAllPlaylist().then(() => setPageLoader(false));
+    FetchPlaylists().then(() => setPageLoader(false));
     render.current = false;
-  }, [GetAllPlaylist, handleStableLogin]);
+  }, [FetchPlaylists, handleStableLogin]);
 
   return (
     <>
@@ -63,6 +65,9 @@ const App = () => {
                       <Route path="/save/:editid" element={<Edit />} />
                     </Route>
                   </Route>
+                </Route>
+                <Route element={<ProtectedScreen />}>
+                  <Route path="/profile" element={<UserProfile />} />
                 </Route>
                 <Route path="*" element={<Error />} />
               </Routes>

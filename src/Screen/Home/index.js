@@ -1,24 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { Card } from "../../Components/Others/Card";
 import { CardArea } from "../../Components/styles/Div";
 import { useSelector } from "react-redux";
 import { useCrudContext } from "../../Context/CrudContext";
+import { useState } from "react";
 
 const Home = () => {
-  const { GetAllPlaylist, miniUpdate, searchValue } = useCrudContext();
+  const { miniUpdate, searchValue, FetchPlaylists } = useCrudContext();
   const allPlaylists = useSelector((state) => state.allPlayListReducers.value);
   const filterplaylist = allPlaylists.filter((item) => {
     return item["Title"].toLowerCase().includes(searchValue);
   });
-  const [loading, setloading] = useState(false);
-  const render = useRef(true);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    if (!render.current) return;
-    setloading(true);
-    GetAllPlaylist().then(() => setloading(false));
-    render.current = false;
-  }, [GetAllPlaylist]);
+    return async () => {
+      try {
+        setLoad(true);
+        await FetchPlaylists();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoad(false);
+      }
+    };
+  }, [FetchPlaylists]);
 
   const countView = (userid, id, value) => {
     miniUpdate(userid, id, {
@@ -36,7 +42,7 @@ const Home = () => {
               data={data}
               viewCount={true}
               viewCounter={countView}
-              loading={loading}
+              loading={load}
               videoPlayer={true}
             />
           ) : null;

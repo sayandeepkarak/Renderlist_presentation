@@ -22,12 +22,10 @@ export const CrudContext = ({ children }) => {
   const userdata = useSelector((state) => state.userPlaylistsReducers.value);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const [load, setload] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-  const GetAllPlaylist = async () => {
+  const FetchPlaylists = async () => {
     try {
-      setload(true);
       let playlist = [];
       const playlistsData = await getDocs(collection(db, "AllAccounts"));
       const refreshdata = playlistsData.docs.map((user) => {
@@ -48,7 +46,6 @@ export const CrudContext = ({ children }) => {
         playlist.push(...maindata);
       }
       dispatch(fetchallplaylists(playlist));
-      setload(false);
     } catch (exp) {
       console.error(exp);
     }
@@ -78,6 +75,7 @@ export const CrudContext = ({ children }) => {
           }
         );
       }, 1000);
+      FetchPlaylists();
     } catch (exp) {
       console.error(exp);
     }
@@ -121,6 +119,7 @@ export const CrudContext = ({ children }) => {
         enqueueSnackbar("Successfully add a video", {
           variant: "success",
         });
+        FetchPlaylists();
       } else {
         enqueueSnackbar("Video already exist", {
           variant: "error",
@@ -137,6 +136,7 @@ export const CrudContext = ({ children }) => {
         doc(db, `AllAccounts/${userId}`, `Playlists/${playlistId}`),
         obj
       );
+      FetchPlaylists();
     } catch (exp) {
       console.error(exp);
     }
@@ -150,6 +150,7 @@ export const CrudContext = ({ children }) => {
       enqueueSnackbar("Successfully deleted", {
         variant: "success",
       });
+      FetchPlaylists();
     } catch (exp) {
       console.error(exp);
     }
@@ -161,9 +162,8 @@ export const CrudContext = ({ children }) => {
 
   const value = {
     searchValue,
-    load,
     createPlaylist,
-    GetAllPlaylist,
+    FetchPlaylists,
     addVideo,
     miniUpdate,
     deletePlaylist,

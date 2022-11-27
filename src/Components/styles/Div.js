@@ -105,6 +105,7 @@ export const CardArea = styled.div`
   background-color: #f9f9f9;
   gap: 2%;
   flex-wrap: wrap;
+  border-radius: 5px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -130,6 +131,7 @@ export const CardArea = styled.div`
     padding-bottom: 73px !important;
   }
   @media (max-width: 530px) {
+    border-radius: 0px;
     padding: 0;
     gap: 10px;
   }
