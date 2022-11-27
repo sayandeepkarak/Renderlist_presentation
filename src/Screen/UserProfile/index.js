@@ -29,7 +29,9 @@ const UserProfile = () => {
   return (
     <>
       <AccountScreenArea>
-        <TitleBlock data={currentuser} />
+        <TitleBlock
+          data={{ ...currentuser, itemslength: userPlaylists.length }}
+        />
         <Items load={loading} playlists={userPlaylists} />
       </AccountScreenArea>
     </>

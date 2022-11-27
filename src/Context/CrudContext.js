@@ -12,7 +12,7 @@ import {
 import { useContext } from "react";
 import { createContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchallplaylists } from "../App/allDataSlice";
+import { setallplaylists } from "../App/allDataSlice";
 import { db } from "../Firebase";
 import { useSnackbar } from "notistack";
 
@@ -45,7 +45,7 @@ export const CrudContext = ({ children }) => {
         });
         playlist.push(...maindata);
       }
-      dispatch(fetchallplaylists(playlist));
+      dispatch(setallplaylists(playlist));
     } catch (exp) {
       console.error(exp);
     }

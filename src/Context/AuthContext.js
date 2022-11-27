@@ -10,7 +10,7 @@ import { auth, db } from "../Firebase";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchUserPlaylists } from "../App/UserPlaylists";
+import { setUserPlaylists } from "../App/UserPlaylists";
 import { useSnackbar } from "notistack";
 import Cookies from "js-cookie";
 
@@ -139,7 +139,7 @@ export const AuthContext = ({ children }) => {
       const userPlaylist = await getDocs(
         collection(db, `AllAccounts/${userid}`, "Playlists")
       );
-      dispatch(fetchUserPlaylists(userPlaylist.docs));
+      dispatch(setUserPlaylists(userPlaylist.docs));
     } catch (error) {
       console.error(error);
     }

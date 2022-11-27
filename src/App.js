@@ -20,6 +20,7 @@ import { useCrudContext } from "./Context/CrudContext";
 import { useAuthContext } from "./Context/AuthContext";
 import { useRef } from "react";
 import UserProfile from "./Screen/UserProfile";
+import Users from "./Screen/Users";
 
 const App = () => {
   const { FetchPlaylists } = useCrudContext();
@@ -69,6 +70,7 @@ const App = () => {
                 <Route element={<ProtectedScreen />}>
                   <Route path="/profile" element={<UserProfile />} />
                 </Route>
+                <Route path="/users/:userid" element={<Users />} />
                 <Route path="*" element={<Error />} />
               </Routes>
             </AutoSizeDiv>

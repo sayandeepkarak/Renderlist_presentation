@@ -6,13 +6,13 @@ export const allPlaylistsSlice = createSlice({
     value: [],
   },
   reducers: {
-    fetchallplaylists: (state, action) => {
+    setallplaylists: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { fetchallplaylists } = allPlaylistsSlice.actions;
+export const { setallplaylists } = allPlaylistsSlice.actions;
 export const selectAllPlaylists = (state) => state.allPlaylists.value;
 
 export default allPlaylistsSlice.reducer;

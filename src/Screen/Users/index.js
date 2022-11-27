@@ -5,7 +5,7 @@ import { FlexCenter } from "../../Components/styles/Div";
 import Channels from "./Channels";
 import { ScaleLoader } from "react-spinners";
 
-const ProtectedProfiles = () => {
+const Users = () => {
   const { userid } = useParams();
   const playlists = useSelector((state) => state.allPlayListReducers.value);
   if (playlists.length === 0) {
@@ -39,4 +39,4 @@ const ProtectedProfiles = () => {
   }
 };
 
-export default ProtectedProfiles;
+export default Users;

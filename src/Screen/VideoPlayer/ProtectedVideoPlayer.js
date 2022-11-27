@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Outlet, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
+import { setActivePlaylist } from "../../App/activePlaylistSlice";
 import { FlexCenter } from "../../Components/styles/Div";
 import { ScaleLoader } from "react-spinners";
 
@@ -24,7 +24,7 @@ const ProtectedVideoPlayer = () => {
         element.Id === playlist &&
         element.Items.map(
           (e) => e.id === id && (checkPath = true),
-          dispatch(fetchActivePlaylist(element))
+          dispatch(setActivePlaylist(element))
         )
       );
     });

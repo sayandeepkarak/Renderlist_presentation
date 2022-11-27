@@ -16,6 +16,7 @@ const Channels = ({ userdetails }) => {
       try {
         setload(true);
         const data = await fetchRandomUserdata(userdetails.userId);
+        console.log(data);
         setplaylists(data);
       } catch (error) {
         console.log(error);
@@ -37,7 +38,9 @@ const Channels = ({ userdetails }) => {
     return (
       <>
         <AccountScreenArea>
-          <TitleBlock data={userdetails} />
+          <TitleBlock
+            data={{ ...userdetails, itemslength: playlists.length }}
+          />
           <Items load={load} playlists={playlists} />
         </AccountScreenArea>
       </>

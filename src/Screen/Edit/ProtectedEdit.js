@@ -3,7 +3,7 @@ import { Navigate, Outlet, useParams } from "react-router-dom";
 import { FlexCenter } from "../../Components/styles/Div";
 import { ScaleLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchActivePlaylist } from "../../App/activePlaylistSlice";
+import { setActivePlaylist } from "../../App/activePlaylistSlice";
 import { useAuthContext } from "../../Context/AuthContext";
 
 const ProtectedEdit = () => {
@@ -29,7 +29,7 @@ const ProtectedEdit = () => {
   } else {
     allPlaylists.map((e) => {
       if (e.Id === editid) {
-        dispatch(fetchActivePlaylist(e));
+        dispatch(setActivePlaylist(e));
         checkpath = true;
       }
       return null;

@@ -6,7 +6,7 @@ export const UserPlaylists = createSlice({
     value: [],
   },
   reducers: {
-    fetchUserPlaylists: (state, action) => {
+    setUserPlaylists: (state, action) => {
       state.value = action.payload.map((e) => ({
         ...e.data(),
         Id: e.id,
@@ -15,7 +15,7 @@ export const UserPlaylists = createSlice({
   },
 });
 
-export const { fetchUserPlaylists } = UserPlaylists.actions;
+export const { setUserPlaylists } = UserPlaylists.actions;
 export const selectUserPlaylists = (state) => state.UserPlaylists.value;
 
 export default UserPlaylists.reducer;

@@ -81,3 +81,13 @@ export const NameText = styled.p`
     font-size: 16px;
   }
 `;
+
+export const MiniText = styled(NameText)`
+  font-size: 18px;
+  @media (max-width: 1140px) {
+    font-size: 14px;
+  }
+  @media (max-width: 770px) {
+    font-size: 12px;
+  }
+`;

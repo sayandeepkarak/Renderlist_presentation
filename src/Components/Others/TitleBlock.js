@@ -1,5 +1,11 @@
 import React from "react";
-import { NameText, ProfileImage, TextArea, TitleArea } from "../styles/Account";
+import {
+  MiniText,
+  NameText,
+  ProfileImage,
+  TextArea,
+  TitleArea,
+} from "../styles/Account";
 
 const TitleBlock = ({ data }) => {
   return (
@@ -8,6 +14,7 @@ const TitleBlock = ({ data }) => {
         <ProfileImage src={data.photoUrl} />
         <TextArea>
           <NameText>{data.name}</NameText>
+          <MiniText>{data.itemslength} Playlists</MiniText>
         </TextArea>
       </TitleArea>
     </>

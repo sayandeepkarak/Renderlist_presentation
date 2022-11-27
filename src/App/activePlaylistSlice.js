@@ -6,13 +6,13 @@ export const activePlaylistSlice = createSlice({
     value: undefined,
   },
   reducers: {
-    fetchActivePlaylist: (state, action) => {
+    setActivePlaylist: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { fetchActivePlaylist } = activePlaylistSlice.actions;
+export const { setActivePlaylist } = activePlaylistSlice.actions;
 export const selectAllPlaylists = (state) => state.currentPlaylist.value;
 
 export default activePlaylistSlice.reducer;

@@ -347,7 +347,7 @@ export const Card = ({
               <ViewText>
                 {convertview(data.Views)} views
                 <li>
-                  <span> {data.Items.length} items</span>
+                  <span> {data.Items.length} videos</span>
                 </li>
               </ViewText>
             </TitleArea>
