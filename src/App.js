@@ -25,7 +25,7 @@ import Users from "./Screen/Users";
 const App = () => {
   const { FetchPlaylists } = useCrudContext();
   const { handleStableLogin } = useAuthContext();
-  const [pageLoader, setPageLoader] = useState(false);
+  const [pageLoader, setPageLoader] = useState(true);
   const render = useRef(true);
 
   useEffect(() => {

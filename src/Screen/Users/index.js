@@ -1,14 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FlexCenter } from "../../Components/styles/Div";
 import Channels from "./Channels";
 import { ScaleLoader } from "react-spinners";
+import { useAuthContext } from "../../Context/AuthContext";
 
 const Users = () => {
   const { userid } = useParams();
+  const navigate = useNavigate();
+  const { fetchRandomUserdata } = useAuthContext();
   const playlists = useSelector((state) => state.allPlayListReducers.value);
-  if (playlists.length === 0) {
+  const [load, setload] = useState(true);
+  const [userdata, setuserdata] = useState({});
+
+  const checkValid = async () => {
+    for (let e of playlists) {
+      if (e.userId === userid) {
+        const data = await fetchRandomUserdata(e.userId);
+        setuserdata({
+          details: {
+            status: true,
+            userId: e.userId,
+            name: e.UserName,
+            photoUrl: e.photo,
+          },
+          playlists: data,
+        });
+        return;
+      }
+    }
+    navigate("/");
+  };
+
+  useEffect(() => {
+    return () => {
+      checkValid().then(() => setload(false));
+    };
+  }, [userid, playlists.length]);
+
+  if (load) {
     return (
       <>
         <FlexCenter>
@@ -16,27 +47,8 @@ const Users = () => {
         </FlexCenter>
       </>
     );
-  } else {
-    const checkValid = () => {
-      for (let e of playlists) {
-        if (e.userId === userid) {
-          return {
-            status: true,
-            userId: e.userId,
-            name: e.UserName,
-            photoUrl: e.photo,
-          };
-        }
-      }
-      return { status: false };
-    };
-    const details = checkValid();
-    return details.status ? (
-      <Channels userdetails={details} />
-    ) : (
-      <Navigate to="/" />
-    );
   }
+  return <Channels userdetails={userdata} />;
 };
 
 export default Users;

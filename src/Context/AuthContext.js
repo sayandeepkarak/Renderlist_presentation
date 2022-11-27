@@ -7,7 +7,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, db } from "../Firebase";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserPlaylists } from "../App/UserPlaylists";
@@ -150,10 +150,11 @@ export const AuthContext = ({ children }) => {
       const userPlaylist = await getDocs(
         collection(db, `AllAccounts/${userid}`, "Playlists")
       );
-      return userPlaylist.docs.map((e) => ({
+      const data = userPlaylist.docs.map((e) => ({
         ...e.data(),
         Id: e.id,
       }));
+      return data;
     } catch (error) {
       console.error(error);
     }
