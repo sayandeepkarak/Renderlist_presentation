@@ -57,7 +57,11 @@ const App = () => {
                   <Route path="/playlists" element={<Playlists />} />
                 </Route>
                 <Route element={<ProtectedVideoPlayer />}>
-                  <Route end path="/watch/:playlist/:id" element={<Watch />} />
+                  <Route
+                    end
+                    path="/watch/:playlistid/:videoid"
+                    element={<Watch />}
+                  />
                 </Route>
                 <Route element={<ProtectedScreen />}>
                   <Route end path="/save">

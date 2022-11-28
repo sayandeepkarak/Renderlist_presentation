@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePlaylist } from "../../App/activePlaylistSlice";
@@ -8,9 +8,14 @@ import { ScaleLoader } from "react-spinners";
 const ProtectedVideoPlayer = () => {
   const allPlaylist = useSelector((state) => state.allPlayListReducers.value);
   const dispatch = useDispatch();
-  const { playlist, id } = useParams();
-  let checkPath = false;
-  if (allPlaylist.length === 0) {
+  const { playlistid, videoid } = useParams();
+  const [load, setload] = useState(true);
+
+  useEffect(() => {
+    allPlaylist.length > 0 && setload(false);
+  }, [allPlaylist]);
+
+  if (load) {
     return (
       <>
         <FlexCenter>
@@ -18,18 +23,14 @@ const ProtectedVideoPlayer = () => {
         </FlexCenter>
       </>
     );
-  } else {
-    allPlaylist.map((element) => {
-      return (
-        element.Id === playlist &&
-        element.Items.map(
-          (e) => e.id === id && (checkPath = true),
-          dispatch(setActivePlaylist(element))
-        )
-      );
-    });
-    return checkPath ? <Outlet /> : <Navigate to="/" />;
   }
+  const pIndex = allPlaylist.findIndex((e) => e.Id === playlistid);
+  if (pIndex < 0) return <Navigate to="/" />;
+  const vIndex = allPlaylist[pIndex].Items.findIndex((e) => e.id === videoid);
+  if (vIndex < 0) return <Navigate to="/" />;
+  dispatch(setActivePlaylist(allPlaylist[pIndex]));
+
+  return <Outlet />;
 };
 
 export default ProtectedVideoPlayer;

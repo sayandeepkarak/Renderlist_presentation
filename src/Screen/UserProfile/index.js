@@ -11,12 +11,11 @@ const UserProfile = () => {
   );
   const { currentuser } = useAuthContext();
   const { handleFetchuserData } = useAuthContext();
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
 
   useEffect(() => {
     return async () => {
       try {
-        setloading(true);
         await handleFetchuserData(currentuser.id);
       } catch (error) {
         console.log(error);

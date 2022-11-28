@@ -5,12 +5,12 @@ import {
   ModalBlock,
   PopUpHead,
   PopUpTitle,
-} from "../../Components/styles/Modal";
+} from "../../../Components/styles/Modal";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../Components/styles/Button";
-import { useAuthContext } from "../../Context/AuthContext";
+import { Button } from "../../../Components/styles/Button";
+import { useAuthContext } from "../../../Context/AuthContext";
 import AddVideoList from "./AddVideoList";
 import { useSelector } from "react-redux";
 
