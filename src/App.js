@@ -8,8 +8,7 @@ import { AutoSizeDiv, FlexBlock, FlexCenter } from "./Components/styles/Div";
 import Playlists from "./Screen/PlayLists";
 import Save from "./Screen/Save";
 import Error from "./Components/Others/Error";
-import Watch from "./Screen/VideoPlayer";
-import ProtectedVideoPlayer from "./Screen/VideoPlayer/ProtectedVideoPlayer";
+import ProtectedVideoPlayer from "./Screen/VideoPlayer";
 import { ScaleLoader } from "react-spinners";
 import Login from "./Screen/Auth/Login";
 import Signup from "./Screen/Auth/Signup";
@@ -56,13 +55,10 @@ const App = () => {
                 <Route element={<ProtectedScreen />}>
                   <Route path="/playlists" element={<Playlists />} />
                 </Route>
-                <Route element={<ProtectedVideoPlayer />}>
-                  <Route
-                    end
-                    path="/watch/:playlistid/:videoid"
-                    element={<Watch />}
-                  />
-                </Route>
+                <Route
+                  path="/watch/:playlistid/:videoid"
+                  element={<ProtectedVideoPlayer />}
+                />
                 <Route element={<ProtectedScreen />}>
                   <Route end path="/save">
                     <Route index element={<Save />} />

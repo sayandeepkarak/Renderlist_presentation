@@ -1,48 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { VideoPlayerArea } from "../../Components/styles/Video";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import VideoListSection from "./VideoListSection";
-import VideoPlayerSection from "./VideoPlayerSection";
+import { Navigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setActivePlaylist } from "../../App/activePlaylistSlice";
+import { FlexCenter } from "../../Components/styles/Div";
+import { ScaleLoader } from "react-spinners";
+import Watch from "./Watch";
 
-const Watch = () => {
-  const activeplaylist = useSelector(
-    (state) => state.activePlayListReducers.value
-  );
-  const { videoid } = useParams();
-  const [activeVideo, setactiveVideo] = useState({
-    url: "",
-    title: "",
-    id: undefined,
-  });
+const ProtectedVideoPlayer = () => {
+  const allPlaylist = useSelector((state) => state.allPlayListReducers.value);
+  const dispatch = useDispatch();
+  const { playlistid, videoid } = useParams();
+  const [load, setload] = useState(true);
 
   useEffect(() => {
-    activeplaylist.Items.map((e, i) => {
-      return (
-        e.id === videoid &&
-        setactiveVideo({ url: e.url, title: e.videoTitle, id: e.id })
-      );
-    });
-  }, [activeplaylist.Items, videoid]);
+    allPlaylist.length > 0 && setload(false);
+  }, [allPlaylist]);
 
-  const handleChangeActiveVideo = (url, title, id) => {
-    setactiveVideo({ url: url, title: title, id });
-  };
+  if (load) {
+    return (
+      <>
+        <FlexCenter>
+          <ScaleLoader color="#242560" loading={true} />
+        </FlexCenter>
+      </>
+    );
+  }
+  const pIndex = allPlaylist.findIndex((e) => e.Id === playlistid);
+  if (pIndex < 0) return <Navigate to="/" />;
+  const vIndex = allPlaylist[pIndex].Items.findIndex((e) => e.id === videoid);
+  if (vIndex < 0) return <Navigate to="/" />;
+  dispatch(setActivePlaylist(allPlaylist[pIndex]));
 
-  return (
-    <>
-      <VideoPlayerArea>
-        <VideoPlayerSection
-          activeVideo={activeVideo}
-          activeplaylist={activeplaylist}
-        />
-        <VideoListSection
-          playlist={activeplaylist}
-          changeactivevideo={handleChangeActiveVideo}
-        />
-      </VideoPlayerArea>
-    </>
-  );
+  return <Watch />;
 };
 
-export default Watch;
+export default ProtectedVideoPlayer;
