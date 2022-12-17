@@ -5,16 +5,8 @@ const functioncontext = createContext();
 
 export const FunctionContext = ({ children }) => {
   const convertview = (views) => {
-    if ((views > 999) & (views <= 999999)) {
-      return (views / 1000).toFixed(0).toString() + "k";
-    }
-    if ((views > 999999) & (views < 999999999)) {
-      return (views / 1000000).toFixed(0).toString() + "M";
-    }
-    if ((views > 999999999) & (views < 999999999999)) {
-      return (views / 1000000000).toFixed(0).toString() + "B";
-    }
-    return views;
+    const formatter = new Intl.NumberFormat(undefined, { notation: "compact" });
+    return formatter.format(views);
   };
 
   const dateDifference = (publishtime) => {

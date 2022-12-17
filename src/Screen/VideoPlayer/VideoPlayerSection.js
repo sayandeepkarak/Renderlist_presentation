@@ -6,14 +6,11 @@ import {
   Tools,
   VideoPlayer,
   VideoPlayerBlock,
-} from "../../../Components/styles/Video";
+} from "../../Components/styles/Video";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-import {
-  AvatarBadge,
-  RoundedIconButton,
-} from "../../../Components/styles/Navbar";
+import { AvatarBadge, RoundedIconButton } from "../../Components/styles/Navbar";
 import SaveModal from "./SaveModal";
 import { useNavigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";

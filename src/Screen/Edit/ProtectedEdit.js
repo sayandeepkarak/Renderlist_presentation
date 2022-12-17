@@ -11,9 +11,11 @@ const ProtectedEdit = () => {
     (state) => state.userPlaylistsReducers.value
   );
   const { handleFetchuserData, currentuser } = useAuthContext();
+
   useEffect(() => {
     handleFetchuserData(currentuser.id);
   }, [handleFetchuserData, currentuser.id]);
+
   const { editid } = useParams();
   const dispatch = useDispatch();
   let checkpath = false;

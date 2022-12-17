@@ -5,12 +5,12 @@ import {
   PlaylistViewBlock,
   TitleBottomtexts,
   VideoList,
-} from "../../../Components/styles/Video";
-import rateicon from "../../../Assets/Images/rate.png";
-import { useFunctionContext } from "../../../Context/FunctionContext";
-import PlaylistItem from "../../../Components/Others/PlaylistItem";
-import { useCrudContext } from "../../../Context/CrudContext";
-import { ActiveVideo } from "../../../Components/styles/Button";
+} from "../../Components/styles/Video";
+import rateicon from "../../Assets/Images/rate.png";
+import { useFunctionContext } from "../../Context/FunctionContext";
+import PlaylistItem from "../../Components/Others/PlaylistItem";
+import { useCrudContext } from "../../Context/CrudContext";
+import { ActiveVideo } from "../../Components/styles/Button";
 
 const VideoListSection = ({ playlist, changeactivevideo }) => {
   const { convertview } = useFunctionContext();

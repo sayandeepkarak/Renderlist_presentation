@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, ToolArea } from "../../Components/styles/Navbar";
 import Searchbar from "./Searchbar";
-import NavBarButton from "./NavBarButton";
+import NavBarButtonBlock from "./NavBarButtonBlock";
 import Logo from "../../Assets/Images/Logo.png";
 import { LogoImage } from "../../Components/styles/Image";
 import { LogoText } from "../../Components/styles/Text";
@@ -19,7 +19,7 @@ const Header = () => {
           <LogoText>List</LogoText>
         </LogoTextArea>
         <Searchbar />
-        <NavBarButton />
+        <NavBarButtonBlock />
       </ToolArea>
     </Navbar>
   );

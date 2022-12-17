@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
-import { ListItemBlock, ListText } from "../../../Components/styles/Modal";
-import { useAuthContext } from "../../../Context/AuthContext";
-import { useCrudContext } from "../../../Context/CrudContext";
+import { ListItemBlock, ListText } from "../../Components/styles/Modal";
+import { useAuthContext } from "../../Context/AuthContext";
+import { useCrudContext } from "../../Context/CrudContext";
 
 const AddVideoList = ({ data, videoId, videourl }) => {
   const { addVideo } = useCrudContext();
