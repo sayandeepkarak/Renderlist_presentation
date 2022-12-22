@@ -32,6 +32,8 @@ export const SideBarArea = styled.div`
     bottom: 0;
     max-width: -webkit-fill-available;
     width: -webkit-fill-available;
+    max-width: -moz-available;
+    width: -moz-available;
     height: min-content;
     flex-direction: row;
     box-shadow: 0px -7px 23px -2px rgb(0 0 0 / 6%);

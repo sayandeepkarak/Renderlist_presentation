@@ -5,6 +5,7 @@ import { SmallImage } from "../Others/PlaylistItem";
 export const EditScreenArea = styled.div`
   border-radius: 5px;
   width: -webkit-fill-available;
+  width: -moz-available;
   max-width: calc(100vw - 73px);
   max-height: calc(100vh - 78px);
   height: calc(100vh - 78px);

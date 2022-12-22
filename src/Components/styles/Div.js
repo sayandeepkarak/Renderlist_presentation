@@ -33,6 +33,7 @@ export const FlexCenter = styled(FlexBlock)`
   align-items: center;
   min-height: 100vh;
   height: -webkit-fill-available;
+  height: -moz-available;
 `;
 
 export const LogoTextArea = styled.div`
@@ -52,6 +53,7 @@ export const AvailableBlock = styled.div`
   align-items: center;
   height: 73px;
   width: -webkit-fill-available;
+  width: -moz-available;
   margin-left: 62px;
   display: flex;
   @media (max-width: 1024px) {
@@ -62,6 +64,7 @@ export const AvailableBlock = styled.div`
     ${(props) => props.open && "position: absolute"};
     ${(props) => props.open && "background-color: white"};
     ${(props) => props.open && "width: -webkit-fill-available"};
+    ${(props) => props.open && "width: -moz-available"};
     ${(props) => props.open && "left: 0"};
     ${(props) => props.open && "z-index: 1"};
     ${(props) => (!props.open ? "width: auto" : "padding: 0px 4px")};
@@ -100,6 +103,7 @@ export const CardArea = styled.div`
   display: flex;
   justify-content: flex-start;
   width: -webkit-fill-available;
+  width: -moz-available;
   max-width: calc(100vw - 73px);
   padding: 2% 4%;
   background-color: #f9f9f9;

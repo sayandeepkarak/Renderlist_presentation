@@ -46,8 +46,9 @@ const Users = () => {
         </FlexCenter>
       </>
     );
+  } else {
+    return <Channels userdetails={userdata} />;
   }
-  return <Channels userdetails={userdata} />;
 };
 
 export default Users;

@@ -31,6 +31,7 @@ export const SearchInput = styled.input.attrs({
   placeholder: "Search Playlist",
 })`
   width: -webkit-fill-available;
+  width: -moz-available;
   font-size: 18px;
   font-family: "Poppins", sans-serif;
   border: none;

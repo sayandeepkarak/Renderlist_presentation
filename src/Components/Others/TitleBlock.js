@@ -1,17 +1,12 @@
 import React from "react";
-import {
-  MiniText,
-  NameText,
-  ProfileImage,
-  TextArea,
-  TitleArea,
-} from "../styles/Account";
+import Avatar from "react-avatar";
+import { MiniText, NameText, TextArea, TitleArea } from "../styles/Account";
 
 const TitleBlock = ({ data }) => {
   return (
     <>
       <TitleArea>
-        <ProfileImage src={data.photoUrl} />
+        <Avatar src={data.photoUrl} round="50%" name={data.name} />
         <TextArea>
           <NameText>{data.name}</NameText>
           <MiniText>{data.itemslength} Playlists</MiniText>

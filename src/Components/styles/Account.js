@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const AccountScreenArea = styled.div`
   border-radius: 5px;
   width: -webkit-fill-available;
+  width: -moz-available;
   max-width: calc(100vw - 73px);
   max-height: calc(100vh - 78px);
   height: calc(100vh - 78px);
@@ -18,6 +19,7 @@ export const AccountScreenArea = styled.div`
 export const TitleArea = styled.div`
   display: flex;
   width: -webkit-fill-available;
+  width: -moz-available;
   min-height: 200px;
   padding: 0px 3%;
   align-items: center;
@@ -39,22 +41,6 @@ export const TitleArea = styled.div`
     min-height: 150px;
     gap: 10px;
     flex-direction: column;
-  }
-`;
-
-export const ProfileImage = styled.img.attrs({
-  alt: "x",
-})`
-  border-radius: 50%;
-  cursor: default;
-  @media (max-width: 1140px) {
-    height: 90px;
-  }
-  @media (max-width: 770px) {
-    height: 80px;
-  }
-  @media (max-width: 600px) {
-    height: 70px;
   }
 `;
 

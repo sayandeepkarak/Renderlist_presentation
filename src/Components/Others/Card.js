@@ -22,6 +22,7 @@ import { useFunctionContext } from "../../Context/FunctionContext";
 const CardBlock = styled.div.attrs({ className: "playlist-cards" })`
   position: relative;
   width: -webkit-fill-available;
+  width: -moz-available;
   max-width: 20vw;
   height: min-content;
   margin-bottom: 1vw;
