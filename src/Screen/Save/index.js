@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card } from "../../Components/Others/Card";
 import { CardArea } from "../../Components/styles/Div";
 import { useSelector } from "react-redux";
@@ -15,18 +15,23 @@ const Save = () => {
   const filterplaylist = allPlaylists.filter((item) => {
     return item["Title"].toLowerCase().includes(searchValue);
   });
+  const render = useRef(true);
 
   useEffect(() => {
-    return async () => {
-      try {
-        setloading(true);
-        await handleFetchuserData(currentuser.id);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setloading(false);
-      }
-    };
+    if (render.current) {
+      const fetchCall = async () => {
+        try {
+          setloading(true);
+          await handleFetchuserData(currentuser.id);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setloading(false);
+        }
+      };
+      render.current = false;
+      fetchCall();
+    }
   }, [handleFetchuserData, currentuser]);
 
   return (

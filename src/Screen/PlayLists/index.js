@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card } from "../../Components/Others/Card";
 import { CardArea } from "../../Components/styles/Div";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ const Playlists = () => {
   const { currentuser, handleFetchuserData } = useAuthContext();
   const navigate = useNavigate();
   const [loading, setloading] = useState(false);
+  const render = useRef(true);
 
   const allPlaylists = useSelector(
     (state) => state.userPlaylistsReducers.value
@@ -34,16 +35,20 @@ const Playlists = () => {
   };
 
   useEffect(() => {
-    return async () => {
-      try {
-        setloading(true);
-        await handleFetchuserData(currentuser.id);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setloading(false);
-      }
-    };
+    if (render.current) {
+      const fetchCall = async () => {
+        try {
+          setloading(true);
+          await handleFetchuserData(currentuser.id);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setloading(false);
+        }
+      };
+      render.current = false;
+      fetchCall();
+    }
   }, [currentuser, handleFetchuserData]);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Card } from "../../Components/Others/Card";
 import { CardArea } from "../../Components/styles/Div";
 import { useSelector } from "react-redux";
@@ -12,18 +12,23 @@ const Home = () => {
     return item["Title"].toLowerCase().includes(searchValue);
   });
   const [load, setLoad] = useState(false);
+  const render = useRef(true);
 
   useEffect(() => {
-    return async () => {
-      try {
-        setLoad(true);
-        await FetchPlaylists();
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoad(false);
-      }
-    };
+    if (render.current) {
+      const fetchCall = async () => {
+        try {
+          setLoad(true);
+          await FetchPlaylists();
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoad(false);
+        }
+      };
+      render.current = false;
+      fetchCall();
+    }
   }, [FetchPlaylists]);
 
   const countView = (userid, id, value) => {
