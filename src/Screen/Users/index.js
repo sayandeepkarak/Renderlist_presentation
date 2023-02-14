@@ -5,7 +5,6 @@ import { FlexCenter } from "../../Components/styles/Div";
 import Channels from "./Channels";
 import { ScaleLoader } from "react-spinners";
 import { useAuthContext } from "../../Context/AuthContext";
-import { useRef } from "react";
 
 const Users = () => {
   const { userid } = useParams();
@@ -14,35 +13,32 @@ const Users = () => {
   const playlists = useSelector((state) => state.allPlayListReducers.value);
   const [load, setload] = useState(true);
   const [userdata, setuserdata] = useState({});
-  const render = useRef(true);
 
   useEffect(() => {
-    if (render.current) {
-      const checkValid = async () => {
-        try {
-          for (let e of playlists) {
-            if (e.userId === userid) {
-              const data = await fetchRandomUserdata(e.userId);
-              setuserdata({
-                details: {
-                  status: true,
-                  userId: e.userId,
-                  name: e.UserName,
-                  photoUrl: e.photo,
-                },
-                playlists: data,
-              });
-              return;
-            }
+    const checkValid = async () => {
+      try {
+        for (let e of playlists) {
+          if (e.userId === userid) {
+            const data = await fetchRandomUserdata(e.userId);
+            setuserdata({
+              details: {
+                status: true,
+                userId: e.userId,
+                name: e.UserName,
+                photoUrl: e.photo,
+              },
+              playlists: data,
+            });
+            return;
           }
-          navigate("/");
-        } catch (err) {
-          console.log(err);
         }
-      };
-      render.current = false;
-      checkValid().then(() => setload(false));
-    }
+        navigate("/");
+        setload(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    checkValid();
   }, [navigate, userid, playlists, fetchRandomUserdata]);
 
   if (load) {

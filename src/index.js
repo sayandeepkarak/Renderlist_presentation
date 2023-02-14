@@ -11,19 +11,17 @@ import { FunctionContext } from "./Context/FunctionContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <SnackbarProvider autoHideDuration={4000} maxSnack={3}>
-          <AuthContext>
-            <CrudContext>
-              <FunctionContext>
-                <App />
-              </FunctionContext>
-            </CrudContext>
-          </AuthContext>
-        </SnackbarProvider>
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Provider store={store}>
+      <SnackbarProvider autoHideDuration={4000} maxSnack={3}>
+        <AuthContext>
+          <CrudContext>
+            <FunctionContext>
+              <App />
+            </FunctionContext>
+          </CrudContext>
+        </AuthContext>
+      </SnackbarProvider>
+    </Provider>
+  </BrowserRouter>
 );

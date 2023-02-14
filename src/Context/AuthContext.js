@@ -27,7 +27,6 @@ export const AuthContext = ({ children }) => {
   const handleprovider = async (func, provider) => {
     try {
       let data = await signInWithPopup(auth, provider);
-      console.log(data);
       data !== undefined && func(data);
     } catch (exp) {
       enqueueSnackbar("Some technical issue occured", {
@@ -83,7 +82,7 @@ export const AuthContext = ({ children }) => {
             ],
           }
         );
-        navigate("/login");
+        await loginuser(responsedata);
         enqueueSnackbar("Thank you for register with Renderlist", {
           variant: "success",
         });
